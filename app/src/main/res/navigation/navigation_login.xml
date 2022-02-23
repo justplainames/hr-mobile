@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_login"
+    app:startDestination="@id/signUserFragment">
+
+    <fragment
+        android:id="@+id/signUserFragment"
+        android:name="edu.singaporetech.firstapp.SignUserFragment"
+        android:label="SignUserFragment" >
+        <action
+            android:id="@+id/action_signUserFragment_to_forgetFragment"
+            app:destination="@id/forgetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetFragment"
+        android:name="edu.singaporetech.firstapp.ForgetFragment"
+        android:label="ForgetFragment"
+        />
+
+</navigation>
