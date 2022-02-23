@@ -1,4 +1,4 @@
-package edu.singaporetech.firstapp
+package edu.singaporetech.hr
 
 import org.junit.Test
 

@@ -1,2 +1,3 @@
-# csc2007-lab01-2022
-A simple app project
+# csc2007-lab04-2022
+## Data Management and Architecture Components
+DataStore, Room, LiveData & ViewModel
