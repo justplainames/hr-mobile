@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/signUserFragment">
+    <fragment
+        android:id="@+id/signUserFragment"
+        android:name="edu.singaporetech.hr.SignUserFragment"
+        android:label="fragment_sign_user"
+        tools:layout="@layout/fragment_sign_user">
+        <action
+            android:id="@+id/action_signUserFragment_to_forgetUserFragment"
+            app:destination="@id/forgetUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetUserFragment"
+        android:name="edu.singaporetech.hr.ForgetUserFragment"
+        android:label="fragment_forget_user"
+        tools:layout="@layout/fragment_forget_user" >
+        <action
+            android:id="@+id/action_forgetUserFragment_to_recoverSuccessFragment"
+            app:destination="@id/recoverSuccessFragment"
+            app:popUpTo="@id/signUserFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/recoverSuccessFragment"
+        android:name="edu.singaporetech.hr.RecoverSuccessFragment"
+        android:label="fragment_recover_success"
+        tools:layout="@layout/fragment_recover_success" >
+        <action
+            android:id="@+id/action_recoverSuccessFragment_to_signUserFragment"
+            app:destination="@id/signUserFragment"
+            app:popUpTo="@id/signUserFragment" />
+    </fragment>
+</navigation>

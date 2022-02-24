@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import edu.singaporetech.firstapp.Payslip
 import edu.singaporetech.firstapp.PayslipViewModel
+import edu.singaporetech.hr.R
 
 
 /**

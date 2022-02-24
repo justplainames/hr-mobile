@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+
     compileSdk 31
 
     defaultConfig {
@@ -34,9 +35,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding true
+    }
+
+
 }
 
 dependencies {
+
+    //noinspection GradleDependency
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

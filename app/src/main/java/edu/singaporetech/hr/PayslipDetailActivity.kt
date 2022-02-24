@@ -11,7 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import edu.singaporetech.firstapp.*
+import edu.singaporetech.firstapp.Payslip
+import edu.singaporetech.firstapp.PayslipDeductionDetailAdapter
+import edu.singaporetech.firstapp.PayslipEarningDetailAdapter
+import edu.singaporetech.firstapp.PayslipViewModel
+import edu.singaporetech.hr.*
 
 class PayslipDetailActivity: AppCompatActivity() {
     private lateinit var viewModel1: PayslipViewModel
