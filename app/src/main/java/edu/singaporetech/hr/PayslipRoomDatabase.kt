@@ -1,18 +1,17 @@
-package edu.singaporetech.firstapp
+package edu.singaporetech.hr
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-import kotlin.reflect.KParameter
+@Database(entities = [Payslip::class], version = 1, exportSchema = false)
+abstract class PayslipRoomDatabase : RoomDatabase() {
+    abstract fun payslip(): PayslipDao
 
-@Database(entities = [Payslip::class], version =1, exportSchema = false)
-abstract class PayslipRoomDatabase:RoomDatabase() {
-    abstract fun payslip():PayslipDao
-
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE:PayslipRoomDatabase?=null
+        private var INSTANCE: PayslipRoomDatabase? = null
 
         fun getDatabase(context: Context): PayslipRoomDatabase {
             return INSTANCE ?: synchronized(this) {
