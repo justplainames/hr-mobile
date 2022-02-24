@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_sign_user">
         <action
             android:id="@+id/action_signUserFragment_to_forgetUserFragment"
-            app:destination="@id/forgetUserFragment" />
+            app:destination="@id/forgetUserFragment"
+            app:popUpTo="@id/signUserFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/forgetUserFragment"
@@ -21,8 +23,7 @@
         <action
             android:id="@+id/action_forgetUserFragment_to_recoverSuccessFragment"
             app:destination="@id/recoverSuccessFragment"
-            app:popUpTo="@id/signUserFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/signUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/recoverSuccessFragment"
@@ -32,6 +33,7 @@
         <action
             android:id="@+id/action_recoverSuccessFragment_to_signUserFragment"
             app:destination="@id/signUserFragment"
-            app:popUpTo="@id/signUserFragment" />
+            app:popUpTo="@id/signUserFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

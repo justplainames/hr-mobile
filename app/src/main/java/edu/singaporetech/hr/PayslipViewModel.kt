@@ -1,4 +1,4 @@
-package edu.singaporetech.firstapp
+package edu.singaporetech.hr
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,21 +8,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class PayslipViewModel(application: Application): AndroidViewModel(application) {
+class PayslipViewModel(application: Application) : AndroidViewModel(application) {
 
     val getLatest3: LiveData<List<Payslip>>
     val getAll: LiveData<List<Payslip>>
     val getLatestMth: LiveData<List<Payslip>>
     private var payslip_repository: PayslipRepository
-    init{
-        val payslipDao=PayslipRoomDatabase.getDatabase(application).payslip()
-        payslip_repository= PayslipRepository(payslipDao)
-        getLatest3=payslip_repository.getLatest3
-        getAll=payslip_repository.getAll
-        getLatestMth=payslip_repository.getLatestMth
+
+    init {
+        val payslipDao = PayslipRoomDatabase.getDatabase(application).payslip()
+        payslip_repository = PayslipRepository(payslipDao)
+        getLatest3 = payslip_repository.getLatest3
+        getAll = payslip_repository.getAll
+        getLatestMth = payslip_repository.getLatestMth
     }
 
-     fun insert(payslip: Payslip) = viewModelScope.launch {
+    fun insert(payslip: Payslip) = viewModelScope.launch {
         viewModelScope.launch(Dispatchers.IO) {
             payslip_repository.insert(payslip)
         }
