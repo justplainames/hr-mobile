@@ -20,5 +20,8 @@ interface PayslipDao{
 
     @Query("SELECT * FROM Payslip ORDER BY payslip_ID ASC")
     fun getAll(): LiveData<List<Payslip>>
+
+    @Query("SELECT * FROM Payslip ORDER BY payslip_ID ASC LIMIT 1")
+    fun getLatestMth(): LiveData<List<Payslip>>
 }
 
