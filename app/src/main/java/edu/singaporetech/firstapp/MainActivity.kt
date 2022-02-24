@@ -9,11 +9,12 @@ import edu.singaporetech.firstapp.databinding.ActivityMainBinding
  * Lab 01: My First App
  */
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        setContentView(R.layout.activity_sign)
+    private lateinit var binding: ActivityMainBinding
 
-        //TODO: add your logging message here.
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
     }
 }

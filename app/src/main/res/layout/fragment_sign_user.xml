@@ -1,129 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundColor">
-
-    <TextView
-        android:id="@+id/tvMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Hello!"
-        android:fontFamily="sans-serif-black"
-        android:textSize="82sp"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/black"
-        />
-
-
-    <EditText
-        android:id="@+id/etUser"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="edu.singaporetech.firstapp.SignUserFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="Enter Username"
-        android:ems="10"
-        android:textSize="14sp"
-        android:drawableStart="@drawable/custom_email_icon"
-        android:background="@drawable/login_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMain"
-        android:layout_marginTop="20dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:drawablePadding="12dp"
-        android:inputType="textEmailAddress"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        />
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor">
+
+        <TextView
+            android:id="@+id/tvMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Hello!"
+            android:fontFamily="sans-serif-black"
+            android:textSize="82sp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            />
+
+
+        <EditText
+            android:id="@+id/etUser"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Enter Username"
+            android:ems="10"
+            android:textSize="14sp"
+            android:drawableStart="@drawable/custom_email_icon"
+            android:background="@drawable/login_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMain"
+            android:layout_marginTop="20dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawablePadding="12dp"
+            android:inputType="textEmailAddress"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            />
 
 
 
-    <EditText
-        android:id="@+id/etPass"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:hint="Enter Password"
-        android:ems="10"
-        android:textSize="14sp"
-        android:drawableStart="@drawable/custom_lock_icon"
-        android:background="@drawable/login_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUser"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:drawablePadding="12dp"
-        android:inputType="textPassword"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        <EditText
+            android:id="@+id/etPass"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:hint="Enter Password"
+            android:ems="10"
+            android:textSize="14sp"
+            android:drawableStart="@drawable/custom_lock_icon"
+            android:background="@drawable/login_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUser"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawablePadding="12dp"
+            android:inputType="textPassword"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
 
-        />
+            />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPass"
-        android:layout_marginTop="20dp"
-        android:paddingHorizontal="45dp"
-        android:background="@drawable/custom_login_btn"
-        />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPass"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="45dp"
+            android:background="@drawable/custom_login_btn"
+            />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnForgot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="forgot password"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        android:background="@null"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="forgot password"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+            android:background="@null"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/or"
-        app:layout_constraintBottom_toTopOf="@+id/ib_faceId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/or"
+            app:layout_constraintBottom_toTopOf="@+id/ib_faceId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/ib_faceId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/backgroundColor"
-        android:src="@drawable/face_id"
-        app:layout_constraintBottom_toTopOf="@+id/tvFaceId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageButton
+            android:id="@+id/ib_faceId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/backgroundColor"
+            android:src="@drawable/face_id"
+            app:layout_constraintBottom_toTopOf="@+id/tvFaceId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvFaceId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Login with Biometrics"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-black"
-        android:layout_marginBottom="3dp"/>
+        <TextView
+            android:id="@+id/tvFaceId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Login with Biometrics"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginBottom="3dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGoMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_login_btn"
+            android:paddingHorizontal="45dp"
+            android:text="Go Menu"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnForgot" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
