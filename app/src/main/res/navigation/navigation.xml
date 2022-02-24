@@ -6,7 +6,7 @@
     app:startDestination="@id/signUserFragment">
     <fragment
         android:id="@+id/signUserFragment"
-        android:name="edu.singaporetech.firstapp.SignUserFragment"
+        android:name="edu.singaporetech.hr.SignUserFragment"
         android:label="fragment_sign_user"
         tools:layout="@layout/fragment_sign_user">
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgetUserFragment"
-        android:name="edu.singaporetech.firstapp.ForgetUserFragment"
+        android:name="edu.singaporetech.hr.ForgetUserFragment"
         android:label="fragment_forget_user"
         tools:layout="@layout/fragment_forget_user" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/recoverSuccessFragment"
-        android:name="edu.singaporetech.firstapp.RecoverSuccessFragment"
+        android:name="edu.singaporetech.hr.RecoverSuccessFragment"
         android:label="fragment_recover_success"
         tools:layout="@layout/fragment_recover_success" >
         <action

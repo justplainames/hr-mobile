@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
-    compileSdkVersion 32
-    buildToolsVersion "30.0.3"
+
+    compileSdk 31
 
     defaultConfig {
-        applicationId "edu.singaporetech.firstapp"
-        minSdkVersion 19
-        targetSdkVersion 32
+        applicationId "edu.singaporetech.hr"
+        minSdk 21
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -22,6 +23,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures {
+        dataBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -40,16 +45,63 @@ android {
 dependencies {
 
     //noinspection GradleDependency
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // new and cool stuff
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.appcompat:appcompat:1.4.1"
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation "androidx.constraintlayout:constraintlayout:2.1.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+
+    // architecture components
+    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.work:work-runtime:2.7.1"
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation "com.google.android.material:material:1.3.0-rc01"
+    implementation "androidx.room:room-runtime:2.4.1"
+    implementation "androidx.room:room-ktx:2.4.1"
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.datastore:datastore-core:1.0.0-alpha08'
+    kapt "androidx.room:room-compiler:2.4.1"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+
+    // tests core
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:core:1.4.0'
+    androidTestImplementation 'androidx.test:core-ktx:1.4.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation "androidx.test:rules:1.4.0"
+    androidTestImplementation "androidx.work:work-testing:2.7.1"
+    androidTestImplementation "androidx.room:room-testing:2.4.1"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    // espresso
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-web:3.4.0"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:3.4.0"
+
+    // assertions
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.3"
+    androidTestImplementation "androidx.test.ext:truth:1.4.0"
+    androidTestImplementation 'com.google.truth:truth:1.0'
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
 }

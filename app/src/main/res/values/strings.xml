@@ -1,7 +1,16 @@
 <resources>
-    <string name="app_name">FirstApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forget_description">Enter the secondary email associated with this account and we will send you the instructions on how to reset your password</string>
     <string name="successful_recovery">An email with the recovery instructions has been sent to your email!</string>
+    <string name="app_name">Home Page</string>
+    <string name="payslipHeader">Payslip</string>
+    <string name="payslipViewAllHeader">View All Payslip</string>
+    <string name="payslipDownloadConsolidatedPayslip">Download Consolidated Payslip</string>
+    <string name="payslipViewAll">View all payslip</string>
+    <string name="payslipViewDetails">Payslip Details</string>
+    <string name="recentLabel">Recent</string>
+    <string name="download">Download</string>
+    <string name="moreDetailLabel">More Details</string>
+    <string name="payslipConsolidatedHeader">Consolidated Payslip</string>
 </resources>
