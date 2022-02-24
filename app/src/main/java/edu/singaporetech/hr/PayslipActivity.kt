@@ -47,7 +47,9 @@ class PayslipActivity: AppCompatActivity() {
         val payslipMoreDetailsButton=findViewById<ImageButton>(R.id.payslipMoreDetailsButton)
         payslipMoreDetailsButton.setOnClickListener{
             val intent = Intent(this, PayslipDetailActivity::class.java)
+
             startActivity(intent)
+
         }
 
         val payslipDownloadConsoButton=findViewById<Button>(R.id.payslipDownloadConsoButton)
