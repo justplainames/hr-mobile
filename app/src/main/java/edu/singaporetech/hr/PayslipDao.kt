@@ -1,6 +1,5 @@
-package edu.singaporetech.firstapp
+package edu.singaporetech.hr
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -8,8 +7,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface PayslipDao{
-    @Insert (onConflict = OnConflictStrategy.IGNORE)
+interface PayslipDao {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(payslip: Payslip)
 
     @Query("DELETE FROM Payslip")

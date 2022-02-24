@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import edu.singaporetech.hr.R
 import edu.singaporetech.hr.databinding.ActivitySignBinding
 
 
@@ -19,8 +18,7 @@ class SignActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign)
 
         val navController = this.findNavController(R.id.myNavHostFragment)
-        NavigationUI.setupActionBarWithNavController(this,navController)
-
+        NavigationUI.setupActionBarWithNavController(this, navController)
 
 
         //TODO: add your logging message here.
