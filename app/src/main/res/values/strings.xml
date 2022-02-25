@@ -14,4 +14,7 @@
     <string name="download">Download</string>
     <string name="moreDetailLabel">More Details</string>
     <string name="payslipConsolidatedHeader">Consolidated Payslip</string>
+    <string name="attendance">Attendance</string>
+    <string name="leave">Leave</string>
+    <string name="payslip">Payslip</string>
 </resources>

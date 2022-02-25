@@ -5,26 +5,70 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 import edu.singaporetech.hr.PayslipViewModel
+import edu.singaporetech.hr.databinding.ActivityMainBinding
 
 
 /**
  * Lab 01: My First App
  */
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: PayslipViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        var navigatePayslip = findViewById<Button>(R.id.navigatePayslip)
-        viewModel = ViewModelProvider(this).get(PayslipViewModel::class.java)
-        navigatePayslip.setOnClickListener {
-            val intent = Intent(this, PayslipActivity::class.java)
-            startActivity(intent)
-//            val payslip2= Payslip(0,400.0,200.0,200.0,2900.0,3000.0,0.0,0.0,"August 2021",2600.0,100.0,1)
-//            viewModel.insert(payslip2)
+    private lateinit var homepageDrawerLayout: DrawerLayout
+    override fun onCreate(savedInstanceState: Bundle?) {
+       super.onCreate(savedInstanceState)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        homepageDrawerLayout = binding.homepageDrawerLayout
+        val navController = this.findNavController(R.id.myNavHostFragment_main)
+
+        NavigationUI.setupActionBarWithNavController(this,navController, homepageDrawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
+
+        NavigationView.OnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.toPayslip -> {
+                    val intent = Intent(this, PayslipActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    true
+                }
+                R.id.toAttendance -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    true
+
+                }
+                else -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    true
+                }
+
+            }
+            NavigationUI.onNavDestinationSelected(it, navController)
+            homepageDrawerLayout.closeDrawer(GravityCompat.START)
+            true
+
+
         }
+
+
     }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.myNavHostFragment_main)
+        return NavigationUI.navigateUp(navController, homepageDrawerLayout)
+    }
+
 }

@@ -20,8 +20,12 @@ class SignUserFragment : Fragment() {
             inflater,
             R.layout.fragment_sign_user, container, false
         )
-        binding.btnLogin.setOnClickListener { view: View ->
+        binding.btnForgot.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_signUserFragment_to_forgetUserFragment)
+        }
+
+        binding.ibFaceId.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_signUserFragment_to_signFacialFragment)
         }
 
         binding.btnGoMenu.setOnClickListener {
@@ -31,6 +35,5 @@ class SignUserFragment : Fragment() {
             startActivity(intent)
         }
         return binding.root
-
     }
 }
