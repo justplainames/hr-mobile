@@ -15,13 +15,13 @@ interface PayslipDao{
     @Query("DELETE FROM Payslip")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM Payslip ORDER BY payslip_ID ASC LIMIT 3")
+    @Query("SELECT * FROM Payslip ORDER BY payslip_ID DESC LIMIT 3")
     fun getLatest3(): LiveData<List<Payslip>>
 
-    @Query("SELECT * FROM Payslip ORDER BY payslip_ID ASC")
+    @Query("SELECT * FROM Payslip ORDER BY payslip_ID DESC")
     fun getAll(): LiveData<List<Payslip>>
 
-    @Query("SELECT * FROM Payslip ORDER BY payslip_ID ASC LIMIT 1")
+    @Query("SELECT * FROM Payslip ORDER BY payslip_ID DESC LIMIT 1")
     fun getLatestMth(): LiveData<List<Payslip>>
 }
 
