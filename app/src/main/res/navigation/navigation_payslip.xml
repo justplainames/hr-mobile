@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_payslip"
+    app:startDestination="@id/payslipFragment">
+    <fragment
+        android:id="@+id/payslipFragment"
+        android:name="edu.singaporetech.hr.PayslipFragment"
+        android:label="fragment_payslip"
+        tools:layout="@layout/fragment_payslip" >
+        <action
+            android:id="@+id/action_payslipFragment_to_payslipDetailFragment"
+            app:destination="@id/payslipDetailFragment" />
+        <action
+            android:id="@+id/action_payslipFragment_to_payslipListFragment"
+            app:destination="@id/payslipListFragment" />
+        <action
+            android:id="@+id/action_payslipFragment_to_payslipConsoFragment"
+            app:destination="@id/payslipConsoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payslipDetailFragment"
+        android:name="edu.singaporetech.hr.PayslipDetailFragment"
+        android:label="fragment_payslip_detail"
+        tools:layout="@layout/fragment_payslip_detail" />
+    <fragment
+        android:id="@+id/payslipConsoFragment"
+        android:name="edu.singaporetech.hr.PayslipConsoFragment"
+        android:label="fragment_payslip_conso"
+        tools:layout="@layout/fragment_payslip_conso" />
+    <fragment
+        android:id="@+id/payslipListFragment"
+        android:name="edu.singaporetech.hr.PayslipListFragment"
+        android:label="fragment_payslip_list"
+        tools:layout="@layout/fragment_payslip_list" />
+</navigation>

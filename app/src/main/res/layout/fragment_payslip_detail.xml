@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.singaporetech.hr.PayslipDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <TextView
+            android:id="@+id/downloadLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="260dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/download"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar"
+            android:layout_width="223dp"
+            android:layout_height="202dp"
+            android:layout_marginTop="48dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="#3f51b5"
+            app:cpb_progressbar_width="10dp"
+            app:cpb_round_border="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.586"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <ImageButton
+            android:id="@+id/payslipMoreDetailsButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="4dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/download_button"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/latestPayslipMthYr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="Latest Payslip"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPaySlipDetailEarning"
+            android:layout_width="393dp"
+            android:layout_height="147dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="1dp"
+            android:background="#FAF9F9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payslipEarning" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPaySlipDetailDeduction"
+            android:layout_width="395dp"
+            android:layout_height="138dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="1dp"
+            android:background="#FAF9F9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payslipDeduction" />
+
+        <TextView
+            android:id="@+id/payslipDeduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="(-) Deduction"
+            android:textColor="#E82929"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewPaySlipDetailEarning"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/payslipEarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" (+) Earning"
+            android:textColor="#1F8E38"
+            app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

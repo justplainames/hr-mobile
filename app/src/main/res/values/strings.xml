@@ -14,4 +14,12 @@
     <string name="download">Download</string>
     <string name="moreDetailLabel">More Details</string>
     <string name="payslipConsolidatedHeader">Consolidated Payslip</string>
+    <string name="homePageHeader">HomePage</string>
+    <string name="attendencePageHeader">Attendence</string>
+    <string name="payslipPageHeader">Payslip</string>
+    <string name="leavePageHeader">Leave</string>
+    <string name="signInPageHeader">Sign In</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 </resources>

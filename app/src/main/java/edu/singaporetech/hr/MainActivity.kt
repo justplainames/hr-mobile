@@ -3,9 +3,15 @@ package edu.singaporetech.hr
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.navigation.NavigationView
 import edu.singaporetech.hr.PayslipViewModel
 
 
@@ -14,15 +20,30 @@ import edu.singaporetech.hr.PayslipViewModel
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: PayslipViewModel
+    lateinit var toggle:ActionBarDrawerToggle
+    lateinit var drawerLayout:DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val navView:NavigationView=findViewById<NavigationView>(R.id.nav_view)
 
-        var navigatePayslip = findViewById<Button>(R.id.navigatePayslip)
-        viewModel = ViewModelProvider(this).get(PayslipViewModel::class.java)
-        navigatePayslip.setOnClickListener {
-            val intent = Intent(this, PayslipActivity::class.java)
-            startActivity(intent)
+        toggle=ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            it.isChecked=true
+            when(it.itemId){
+                R.id.payslipPage->replaceFragment(PayslipFragment(),it.title.toString())
+            }
+            true
+        }
+//        var navigatePayslip = findViewById<Button>(R.id.navigatePayslip)
+//        viewModel = ViewModelProvider(this).get(PayslipViewModel::class.java)
+//        navigatePayslip.setOnClickListener {
+//            val intent = Intent(this, PayslipActivity::class.java)
+//            startActivity(intent)
             //val payslip1= Payslip(0,400.0,100.0,200.0,3000.0,2800.0,100.0,100.0,"January 2021",2600.0,100.0,1)
            // val payslip2= Payslip(0,300.0,100.0,100.0,2900.0,2800.0,100.0,100.0,"February 2021",2600.0,0.0,1)
            //val payslip3= Payslip(0,400.0,100.0,200.0,3000.0,2800.0,100.0,100.0,"March 2021",2600.0,100.0,1)
@@ -49,7 +70,25 @@ class MainActivity : AppCompatActivity() {
            //viewModel.insert(payslip11)
             //viewModel.insert(payslip12)
            //viewModel.insert(payslip13)
-
-        }
+        //}
     }
+    private fun replaceFragment(fragment: Fragment, title:String){
+        val fragmentManager=supportFragmentManager
+        val fragmentTransaction=fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout,fragment)
+        fragmentTransaction.commit()
+        drawerLayout.closeDrawers()
+        setTitle(title)
+
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if(toggle.onOptionsItemSelected(item)){
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
 }
