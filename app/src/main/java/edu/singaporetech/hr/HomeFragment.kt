@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import edu.singaporetech.hr.LeaveFragment
 
 
 class HomeFragment : Fragment() {
@@ -19,6 +20,7 @@ class HomeFragment : Fragment() {
         ): View? {
             val view = inflater.inflate(R.layout.fragment_home, container, false)
             val payslipButton= view.findViewById<Button>(R.id.payslipButton)
+            val leaveButton = view.findViewById<Button>(R.id.leaveButton)
                 //viewModel = ViewModelProvider(this).get(PayslipViewModel::class.java)
             payslipButton.setOnClickListener {
 //                val payslip1= Payslip(0,400.0,100.0,200.0,3000.0,2800.0,100.0,100.0,"January 2021",2600.0,100.0,1)
@@ -54,6 +56,13 @@ class HomeFragment : Fragment() {
                     .replace(R.id.fragmentContainerView, PayslipFragment())
                     .commitNow()
 
+            }
+            leaveButton.setOnClickListener {
+                requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, LeaveFragment())
+                    .commitNow()
             }
             return view
 

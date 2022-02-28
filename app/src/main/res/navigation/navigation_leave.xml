@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_leave"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="edu.singaporetech.hr.HomeFragment"
+        android:label="HomePage"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_leave"
+            app:destination="@id/leaveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaveFragment"
+        android:name="edu.singaporetech.hr.LeaveFragment"
+        android:label="Leave"
+        tools:layout="@layout/fragment_leave" >
+        <action
+            android:id="@+id/action_nav_leave_to_leaveApplyFragment"
+            app:destination="@id/leaveApplyFragment" />
+        <action
+            android:id="@+id/action_nav_leave_to_leaveRecordFragment"
+            app:destination="@id/leaveRecordFragment" />
+        <action
+            android:id="@+id/action_nav_leave_to_nav_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaveApplyFragment"
+        android:name="edu.singaporetech.hr.LeaveApplyFragment"
+        android:label="fragment_leave_apply"
+        tools:layout="@layout/fragment_leave_apply" >
+        <action
+            android:id="@+id/action_leaveApplyFragment_to_nav_leave"
+            app:destination="@id/leaveFragment"
+            app:popUpTo="@id/leaveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaveRecordFragment"
+        android:name="edu.singaporetech.hr.LeaveRecordFragment"
+        android:label="fragment_leave_record"
+        tools:layout="@layout/fragment_leave_record" >
+        <action
+            android:id="@+id/action_leaveRecordFragment_to_nav_leave"
+            app:destination="@id/leaveFragment"
+            app:popUpTo="@id/leaveFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>
