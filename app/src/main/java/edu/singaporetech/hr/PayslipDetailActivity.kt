@@ -28,6 +28,7 @@ class PayslipDetailActivity : AppCompatActivity() {
         val digitListObserverEarning = Observer<List<Payslip>> { payslip ->
             adapterEarning.setDigitData(payslip)
         }
+
         viewModel2 = ViewModelProvider(this).get(PayslipViewModel::class.java)
         viewModel2.getLatestMth.observe(this, digitListObserverEarning)
 
