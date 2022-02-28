@@ -9,21 +9,30 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:id="@+id/drawerLayout">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        >
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/navigation_payslip" />
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-
-        tools:context=".MainFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"
-        android:id="@+id/frameLayout">
-
+        android:id="@+id/frameLayout"
+        tools:context=".MainFragment"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         app:menu="@menu/menu_main"
@@ -34,4 +43,3 @@
 
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
-

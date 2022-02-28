@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_payslip"
-    app:startDestination="@id/payslipFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/payslipFragment"
         android:name="edu.singaporetech.hr.PayslipFragment"
         android:label="fragment_payslip"
+        android:title="@string/payslipPageHeader"
         tools:layout="@layout/fragment_payslip" >
         <action
             android:id="@+id/action_payslipFragment_to_payslipDetailFragment"
@@ -17,21 +18,60 @@
             app:destination="@id/payslipListFragment" />
         <action
             android:id="@+id/action_payslipFragment_to_payslipConsoFragment"
-            app:destination="@id/payslipConsoFragment" />
+            app:destination="@id/payslipConsoFragment"
+            />
+        <action
+            android:id="@+id/action_payslipFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/payslipDetailFragment"
         android:name="edu.singaporetech.hr.PayslipDetailFragment"
         android:label="fragment_payslip_detail"
-        tools:layout="@layout/fragment_payslip_detail" />
+        android:title="@string/payslipPageHeader"
+        tools:layout="@layout/fragment_payslip_detail" >
+        <action
+            android:id="@+id/action_payslipDetailFragment_to_payslipFragment"
+            app:destination="@id/payslipFragment"
+            app:popUpTo="@id/payslipFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/payslipConsoFragment"
         android:name="edu.singaporetech.hr.PayslipConsoFragment"
         android:label="fragment_payslip_conso"
-        tools:layout="@layout/fragment_payslip_conso" />
+        android:title="@string/payslipPageHeader"
+        tools:layout="@layout/fragment_payslip_conso" >
+        <action
+            android:id="@+id/action_payslipConsoFragment_to_payslipFragment"
+            app:destination="@id/payslipFragment"
+            app:popUpTo="@id/payslipFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/payslipListFragment"
         android:name="edu.singaporetech.hr.PayslipListFragment"
         android:label="fragment_payslip_list"
-        tools:layout="@layout/fragment_payslip_list" />
+        android:title="@string/payslipPageHeader"
+        tools:layout="@layout/fragment_payslip_list" >
+        <action
+            android:id="@+id/action_payslipListFragment_to_payslipFragment"
+            app:destination="@id/payslipFragment"
+            app:popUpTo="@id/payslipFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="edu.singaporetech.hr.HomeFragment"
+        android:label="fragment_home"
+        android:title="@string/homePageHeader"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_payslipFragment"
+            app:destination="@id/payslipFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

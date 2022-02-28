@@ -5,51 +5,63 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import edu.singaporetech.hr.databinding.FragmentPayslipBinding
+import edu.singaporetech.hr.databinding.FragmentPayslipListBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PayslipListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PayslipListFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var viewModel: PayslipViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = DataBindingUtil.inflate<FragmentPayslipListBinding>(
+            inflater,R.layout.fragment_payslip_list, container, false
+        )
+        val adapter = PayslipAdapter()
+        binding.payslipListRecyclerView.adapter=adapter
+        binding.payslipListRecyclerView.layoutManager=LinearLayoutManager(activity)
+        binding.payslipListRecyclerView.setHasFixedSize(true)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        val digitListObserver = Observer<List<Payslip>> { payslip ->
+            adapter.setDigitData(payslip)
         }
+
+        viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
+        viewModel.getAll.observe(this, digitListObserver)
+
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object:
+            OnBackPressedCallback(true){
+
+            override fun handleOnBackPressed() {
+                (requireActivity() as MainActivity).supportActionBar?.title = "Payslip"
+                requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, PayslipFragment())
+                    .commitNow()
+            }
+        })
+    }
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).supportActionBar?.title = "Payslip"
+    }
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).supportActionBar?.title = "Payslip"
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payslip_list, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PayslipListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
-                PayslipListFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-    }
 }
