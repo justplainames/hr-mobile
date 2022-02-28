@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView
 import edu.singaporetech.hr.PayslipViewModel
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import edu.singaporetech.hr.LeaveFragment
 
 
 /**
@@ -72,6 +73,14 @@ class MainActivity : AppCompatActivity() {
                     //setActionBarTitle(it.title.toString())
 
                 }
+
+                R.id.leavePage -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,
+                        LeaveFragment()
+                    ).commit()
+                    drawerLayout.closeDrawers()
+                }
+
                 R.id.homePage->{
                     supportActionBar?.setTitle("HomePage")
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,HomeFragment()).commit()
