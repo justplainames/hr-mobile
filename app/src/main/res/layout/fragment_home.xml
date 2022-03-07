@@ -14,8 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_notification"
             android:layout_width="match_parent"
@@ -120,6 +118,7 @@
             app:layout_constraintEnd_toEndOf="@+id/card_view_attendance"
             app:layout_constraintStart_toStartOf="@+id/card_view_attendance"
             app:layout_constraintTop_toTopOf="@+id/card_view_attendance" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

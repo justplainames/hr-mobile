@@ -17,7 +17,7 @@
                android:layout_width="200dp"
                android:layout_height="32dp"
                android:layout_marginStart="28dp"
-               android:layout_marginTop="16dp"
+               android:layout_marginTop="40dp"
                android:text="@string/leave_type"
                android:textSize="20sp"
                app:layout_constraintStart_toStartOf="parent"
@@ -37,18 +37,21 @@
                app:layout_constraintHorizontal_bias="1.0"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintVertical_bias="0.059" />
+               app:layout_constraintVertical_bias="1.0" />
 
            <TextView
                android:id="@+id/textViewStartDate"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_marginStart="32dp"
+               android:layout_marginStart="24dp"
+               android:layout_marginTop="23dp"
                android:layout_marginBottom="616dp"
                android:text="@string/leave_start_date"
                android:textSize="20sp"
                app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toStartOf="parent" />
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/spinnerLeaveType"
+               app:layout_constraintVertical_bias="1.0" />
 
            <TextView
                android:id="@+id/textViewLeaveStartDate"
@@ -73,7 +76,7 @@
                android:textSize="20sp"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintHorizontal_bias="0.476"
+               app:layout_constraintHorizontal_bias="0.492"
                app:layout_constraintStart_toEndOf="@+id/textViewStartDate" />
 
            <TextView
@@ -90,14 +93,14 @@
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toEndOf="@+id/textViewLeaveStartDate"
                app:layout_constraintTop_toTopOf="parent"
-               app:layout_constraintVertical_bias="0.181" />
+               app:layout_constraintVertical_bias="0.403" />
 
            <TextView
                android:id="@+id/textViewDay"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginStart="32dp"
-               android:layout_marginBottom="512dp"
+               android:layout_marginBottom="500dp"
                android:text="@string/leave_day"
                android:textSize="20sp"
                app:layout_constraintBottom_toBottomOf="parent"
@@ -148,7 +151,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginEnd="292dp"
-               android:layout_marginBottom="312dp"
+               android:layout_marginBottom="376dp"
                android:text="@string/leave_supervisor"
                android:textSize="20sp"
                app:layout_constraintBottom_toBottomOf="parent"
@@ -161,7 +164,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginEnd="320dp"
-               android:layout_marginBottom="220dp"
+               android:layout_marginBottom="272dp"
                android:text="@string/leave_reason"
                android:textSize="20sp"
                app:layout_constraintBottom_toBottomOf="parent"
