@@ -10,8 +10,8 @@
         android:id="@+id/downloadLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="268dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="16dp"
         android:text="@string/download"
         android:textColor="#000000"
         android:textSize="18sp"
@@ -21,9 +21,9 @@
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/circularProgressBar"
-        android:layout_width="174dp"
-        android:layout_height="158dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="223dp"
+        android:layout_height="202dp"
+        android:layout_marginTop="48dp"
         app:cpb_background_progressbar_color="#b6bbd8"
         app:cpb_background_progressbar_width="5dp"
         app:cpb_progress_direction="to_right"
@@ -31,6 +31,7 @@
         app:cpb_progressbar_width="10dp"
         app:cpb_round_border="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -39,8 +40,8 @@
         android:id="@+id/payslipMoreDetailsButton"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:text="Latest Payslip"
         android:textColor="#000000"
         android:textSize="25sp"
@@ -63,8 +64,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPaySlipDetailEarning"
-        android:layout_width="416dp"
-        android:layout_height="151dp"
+        android:layout_width="393dp"
+        android:layout_height="147dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="1dp"
@@ -76,8 +77,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPaySlipDetailDeduction"
-        android:layout_width="416dp"
-        android:layout_height="144dp"
+        android:layout_width="395dp"
+        android:layout_height="138dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="1dp"

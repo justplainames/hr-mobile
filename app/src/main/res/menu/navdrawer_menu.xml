@@ -1,14 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/toAttendance"
-        android:title="@string/attendance" />
-    <item
-        android:id="@+id/toPayslip"
-        android:title="@string/payslip" />
-    <item
-        android:id="@+id/toLeave"
-        android:title="@string/leave" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.myapplication.MainActivity"
+    tools:showIn="nav_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/homePage"
+            android:orderInCategory="100"
+            android:title="@string/homePageHeader"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/payslipPage"
+            android:orderInCategory="100"
+            android:title="@string/payslipPageHeader"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/leavePage"
+            android:orderInCategory="100"
+            android:title="@string/leavePageHeader"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/attendencePage"
+            android:orderInCategory="100"
+            android:title="@string/attendencePageHeader"
+            app:showAsAction="never" />
+    </group>
 </menu>

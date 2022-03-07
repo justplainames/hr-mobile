@@ -14,7 +14,35 @@
     <string name="download">Download</string>
     <string name="moreDetailLabel">More Details</string>
     <string name="payslipConsolidatedHeader">Consolidated Payslip</string>
-    <string name="attendance">Attendance</string>
-    <string name="leave">Leave</string>
-    <string name="payslip">Payslip</string>
+    <string name="homePageHeader">HomePage</string>
+    <string name="attendencePageHeader">Attendence</string>
+    <string name="payslipPageHeader">Payslip</string>
+    <string name="leavePageHeader">Leave</string>
+    <string name="signInPageHeader">Sign In</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="leave_main_page">Leave</string>
+    <string name="leave_apply_leave">Apply Leave</string>
+    <string name="leave_view_records">Leave Records</string>
+
+    <string name="leave_balance">Leave Balance</string>
+    <string name="leave_balance_annual">Annual Leave</string>
+    <string name="leave_balance_sick">Sick Leave</string>
+    <string name="leave_balance_maternity">Maternity Leave</string>
+    <string name="leave_apply_button">Apply Leave</string>
+    <string name="leave_record">Leave Record</string>
+    <string name="leave_view_all_record">View All Record</string>
+
+    <string name="leave_type">Leave Type</string>
+    <string name="leave_start_date">Start Date</string>
+    <string name="leave_end_date">End Date</string>
+    <string name="leave_day">Day</string>
+    <string name="leave_full_day">Full Day</string>
+    <string name="leave_half_day">Half Day</string>
+    <string name="leave_supervisor">Supervisor</string>
+    <string name="leave_reason">Reason</string>
+    <string name="leave_available">Available Leave:</string>
+    <string name="leave_submit">Submit</string>
+    <string name="leave_cancel">Cancel</string>
 </resources>

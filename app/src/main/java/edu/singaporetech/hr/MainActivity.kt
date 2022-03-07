@@ -3,72 +3,103 @@ package edu.singaporetech.hr
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.navigation.NavigationView
 import edu.singaporetech.hr.PayslipViewModel
-import edu.singaporetech.hr.databinding.ActivityMainBinding
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import edu.singaporetech.hr.LeaveFragment
 
 
 /**
  * Lab 01: My First App
  */
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+    private lateinit var viewModel: PayslipViewModel
+    lateinit var toggle:ActionBarDrawerToggle
+    lateinit var drawerLayout:DrawerLayout
 
-    private lateinit var homepageDrawerLayout: DrawerLayout
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.setTitle("HomePage")
+
+    }
+    override fun onStart() {
+        super.onStart()
+        supportActionBar?.setTitle("HomePage")
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
-       super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        homepageDrawerLayout = binding.homepageDrawerLayout
-        val navController = this.findNavController(R.id.myNavHostFragment_main)
+        super.onCreate(savedInstanceState)
 
-        NavigationUI.setupActionBarWithNavController(this,navController, homepageDrawerLayout)
-        NavigationUI.setupWithNavController(binding.navView, navController)
+        setContentView(R.layout.activity_main)
+        //val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        supportActionBar?.setTitle("HomePage")
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
 
-        NavigationView.OnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.toPayslip -> {
-                    val intent = Intent(this, PayslipActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    true
-                }
-                R.id.toAttendance -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    true
+        navController = navHostFragment.navController
 
-                }
-                else -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    true
+        drawerLayout=findViewById<DrawerLayout>(R.id.drawerLayout)
+        val navView:NavigationView=findViewById<NavigationView>(R.id.nav_view)
+
+        toggle=ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        navView.setNavigationItemSelectedListener {
+            it.isChecked=true
+            when(it.itemId){
+                R.id.payslipPage->{
+
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,PayslipFragment()).commit()
+                    drawerLayout.closeDrawers()
+                    //setActionBarTitle(it.title.toString())
+
                 }
 
+                R.id.leavePage -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,
+                        LeaveFragment()
+                    ).commit()
+                    drawerLayout.closeDrawers()
+                }
+
+                R.id.homePage->{
+                    supportActionBar?.setTitle("HomePage")
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,HomeFragment()).commit()
+                    drawerLayout.closeDrawers()
+                    //setActionBarTitle(it.title.toString())
+                }
             }
-            NavigationUI.onNavDestinationSelected(it, navController)
-            homepageDrawerLayout.closeDrawer(GravityCompat.START)
             true
+        }
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
 
+            return true
         }
 
+        return super.onOptionsItemSelected(item)
+    }
 
-    }
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.myNavHostFragment_main)
-        return NavigationUI.navigateUp(navController, homepageDrawerLayout)
-    }
 
 }
