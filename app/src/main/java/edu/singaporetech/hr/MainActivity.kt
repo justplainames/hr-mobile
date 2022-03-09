@@ -25,6 +25,8 @@ import edu.singaporetech.hr.PayslipViewModel
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import edu.singaporetech.hr.LeaveFragment
+import com.google.firebase.auth.FirebaseAuth
+
 
 
 /**
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         setContentView(R.layout.activity_main)
         //val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -86,6 +89,11 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,HomeFragment()).commit()
                     drawerLayout.closeDrawers()
                     //setActionBarTitle(it.title.toString())
+                }
+
+                R.id.logout->{
+                    FirebaseAuth.getInstance().signOut()
+                    startActivity(Intent(this, SignActivity::class.java))
                 }
             }
             true
