@@ -3,28 +3,19 @@ package edu.singaporetech.hr
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.navigation.NavigationView
 import edu.singaporetech.hr.PayslipViewModel
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import edu.singaporetech.hr.LeaveFragment
+import com.google.firebase.auth.FirebaseAuth
+
 
 
 /**
@@ -32,7 +23,7 @@ import edu.singaporetech.hr.LeaveFragment
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private lateinit var viewModel: PayslipViewModel
+
     lateinit var toggle:ActionBarDrawerToggle
     lateinit var drawerLayout:DrawerLayout
 
@@ -47,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         setContentView(R.layout.activity_main)
         //val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -86,6 +78,11 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,HomeFragment()).commit()
                     drawerLayout.closeDrawers()
                     //setActionBarTitle(it.title.toString())
+                }
+
+                R.id.logout->{
+                    FirebaseAuth.getInstance().signOut()
+                    startActivity(Intent(this, SignActivity::class.java))
                 }
             }
             true

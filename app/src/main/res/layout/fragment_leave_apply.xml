@@ -42,7 +42,7 @@
                android:layout_width="200dp"
                android:layout_height="32dp"
                android:layout_marginStart="28dp"
-               android:layout_marginTop="16dp"
+               android:layout_marginTop="40dp"
                android:text="@string/leave_type"
                android:textSize="20sp"
                app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +98,7 @@
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toEndOf="@+id/textViewLeaveStartDate"
                app:layout_constraintTop_toTopOf="parent" />
+
 
            <TextView
                android:id="@+id/textViewDay"

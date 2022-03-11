@@ -27,7 +27,7 @@
             android:id="@+id/etUser"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:hint="Enter Username"
+            android:hint="mary@csc2008.com"
             android:ems="10"
             android:textSize="14sp"
             android:drawableStart="@drawable/custom_email_icon"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
-            android:hint="Enter Password"
+            android:hint="qwerty"
             android:ems="10"
             android:textSize="14sp"
             android:drawableStart="@drawable/custom_lock_icon"
@@ -128,19 +128,6 @@
             android:fontFamily="sans-serif-black"
             android:layout_marginBottom="3dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnGoMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_login_btn"
-            android:paddingHorizontal="45dp"
-            android:text="Go Menu"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnForgot" />
 
 
 

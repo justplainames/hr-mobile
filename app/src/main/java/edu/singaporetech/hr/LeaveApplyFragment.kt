@@ -34,6 +34,7 @@ class LeaveApplyFragment : Fragment() {
             R.layout.fragment_leave_apply,container, false
         )
 
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -115,6 +116,9 @@ class LeaveApplyFragment : Fragment() {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
         override fun onResume() {
             super.onResume()

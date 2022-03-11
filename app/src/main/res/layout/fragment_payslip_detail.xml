@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="edu.singaporetech.hr.PayslipDetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background">
@@ -74,11 +73,11 @@
             android:layout_width="393dp"
             android:layout_height="147dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="1dp"
             android:background="#FAF9F9"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.937"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/payslipEarning" />
 
@@ -90,17 +89,19 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="1dp"
             android:background="#FAF9F9"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.785"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payslipDeduction" />
+            app:layout_constraintTop_toBottomOf="@+id/payslipDeduction"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/payslipDeduction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="(-) Deduction"
+            android:layout_marginTop="12dp"
+            android:text="(-)Deduction"
             android:textColor="#E82929"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewPaySlipDetailEarning"
             tools:ignore="MissingConstraints"
@@ -110,11 +111,26 @@
             android:id="@+id/payslipEarning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" (+) Earning"
+            android:layout_marginTop="40dp"
+            android:text="(+)Earning"
             android:textColor="#1F8E38"
             app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/textViewNetPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Netpay:"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/payslipEarning"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

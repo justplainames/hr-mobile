@@ -9,15 +9,13 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import edu.singaporetech.hr.databinding.FragmentPayslipBinding
 import edu.singaporetech.hr.databinding.FragmentPayslipListBinding
 
 class PayslipListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
+    private lateinit var adapter : PayslipAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,18 +23,16 @@ class PayslipListFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentPayslipListBinding>(
             inflater,R.layout.fragment_payslip_list, container, false
         )
-        val adapter = PayslipAdapter()
-        binding.payslipListRecyclerView.adapter=adapter
-        binding.payslipListRecyclerView.layoutManager=LinearLayoutManager(activity)
-        binding.payslipListRecyclerView.setHasFixedSize(true)
-
-        val digitListObserver = Observer<List<Payslip>> { payslip ->
-            adapter.setDigitData(payslip)
+        viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
+        val payslipListObserver = Observer<ArrayList<Payslip>> { items->
+            adapter=PayslipAdapter(items) // add items to adapter
+            binding.payslipListRecyclerView.adapter=adapter
         }
 
-        viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
-        viewModel.getAll.observe(this, digitListObserver)
+        viewModel.payslip.observe(requireActivity(), payslipListObserver)
 
+        binding.payslipListRecyclerView.layoutManager=LinearLayoutManager(activity)
+        binding.payslipListRecyclerView.setHasFixedSize(true)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
