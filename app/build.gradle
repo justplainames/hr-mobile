@@ -72,6 +72,8 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.datastore:datastore-core:1.0.0-alpha08'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.1'
     kapt "androidx.room:room-compiler:2.4.1"
     kapt "androidx.lifecycle:lifecycle-compiler:2.4.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
