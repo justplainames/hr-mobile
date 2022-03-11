@@ -7,15 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.R
 
-class PayslipDeductionDetailViewHolder(views: View) : RecyclerView.ViewHolder(views) {
-    var opeOthers: TextView = views.findViewById(R.id.opeOthers)
-    var cpf: TextView = views.findViewById(R.id.cpf)
-    var totalDeduction: TextView = views.findViewById(R.id.totalDeduction)
-    var asstFund: TextView = views.findViewById(R.id.asstFund)
-}
 
-class PayslipDeductionDetailAdapter : RecyclerView.Adapter<PayslipDeductionDetailViewHolder>() {
-    private var payslipList = listOf<Payslip>()
+class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Payslip>) : RecyclerView.Adapter<PayslipDeductionDetailAdapter.PayslipDeductionDetailViewHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,7 +21,7 @@ class PayslipDeductionDetailAdapter : RecyclerView.Adapter<PayslipDeductionDetai
     }
 
     override fun onBindViewHolder(holder: PayslipDeductionDetailViewHolder, position: Int) {
-        var curItem = payslipList.get(position)
+        var curItem = payslipArrayList.get(position)
         holder.opeOthers.text = "$ ${curItem.opeOthers}"
         holder.cpf.text = "$ ${curItem.cpf}"
         holder.totalDeduction.text = "$ ${curItem.totalDeduction}"
@@ -36,12 +30,14 @@ class PayslipDeductionDetailAdapter : RecyclerView.Adapter<PayslipDeductionDetai
     }
 
     override fun getItemCount(): Int {
-        return payslipList.size
+        return payslipArrayList.size
     }
 
-    fun setDigitData(payslip: List<Payslip>) {
-        this.payslipList = payslip
-        notifyDataSetChanged()
+    class PayslipDeductionDetailViewHolder(views: View) : RecyclerView.ViewHolder(views) {
+        var opeOthers: TextView = views.findViewById(R.id.opeOthers)
+        var cpf: TextView = views.findViewById(R.id.cpf)
+        var totalDeduction: TextView = views.findViewById(R.id.totalDeduction)
+        var asstFund: TextView = views.findViewById(R.id.asstFund)
     }
 
 }
