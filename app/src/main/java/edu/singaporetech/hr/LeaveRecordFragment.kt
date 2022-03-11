@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.*
+
 import edu.singaporetech.hr.databinding.FragmentLeaveApplyBinding
 import edu.singaporetech.hr.databinding.FragmentLeaveRecordBinding
 import edu.singaporetech.hr.leave.LeaveRecordAdaptor
@@ -24,7 +24,7 @@ import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
 class LeaveRecordFragment : Fragment() {
 
     private lateinit var leaveArrayList: ArrayList<LeaveRecordViewAllItem>
-    private lateinit var db: FirebaseFirestore
+
     private lateinit var leaveRecordAdapter: LeaveRecordViewAllAdaptor
     private lateinit var leaveRecordRecyclerView: RecyclerView
     private lateinit var binding: FragmentLeaveRecordBinding

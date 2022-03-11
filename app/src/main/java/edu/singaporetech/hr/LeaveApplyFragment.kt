@@ -14,13 +14,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.firestore.FirebaseFirestore
 import edu.singaporetech.hr.databinding.FragmentLeaveApplyBinding
 
 class LeaveApplyFragment : Fragment() {
 
     private lateinit var binding: FragmentLeaveApplyBinding
-    private lateinit var db: FirebaseFirestore
 //    private val viewModel = ViewModelProvider(this).get(LeaveViewModel::class.java)
     private val viewModel: LeaveViewModel by viewModels()
     private var leave = Leave()
@@ -116,9 +114,6 @@ class LeaveApplyFragment : Fragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
         override fun onResume() {
             super.onResume()
