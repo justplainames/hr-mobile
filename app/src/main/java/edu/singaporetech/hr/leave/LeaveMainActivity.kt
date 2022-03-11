@@ -55,12 +55,12 @@ class LeaveMainActivity : AppCompatActivity() {
             .start()
 
 
-        val leaveRecordList = generateDummyDataList(10)
-
-        val recyclerViewLeaveRecord: RecyclerView = findViewById(R.id.recyclerViewLeaveRecord)
-        recyclerViewLeaveRecord.adapter = LeaveRecordAdaptor(leaveRecordList)
-        recyclerViewLeaveRecord.layoutManager = LinearLayoutManager(this)
-        recyclerViewLeaveRecord.setHasFixedSize(true)
+//        val leaveRecordList = generateDummyDataList(10)
+//
+//        val recyclerViewLeaveRecord: RecyclerView = findViewById(R.id.recyclerViewLeaveRecord)
+//        recyclerViewLeaveRecord.adapter = LeaveRecordAdaptor(leaveRecordList)
+//        recyclerViewLeaveRecord.layoutManager = LinearLayoutManager(this)
+//        recyclerViewLeaveRecord.setHasFixedSize(true)
 
     }
 
