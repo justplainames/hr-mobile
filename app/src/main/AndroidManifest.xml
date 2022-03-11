@@ -9,7 +9,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HR">
+        android:theme="@style/Theme.HR"
+        tools:replace="android:icon">
         <activity android:name=".SignActivity"
             android:label="@string/signInPageHeader"
             android:exported="true">
@@ -22,22 +23,7 @@
             android:name=".MainActivity"
             android:label="@string/homePageHeader"
             android:exported="true"/>
-        <activity
-            android:name=".PayslipActivity"
-            android:label="@string/payslipHeader"
-            android:exported="true"/>
-        <activity
-            android:name=".PayslipListActivity"
-            android:label="@string/payslipViewAll"
-            android:exported="true"/>
-        <activity
-            android:name=".PayslipDetailActivity"
-            android:label="@string/payslipViewDetails"
-            android:exported="true"/>
-        <activity
-            android:name=".ConsolidatedPaySlipActivity"
-            android:label="@string/payslipConsolidatedHeader"
-            android:exported="true"/>
+
     </application>
 
 </manifest>
