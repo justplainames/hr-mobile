@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.KeyguardManager
 import android.content.ContentValues.TAG
@@ -7,6 +8,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.biometrics.BiometricManager.Authenticators.*
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
 import android.os.Bundle
@@ -182,13 +184,14 @@ class  SignUserFragment : Fragment() {
         } else true
     }
 
+    @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.P)
     private fun biometricAuthentication(){
         checkBiometricSupport()
         val biometricPrompt = activity?.let { it1 ->
-            BiometricPrompt.Builder(activity)
+            BiometricPrompt.Builder(activity).setAllowedAuthenticators(BIOMETRIC_STRONG or BIOMETRIC_WEAK)
                 .setTitle("You were not fully logged out!")
-                .setSubtitle("Sign in quikcly using your biometric credentials")
+                .setSubtitle("Sign in quickly using your biometric credentials")
                 .setNegativeButton(
                     "Cancel",
                     it1.mainExecutor,
