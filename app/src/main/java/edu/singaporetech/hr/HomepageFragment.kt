@@ -22,8 +22,11 @@ class HomepageFragment : Fragment() {
         )
 
         binding.goPayslip.setOnClickListener {
-            val intent = Intent(activity, PayslipActivity::class.java)
-            startActivity(intent)
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, PayslipFragment())
+                .commitNow()
         }
 
         return binding.root

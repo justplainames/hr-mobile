@@ -22,11 +22,11 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
         var currentItemViewAll = leaveRecordViewAllList[position]
 
         holder.selected.isChecked = currentItemViewAll.selected
-        holder.leaveRecordViewAllType.text = currentItemViewAll.leaveRecordViewAllType
-        holder.leaveRecordViewAllStartDate.text = currentItemViewAll.leaveRecordViewAllStartDate
-        holder.leaveRecordViewAllEndDate.text = currentItemViewAll.leaveRecordViewAllEndDate
-        holder.leaveRecordViewAllDays.text = currentItemViewAll.leaveRecordViewAllDays
-        holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveRecordViewAllStatus
+        holder.leaveRecordViewAllType.text = currentItemViewAll.leaveType
+        holder.leaveRecordViewAllStartDate.text = currentItemViewAll.leaveStartDate
+        holder.leaveRecordViewAllEndDate.text = currentItemViewAll.leaveEndDate
+        holder.leaveRecordViewAllDays.text = currentItemViewAll.leaveDay
+        holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveStatus
 
         holder.selected.setOnClickListener {
             if(currentItemViewAll.selected ==true){
@@ -48,7 +48,7 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
         val leaveRecordViewAllType = itemView.findViewById<TextView>(R.id.textViewLeaveRecordViewAllType)
         val leaveRecordViewAllStartDate= itemView.findViewById<TextView>(R.id.textViewLeaveRecordViewAllStartDate)
         val leaveRecordViewAllEndDate = itemView.findViewById<TextView>(R.id.textViewLeaveRecordViewAllEndDate)
-        val leaveRecordViewAllDays = itemView.findViewById<TextView>(R.id.textViewLeaveRecordViewAllDays)
+        val leaveRecordViewAllDays = itemView.findViewById<TextView>(R.id.textViewLeaveRecordViewAllDay)
         val leaveRecordViewAllStatus = itemView.findViewById<TextView>(R.id.textViewLeaveRecordViewAllStatus)
     }
 }

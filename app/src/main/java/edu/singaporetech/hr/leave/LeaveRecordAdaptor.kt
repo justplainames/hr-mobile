@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import edu.singaporetech.hr.Leave
 import edu.singaporetech.hr.R
 
 
-class LeaveRecordAdaptor(private val leaveRecordList: List<LeaveRecordItem>): RecyclerView.Adapter<LeaveRecordAdaptor.LeaveRecordViewHolder>() {
+class LeaveRecordAdaptor(private val leaveRecordList: ArrayList<Leave>): RecyclerView.Adapter<LeaveRecordAdaptor.LeaveRecordViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaveRecordViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.leave_record,
@@ -21,11 +22,13 @@ class LeaveRecordAdaptor(private val leaveRecordList: List<LeaveRecordItem>): Re
         val currentItem = leaveRecordList[position]
 
         //holder.leaveRecordName.text = currentItem.leaveRecordName
-        holder.leaveRecordType.text = currentItem.leaveRecordType
-        holder.leaveRecordStartDate.text = currentItem.leaveRecordStartDate
-        holder.leaveRecordEndDate.text = currentItem.leaveRecordEndDate
-        holder.leaveRecordDays.text = currentItem.leaveRecordDays
-        holder.leaveRecordStatus.text = currentItem.leaveRecordStatus
+        holder.leaveRecordType.text = currentItem.leaveType
+        holder.leaveRecordStartDate.text = currentItem.leaveStartDate
+        holder.leaveRecordEndDate.text = currentItem.leaveEndDate
+        holder.leaveRecordDays.text = currentItem.leaveDay
+        holder.leaveRecordStatus.text = currentItem.leaveStatus
+
+
     }
 
     override fun getItemCount() = leaveRecordList.size

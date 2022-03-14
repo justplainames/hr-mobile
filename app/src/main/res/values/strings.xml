@@ -45,4 +45,36 @@
     <string name="leave_available">Available Leave:</string>
     <string name="leave_submit">Submit</string>
     <string name="leave_cancel">Cancel</string>
+
+    <string name="choose_leave_type">Choose Leave Type</string>
+    <string name="select_start_date">Select Start Date</string>
+    <string name="choose_supervisor">Choose Supervisor</string>
+    <string name="leave_days">Days:</string>
+
+    <string-array name="leaveType">
+        <item>Annual Leave</item>
+        <item>Sick Leave</item>
+        <item>Maternity Leave</item>
+    </string-array>
+
+    <string-array name="leaveSupervisor">
+        <item>Mary Tan</item>
+        <item>Alex Lim</item>
+    </string-array>
+    
+    <style name="MonthPickerDialogStyle">
+        <item name="monthBgColor">@color/white</item>
+        <item name="monthBgSelectedColor">@color/main</item>
+        <item name="monthFontColorSelected">@color/white</item>
+        <item name="monthFontColorNormal">@android:color/black</item>
+        <item name="monthFontColorDisabled">@android:color/darker_gray</item>
+
+        <item name="headerBgColor">@color/main</item>
+        <item name="headerFontColorSelected">#fff</item>
+        <item name="headerFontColorNormal">#85FFFFFF</item>
+        <item name="headerTitleColor">#fff</item>
+
+        <item name="dialogActionButtonColor">@color/main</item>
+    </style>
+
 </resources>

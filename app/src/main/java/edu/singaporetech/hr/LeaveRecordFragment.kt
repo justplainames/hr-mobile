@@ -1,39 +1,45 @@
 package edu.singaporetech.hr
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+import edu.singaporetech.hr.databinding.FragmentLeaveApplyBinding
 import edu.singaporetech.hr.databinding.FragmentLeaveRecordBinding
 import edu.singaporetech.hr.leave.LeaveRecordAdaptor
 import edu.singaporetech.hr.leave.LeaveRecordItem
+import edu.singaporetech.hr.leave.LeaveRecordViewAllAdaptor
+import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
 
 
 class LeaveRecordFragment : Fragment() {
+
+    private lateinit var leaveArrayList: ArrayList<LeaveRecordViewAllItem>
+
+    private lateinit var leaveRecordAdapter: LeaveRecordViewAllAdaptor
+    private lateinit var leaveRecordRecyclerView: RecyclerView
+    private lateinit var binding: FragmentLeaveRecordBinding
+    private val viewModel: LeaveRecordViewModel by viewModels()
+    private var leaveRecord = LeaveRecordViewAllItem()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       val binding = DataBindingUtil.inflate<FragmentLeaveRecordBinding>(
-            inflater,
-            R.layout.fragment_leave_record, container, false
+       binding = DataBindingUtil.inflate(
+               inflater,
+        R.layout.fragment_leave_record,container, false
         )
 
-        val leaveRecordList = generateDummyDataList(10)
-
-        binding.recyclerViewLeaveRecordViewAll.adapter = LeaveRecordAdaptor(leaveRecordList)
-        binding.recyclerViewLeaveRecordViewAll.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerViewLeaveRecordViewAll.setHasFixedSize(true)
-
-//        val button = view.findViewById<Button>(R.id.buttonViewAllLeave)
-//        button.setOnClickListener {
-//            findNavController().navigate(R.id.action_leaveFragment_to_leaveRecordFragment)
-//        }
         return binding.root
     }
 
@@ -51,6 +57,23 @@ class LeaveRecordFragment : Fragment() {
                     .commitNow()
             }
         })
+
+        leaveRecordRecyclerView = binding.recyclerViewLeaveRecordViewAll
+        leaveRecordRecyclerView.layoutManager = LinearLayoutManager(activity)
+        leaveRecordRecyclerView.setHasFixedSize(true)
+
+        leaveArrayList = arrayListOf()
+        leaveRecordAdapter = LeaveRecordViewAllAdaptor(leaveArrayList)
+        leaveRecordRecyclerView.adapter = leaveRecordAdapter
+
+        viewModel.leave.observe(viewLifecycleOwner, Observer {
+                leave ->
+            leaveArrayList.removeAll(leaveArrayList)
+            leaveArrayList.addAll(leave)
+            leaveRecordRecyclerView.adapter!!.notifyDataSetChanged()
+        })
+
+        viewModel.fetchItems()
     }
 
     override fun onResume() {
@@ -63,14 +86,9 @@ class LeaveRecordFragment : Fragment() {
         (requireActivity() as MainActivity).supportActionBar?.title = "Leave"
     }
 
-    private fun generateDummyDataList(size:Int): List<LeaveRecordItem>{
 
-        val list = ArrayList<LeaveRecordItem>()
-        for (i in 0 until size){
-            val item = LeaveRecordItem("Annual", "$i","21/2","2.0","Accepted")
-            list +=item
-        }
-        return list
-    }
+}
+
+private fun <E> ArrayList<E>.addAll(elements: ArrayList<Leave>?) {
 
 }
