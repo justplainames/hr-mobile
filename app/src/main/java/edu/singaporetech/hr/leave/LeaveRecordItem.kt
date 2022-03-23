@@ -5,6 +5,7 @@ data class LeaveRecordItem (//val leaveRecordName: String,
                             var leaveRecordStartDate: String,
                             var leaveRecordEndDate: String,
                             var leaveRecordDays: String,
-                            var leaveRecordStatus: String){
+                            var leaveRecordStatus: String,
+                            ){
 
 }

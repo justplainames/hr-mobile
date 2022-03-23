@@ -1,11 +1,15 @@
 package edu.singaporetech.hr
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,6 +44,7 @@ class LeaveRecordFragment : Fragment() {
         R.layout.fragment_leave_record,container, false
         )
 
+        getActivity()?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return binding.root
     }
 
@@ -74,6 +79,25 @@ class LeaveRecordFragment : Fragment() {
         })
 
         viewModel.fetchItems()
+
+        binding.editTextLeaveRecord.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val searchText = binding.editTextLeaveRecord.text.toString()
+
+
+                viewModel.updateLeaveRecord(searchText)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
+
     }
 
     override fun onResume() {

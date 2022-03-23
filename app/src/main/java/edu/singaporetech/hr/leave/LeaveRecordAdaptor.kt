@@ -23,8 +23,7 @@ class LeaveRecordAdaptor(private val leaveRecordList: ArrayList<Leave>): Recycle
 
         //holder.leaveRecordName.text = currentItem.leaveRecordName
         holder.leaveRecordType.text = currentItem.leaveType
-        holder.leaveRecordStartDate.text = currentItem.leaveStartDate
-        holder.leaveRecordEndDate.text = currentItem.leaveEndDate
+        holder.leaveRecordStartDate.text = currentItem.leaveStartDate + " - " + currentItem.leaveEndDate
         holder.leaveRecordDays.text = currentItem.leaveDay
         holder.leaveRecordStatus.text = currentItem.leaveStatus
 
@@ -37,7 +36,6 @@ class LeaveRecordAdaptor(private val leaveRecordList: ArrayList<Leave>): Recycle
         //val leaveRecordName = itemView.findViewById<TextView>(R.id.textViewLeaveRecordName)
         val leaveRecordType= itemView.findViewById<TextView>(R.id.textViewLeaveRecordType)
         val leaveRecordStartDate = itemView.findViewById<TextView>(R.id.textViewLeaveRecordStartDate)
-        val leaveRecordEndDate = itemView.findViewById<TextView>(R.id.textViewLeaveRecordEndDate)
         val leaveRecordDays = itemView.findViewById<TextView>(R.id.textViewLeaveRecordDays)
         val leaveRecordStatus = itemView.findViewById<TextView>(R.id.textViewLeaveRecordStatus)
     }

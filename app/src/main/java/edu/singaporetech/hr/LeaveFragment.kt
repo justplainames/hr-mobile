@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -46,12 +47,46 @@ class LeaveFragment : Fragment() {
 
 
         var text = viewModel.fetchLeaveTypes()
-//        var textvieww = text.
+        var annual:Int
+        var annualCurr:Int
+        var maternity:Int
+        var maternityCurr:Int
+        var sick:Int
+        var sickCurr:Int
+
         viewModel.leaveType.observe(viewLifecycleOwner, Observer {
                 leaveTypes ->
-            binding.textViewAnnualLeaveTotal.setText(leaveTypes[0].annualLeaveTotal.toString())
-//            get(0).toString())
+            binding.textViewAnnualLeaveBalance.setText(leaveTypes[0].annualLeaveBalance.toString() + " / " + leaveTypes[0].annualLeaveTotal.toString())
+            binding.textViewSickLeaveBalance.setText(leaveTypes[0].sickLeaveBalance.toString() + " / " + leaveTypes[0].sickLeaveTotal.toString())
+            binding.textViewMaternityLeaveBalance.setText(leaveTypes[0].maternityLeaveBalance.toString() + " / " + leaveTypes[0].maternityLeaveTotal.toString())
+
+            // Progress bar
+            annual = leaveTypes[0].annualLeaveTotal.toInt()
+            binding.progressBarAnnualLeave.max = annual
+            annualCurr = leaveTypes[0].annualLeaveBalance.toInt()
+
+            ObjectAnimator.ofInt(binding.progressBarAnnualLeave,"progress",annualCurr)
+                .setDuration(10)
+                .start()
+
+            sick = leaveTypes[0].sickLeaveTotal.toInt()
+            binding.progressBarSickLeave.max = sick
+            sickCurr = leaveTypes[0].sickLeaveBalance.toInt()
+
+            ObjectAnimator.ofInt(binding.progressBarSickLeave,"progress",sickCurr)
+                .setDuration(10)
+                .start()
+
+            maternity = leaveTypes[0].maternityLeaveTotal.toInt()
+            binding.progressBarMaternityLeave.max = maternity
+            maternityCurr = leaveTypes[0].maternityLeaveBalance.toInt()
+
+            ObjectAnimator.ofInt(binding.progressBarMaternityLeave,"progress",maternityCurr)
+                .setDuration(10)
+                .start()
         })
+
+
 //    binding.textViewAnnualLeaveTotal.setText(textvieww.toString())
 //    _leaveType.get(0).annualLeaveTotal
 //        viewModel.leave.observe(viewLifecycleOwner, Observer {
@@ -72,6 +107,9 @@ class LeaveFragment : Fragment() {
         leaveRecyclerView.setHasFixedSize(true)
         leaveRecyclerView.itemAnimator = DefaultItemAnimator()
 
+        //val ref = FirebaseFirestore.getInstance()
+
+
         leaveArrayList = arrayListOf()
         leaveAdapter = LeaveRecordAdaptor(leaveArrayList)
         leaveRecyclerView.adapter = leaveAdapter
@@ -86,7 +124,7 @@ class LeaveFragment : Fragment() {
         viewModel.fetchItems()
 
 
-//        getLeaveData()
+
 
         binding.buttonApplyLeave.setOnClickListener {
             requireActivity()

@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.CheckedTextView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import edu.singaporetech.hr.R
 
-class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRecordViewAllItem>): RecyclerView.Adapter<LeaveRecordViewAllAdaptor.LeaveRecordViewAllViewHolder>(){
 
+class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRecordViewAllItem>): RecyclerView.Adapter<LeaveRecordViewAllAdaptor.LeaveRecordViewAllViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaveRecordViewAllViewHolder {
         val itemViewViewAll = LayoutInflater.from(parent.context).inflate(
             R.layout.leave_view_all_record,
@@ -19,6 +21,7 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
     }
 
     override fun onBindViewHolder(holder: LeaveRecordViewAllViewHolder, position: Int) {
+
         var currentItemViewAll = leaveRecordViewAllList[position]
 
         holder.selected.isChecked = currentItemViewAll.selected
