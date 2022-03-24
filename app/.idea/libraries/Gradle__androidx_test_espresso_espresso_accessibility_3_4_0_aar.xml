@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/de51784b36059e63da5ac81af0447fac/transformed/espresso-accessibility-3.4.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/de51784b36059e63da5ac81af0447fac/transformed/espresso-accessibility-3.4.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/de51784b36059e63da5ac81af0447fac/transformed/espresso-accessibility-3.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a2f2a9de911ece697a2f9f1e45ee5795/transformed/espresso-accessibility-3.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a2f2a9de911ece697a2f9f1e45ee5795/transformed/espresso-accessibility-3.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a2f2a9de911ece697a2f9f1e45ee5795/transformed/espresso-accessibility-3.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.test.espresso/espresso-accessibility/3.4.0/9ce10a1696c25c94454638a6323b445699ecdc6d/espresso-accessibility-3.4.0-javadoc.jar!/" />

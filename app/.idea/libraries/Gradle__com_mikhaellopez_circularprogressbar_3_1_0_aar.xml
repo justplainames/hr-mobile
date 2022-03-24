@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/dba5ddd08a08e40544f8eebe455f32f2/transformed/jetified-circularprogressbar-3.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dba5ddd08a08e40544f8eebe455f32f2/transformed/jetified-circularprogressbar-3.1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dba5ddd08a08e40544f8eebe455f32f2/transformed/jetified-circularprogressbar-3.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/28a6e56d537edb1066b6803ff3bee306/transformed/jetified-circularprogressbar-3.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/28a6e56d537edb1066b6803ff3bee306/transformed/jetified-circularprogressbar-3.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/28a6e56d537edb1066b6803ff3bee306/transformed/jetified-circularprogressbar-3.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

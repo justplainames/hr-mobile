@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/33a44fa95f2e123010171f8af917baa2/transformed/jetified-room-ktx-2.4.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/33a44fa95f2e123010171f8af917baa2/transformed/jetified-room-ktx-2.4.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/33a44fa95f2e123010171f8af917baa2/transformed/jetified-room-ktx-2.4.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/da5e1a2febd71a82cb8e18ce0518d7a4/transformed/jetified-room-ktx-2.4.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/da5e1a2febd71a82cb8e18ce0518d7a4/transformed/jetified-room-ktx-2.4.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/da5e1a2febd71a82cb8e18ce0518d7a4/transformed/jetified-room-ktx-2.4.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
