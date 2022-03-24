@@ -12,4 +12,7 @@
     <color name="backgroundColor">#E7EBF8</color>
     <color name="gray">#AAAAAA</color>
     <color name="background">#E7EBF8</color>
+    <color name="orange">#FF9B42</color>
+    <color name="red">#f94759</color>
+    <color name="green">#4ff5a9</color>
 </resources>

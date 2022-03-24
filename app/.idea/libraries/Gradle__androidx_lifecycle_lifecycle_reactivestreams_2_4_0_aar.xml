@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d3ee7740c2d533e010a09f94a0f14be5/transformed/lifecycle-reactivestreams-2.4.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d3ee7740c2d533e010a09f94a0f14be5/transformed/lifecycle-reactivestreams-2.4.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d3ee7740c2d533e010a09f94a0f14be5/transformed/lifecycle-reactivestreams-2.4.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7199c68be796867f773a52e3a460e349/transformed/lifecycle-reactivestreams-2.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7199c68be796867f773a52e3a460e349/transformed/lifecycle-reactivestreams-2.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/7199c68be796867f773a52e3a460e349/transformed/lifecycle-reactivestreams-2.4.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

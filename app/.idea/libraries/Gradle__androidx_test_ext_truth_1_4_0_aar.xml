@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/78e2c7d7042c3e4e988182106bd356f0/transformed/jetified-truth-1.4.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/78e2c7d7042c3e4e988182106bd356f0/transformed/jetified-truth-1.4.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/78e2c7d7042c3e4e988182106bd356f0/transformed/jetified-truth-1.4.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5ebd9a75dd0c00c14600b6c499d99899/transformed/jetified-truth-1.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5ebd9a75dd0c00c14600b6c499d99899/transformed/jetified-truth-1.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5ebd9a75dd0c00c14600b6c499d99899/transformed/jetified-truth-1.4.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.test.ext/truth/1.4.0/e8fb2fcd4b40cded724e3e9d19f7e4c0a3875e14/truth-1.4.0-javadoc.jar!/" />
