@@ -84,9 +84,12 @@
 
     <!--For attendance page -->
     <string name="livelocationLabel">Live Location</string>
+    <string name="faceid">Face ID</string>
+
     <string name="getlocation">Get Location</string>
     <string name="authenticationLabel">Authentication</string>
     <string name="fingerprint">fingerprint</string>
+
     <string name="nfc">NFC</string>
     <string name="onTime">on Time</string>
     <string name="Late">Late</string>
@@ -105,5 +108,8 @@
     <string name="uploadText">Upload Files</string>
     <string name="dateHint">Select a Date</string>
     <string name="reasonHint">Enter Reason</string>
+
+    <string name="statusLbl">Status</string>
+
 
 </resources>

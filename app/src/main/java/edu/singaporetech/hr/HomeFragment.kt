@@ -129,7 +129,11 @@ class HomeFragment : Fragment() {
         }
 
         binding.cardViewAttendance.setOnClickListener{
-            //TODO: Change fragment
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, AttendanceFragment())
+                .commitNow()
         }
         return binding.root
 
