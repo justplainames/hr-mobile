@@ -94,7 +94,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/nextButton"
+                android:id="@+id/reportBtn"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginLeft="330dp"

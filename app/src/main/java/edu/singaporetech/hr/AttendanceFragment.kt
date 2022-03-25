@@ -28,6 +28,7 @@ import com.itextpdf.text.pdf.PdfWriter
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import edu.singaporetech.hr.databinding.FragmentAttendanceBinding
 import edu.singaporetech.hr.databinding.FragmentPayslipBinding
+import edu.singaporetech.hr.leave.LeaveRecordViewAllAdaptor
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -39,7 +40,7 @@ class AttendanceFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: AttendanceModel
     private lateinit var adapter : AttendanceAdapter
-
+    private lateinit var attendancedapter: AttendanceAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,8 +62,13 @@ class AttendanceFragment : Fragment() {
         binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
         binding.recyclerViewAttendence.setHasFixedSize(true)
 
-
-
+        binding.attendanceSummaryBtn.setOnClickListener({
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
+                .commitNow()
+        })
 
         return binding.root
     }
@@ -74,14 +80,39 @@ class AttendanceFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object:OnBackPressedCallback(true){
 
             override fun handleOnBackPressed() {
-                (requireActivity() as MainActivity).supportActionBar?.title = "HomePage"
+                (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
                 requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentContainerView, HomeFragment())
+                    .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                     .commitNow()
             }
         })
+
+//        attendancedapter.set(object: LeaveRecordViewAllAdaptor.onItemClickListener{
+//            override fun onItemClickDetail(position: Int)  {
+//
+//
+//                requireActivity()
+//                    .supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.fragmentContainerView, LeaveDetailFragment(position))
+//                    .commitNow()
+//
+//
+//
+//            }
+//
+////            override fun onItemClickDetail(position: Int) {
+////                requireActivity()
+////                    .supportFragmentManager
+////                    .beginTransaction()
+////                    .replace(R.id.fragmentContainerView, LeaveDetailFragment())
+////                    .commitNow()
+////            }
+//
+//        })
+
     }
 
     override fun onResume() {
@@ -92,6 +123,7 @@ class AttendanceFragment : Fragment() {
         super.onStart()
         (requireActivity() as MainActivity).supportActionBar?.title = "Attendance"
     }
+
 
 
 

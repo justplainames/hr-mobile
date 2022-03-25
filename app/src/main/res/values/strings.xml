@@ -95,7 +95,8 @@
     <string name="Late">Late</string>
     <string name="onLeave">on Leave</string>
     <string name="absent">Absent</string>
-    <string name="tab_attendance">Attendance</string>
+    <string name="tab_attendance">View Attendance Summary</string>
+    <string name="attendanceDetailBtnText">View All Attendance</string>
     <string name="tab_reportIssue">Report Issue</string>
     <string name="clockInText">Clock In</string>
     <string name="clockOutText">Clock Out</string>

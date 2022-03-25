@@ -20,4 +20,6 @@
     <color name="colorClockInBtn">#7BB9C4</color>
     <color name="colorClockOutBtn">#D54C4C</color>
     <color name="submitColour">#A1C45A</color>
+
+    <color name="cancelColour">#D54C4C</color>
 </resources>
