@@ -1,5 +1,7 @@
 package edu.singaporetech.hr
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -34,6 +38,7 @@ class LeaveRecordFragment : Fragment() {
     private lateinit var binding: FragmentLeaveRecordBinding
     private val viewModel: LeaveRecordViewModel by viewModels()
     private var leaveRecord = LeaveRecordViewAllItem()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +75,29 @@ class LeaveRecordFragment : Fragment() {
         leaveArrayList = arrayListOf()
         leaveRecordAdapter = LeaveRecordViewAllAdaptor(leaveArrayList)
         leaveRecordRecyclerView.adapter = leaveRecordAdapter
+        leaveRecordAdapter.setOnItemClickListener(object:LeaveRecordViewAllAdaptor.onItemClickListener{
+            override fun onItemClickDetail(position: Int)  {
+
+
+                requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, LeaveDetailFragment(position))
+                    .commitNow()
+
+
+
+            }
+
+//            override fun onItemClickDetail(position: Int) {
+//                requireActivity()
+//                    .supportFragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.fragmentContainerView, LeaveDetailFragment())
+//                    .commitNow()
+//            }
+
+        })
 
         viewModel.leave.observe(viewLifecycleOwner, Observer {
                 leave ->
@@ -79,6 +107,8 @@ class LeaveRecordFragment : Fragment() {
         })
 
         viewModel.fetchItems()
+
+
 
         binding.editTextLeaveRecord.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -98,6 +128,52 @@ class LeaveRecordFragment : Fragment() {
         })
 
 
+
+        //binding.recyclerViewLeaveRecordViewAll.
+        binding.buttonCancelLeave.setOnClickListener {
+
+
+            val dialogView = layoutInflater.inflate(R.layout.leave_cancel_dialog, null)
+            val dialogBuilder = AlertDialog.Builder(context)
+                .setView(dialogView)
+                .setTitle("Confirmation Message")
+            val alertDialog = dialogBuilder.show()
+            val confirmYesButton = dialogView.findViewById<Button>(R.id.buttonYesCancelLeave)
+            val confirmNoButton = dialogView.findViewById<Button>(R.id.buttonNoCancelLeave)
+
+            confirmYesButton.setOnClickListener {
+                alertDialog.dismiss()
+
+                deleteRecord()
+
+                confirmNoButton.setOnClickListener {
+                    alertDialog.dismiss()
+                }
+            }
+
+            confirmNoButton.setOnClickListener {
+                alertDialog.dismiss()
+            }
+
+        }
+
+
+
+
+    }
+    internal fun deleteRecord(){
+        for (i in leaveRecordAdapter.selectedCheckBoxList.indices){
+            if (leaveRecordAdapter.selectedCheckBoxList[i].leaveType == "Annual Leave") {
+                viewModel.updateAnnualLeaveBalance()
+            } else if (leaveRecordAdapter.selectedCheckBoxList[i].leaveType == "Sick Leave") {
+                viewModel.updateSickLeaveBalance()
+            } else {
+                viewModel.updateMaternityLeaveBalance()
+            }
+            Log.d("firebase", leaveRecordAdapter.selectedCheckBoxList[i].leaveType)
+            viewModel.delete(leaveRecordAdapter.selectedCheckBoxList[i])
+
+        }
     }
 
     override fun onResume() {

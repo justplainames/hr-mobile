@@ -51,6 +51,14 @@
             app:destination="@id/leaveFragment"
             app:popUpTo="@id/leaveFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_leaveRecordFragment_to_leaveDetailFragment"
+            app:destination="@id/leaveDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/leaveDetailFragment"
+        android:name="edu.singaporetech.hr.LeaveDetailFragment"
+        android:label="fragment_leave_detail"
+        tools:layout="@layout/fragment_leave_detail" />
 
 </navigation>

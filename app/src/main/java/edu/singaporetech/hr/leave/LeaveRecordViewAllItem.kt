@@ -12,5 +12,7 @@ data class LeaveRecordViewAllItem (
     val leaveEndDate: String="",
     val leaveDay: String="",
     val leaveStatus: String="",
+    val leaveReason: String = "",
+    val leaveSupervisor: String = "",
     @ServerTimestamp
     var leaveTimeStamp: Date? = null )
