@@ -82,12 +82,12 @@ class AttendanceClockFragment : Fragment() {
             OnBackPressedCallback(true) {
 
             override fun handleOnBackPressed() {
-//                (requireActivity() as MainActivity).supportActionBar?.title = "Attendance"
-//                requireActivity()
-//                    .supportFragmentManager
-//                    .beginTransaction()
-//                    .replace(R.id.fragment_container_view_tag, attendanceFragment())
-//                    .commitNow()
+                (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
+                requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
+                    .commitNow()
             }
         })
 

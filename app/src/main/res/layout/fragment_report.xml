@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportFragment">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/backgroundColor"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
+
+        <TextView
+            android:id="@+id/datalbl"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/dateLblText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+         ></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentStart="true"
+            android:id="@+id/dateLayout"
+            android:layout_below="@+id/datalbl"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/datePickerET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:focusable="false"
+                android:hint="@string/dateHint"
+                android:minHeight="48dp"></EditText>
+
+            <ImageView
+                android:id="@+id/datePicker"
+                style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:clickable="true"
+                android:background="@color/backgroundColor"
+
+                tools:ignore="SpeakableTextPresentCheck"
+                android:focusable="true"></ImageView>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/reason"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateLayout"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:labelFor="@id/reasonET"
+            android:text="@string/reasonLblText"
+            android:textSize="20sp"
+           ></TextView>
+
+        <EditText
+            android:id="@+id/reasonET"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/reason"
+            android:layout_marginBottom="12dp"
+            android:background="@color/white"
+            android:gravity="start|top"
+            android:hint="@string/reasonHint"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:padding="12dp"
+            android:lines="10"
+            android:minLines="5"
+            android:scrollHorizontally="false"
+            android:scrollbars="vertical"
+            />
+
+        <TextView
+            android:id="@+id/attachmentTV"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reasonET"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            android:text="@string/attachmentLblText"
+            android:textSize="20sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/uploadBtn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/attachmentTV"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/uploadText"></com.google.android.material.button.MaterialButton>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/uploadBtn"
+            android:layout_alignParentStart="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_margin="15dp"
+                android:layout_width="150dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/cancelColour"
+                android:layout_height="60dp"
+                android:textSize="16sp"
+                android:text="@string/cancelText" />
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_margin="15dp"
+                android:backgroundTint="@color/submitColour"
+                android:text="@string/submitText"
+                android:textSize="16sp"
+                style="@style/TextAppearance.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

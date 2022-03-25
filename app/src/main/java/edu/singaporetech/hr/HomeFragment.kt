@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragmentContainerView, AttendanceFragment())
+                .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                 .commitNow()
         }
 

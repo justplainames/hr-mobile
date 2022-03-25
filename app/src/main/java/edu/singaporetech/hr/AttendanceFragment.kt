@@ -61,11 +61,22 @@ class AttendanceFragment : Fragment() {
         binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
         binding.recyclerViewAttendence.setHasFixedSize(true)
 
+        binding.attendanceSummaryBtn.setOnClickListener({
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
+                .commitNow()
+        })
+
+
+
 
 
 
         return binding.root
     }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,11 +85,11 @@ class AttendanceFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object:OnBackPressedCallback(true){
 
             override fun handleOnBackPressed() {
-                (requireActivity() as MainActivity).supportActionBar?.title = "HomePage"
+                (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
                 requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentContainerView, HomeFragment())
+                    .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                     .commitNow()
             }
         })

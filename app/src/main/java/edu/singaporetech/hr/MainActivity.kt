@@ -80,10 +80,18 @@ class MainActivity : AppCompatActivity() {
                     //setActionBarTitle(it.title.toString())
                 }
 
+                R.id.attendencePage->{
+                    supportActionBar?.setTitle("Attendance Overview")
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,AttendanceOverviewFragment()).commit()
+                    drawerLayout.closeDrawers()
+                }
+
                 R.id.logout->{
                     FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, SignActivity::class.java))
                 }
+
+
             }
             true
         }

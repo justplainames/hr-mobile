@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +27,14 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>)
         tempDateTime.split(delim)
         Log.d("attendance", "temp: " + tempDateTime)
 
-      //  holder.dateTv.text = "${curItem.ClockIn.toString()}"
+        holder.dateTv.text = "${curItem.ClockInDate.toString()}"
+        holder.timeTv.text = "${curItem.ClockInDate.toString()}"
+        holder.statusTV.text = "${curItem.attendanceStatus.toString()}"
     //    holder.timeTv.text = "${curItem.ClockOut.toString()}"//"${android.text.format.DateFormat.format("MMM yyyy", curItem.dateOfPayDay).toString()}"
     //    holder.statusTV.text = "${curItem.attendanceStatus}"
+
+
+
 
 
     }
@@ -42,6 +48,8 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>)
         var dateTv: TextView = views.findViewById(R.id.dateTv)
         var timeTv: TextView = views.findViewById(R.id.timeTv)
         var statusTV: TextView = views.findViewById(R.id.statusTV)
+     //   var reportButton: Button = views.findViewById(R.id.reportBtn)
+      //  var attendanceSummaryBtn: Button = views.findViewById(R.id.attendanceSummaryBtn)
      //   var downloadButton: ImageButton = views.findViewById(R.id.downloadButton)
      //   var nextButton: ImageButton = views.findViewById(R.id.nextButton)
 
