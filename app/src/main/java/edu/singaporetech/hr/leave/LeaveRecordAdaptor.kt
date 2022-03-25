@@ -3,6 +3,7 @@ package edu.singaporetech.hr.leave
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.Leave
@@ -38,5 +39,7 @@ class LeaveRecordAdaptor(private val leaveRecordList: ArrayList<Leave>): Recycle
         val leaveRecordStartDate = itemView.findViewById<TextView>(R.id.textViewLeaveRecordStartDate)
         val leaveRecordDays = itemView.findViewById<TextView>(R.id.textViewLeaveRecordDays)
         val leaveRecordStatus = itemView.findViewById<TextView>(R.id.textViewLeaveRecordStatus)
+        //val leaveDetail = itemView.findViewById<Button>(R.id.buttonLeaveDetail)
+    //val leaveRecordSupervisor = itemView.findViewById<TextView>(R.id.text)
     }
 }

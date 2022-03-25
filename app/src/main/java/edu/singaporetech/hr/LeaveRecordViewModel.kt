@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -84,6 +85,66 @@ class LeaveRecordViewModel  : ViewModel(){
                 }
 //                    leaveAdapter.notifyDataSetChanged()
             }
+    }
+
+    fun updateAnnualLeaveBalance(){
+        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val set = document.update("annualLeaveBalance" ,FieldValue.increment(1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved!!!!!!")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed!!!!")
+        }
+    }
+
+    fun updateSickLeaveBalance(){
+        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val set = document.update("sickLeaveBalance" ,FieldValue.increment(1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed")
+        }
+    }
+
+    fun updateMaternityLeaveBalance(){
+        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed")
+        }
+    }
+
+
+    fun save(leave: Leave){
+//        val document = if(leave.leaveId != null && !leave.leaveId.isEmpty())
+        val document = firestore.collection("leave").document()
+        leave.leaveId = document.id
+        //leave.leaveTimeStamp = serverTimestamp()
+        val set = document.set(leave)
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed")
+        }
+    }
+
+    internal fun delete(leave: LeaveRecordViewAllItem){
+        val document = firestore.collection("leave").document(leave.leaveId)
+        //leave.leaveId = document.id
+        val task = document.delete();
+        task.addOnSuccessListener {
+            Log.e("firebase", "Event ${leave.leaveId} Deleted")
+        }
+        task.addOnFailureListener {
+            Log.e("firebase", "Event ${leave.leaveId} Failed to delete.  Message: ${it.message}")
+        }
     }
 
 

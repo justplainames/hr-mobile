@@ -209,19 +209,5 @@ class  SignUserFragment : Fragment() {
         }
     }
 
-    private fun updateUI(input: Int) {
-        var faceid = view?.findViewById<TextView>(R.id.tvFaceId)
-        var faceimg = view?.findViewById<ImageButton>(R.id.ib_faceId)
-        var imgView = view?.findViewById<ImageView>(R.id.imageView)
-        if(input == 1){
-            faceid?.visibility = View.VISIBLE
-            faceimg?.visibility = View.VISIBLE
-            imgView?.visibility = View.VISIBLE
-        } else {
-            faceid?.visibility = View.INVISIBLE
-            faceimg?.visibility = View.INVISIBLE
-            imgView?.visibility = View.INVISIBLE
-        }
-    }
 }
 

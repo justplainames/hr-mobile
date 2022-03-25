@@ -35,19 +35,7 @@
             app:layout_constraintHorizontal_bias="0.171"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.541" />
-
-        <TextView
-            android:id="@+id/textViewLeaveRecordViewAllEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="enddate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.173"
-            app:layout_constraintStart_toEndOf="@+id/textViewLeaveRecordViewAllStartDate"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.531" />
+            app:layout_constraintVertical_bias="0.583" />
 
         <TextView
             android:id="@+id/textViewLeaveRecordViewAllDay"
@@ -56,10 +44,10 @@
             android:text="Days"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.302"
+            app:layout_constraintHorizontal_bias="0.158"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.958" />
+            app:layout_constraintVertical_bias="0.968" />
 
         <TextView
             android:id="@+id/textViewLeaveRecordViewAllStatus"
@@ -88,18 +76,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.492" />
-
-        <TextView
-            android:id="@+id/textViewLeaveRecordViewAllDays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/leave_days"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.159"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.958" />
 
         <ImageButton
             android:id="@+id/buttonLeaveDetail"
