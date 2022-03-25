@@ -1,11 +1,20 @@
 package edu.singaporetech.hr
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.KeyguardManager
 import android.content.ContentValues
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.hardware.biometrics.BiometricManager
+import android.hardware.biometrics.BiometricPrompt
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.CancellationSignal
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
@@ -18,6 +27,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
@@ -50,6 +60,40 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
     var tempNetPay= ""
     var tempOt= ""
     var tempDateOfPayDay= ""
+
+    private var cancellationSignal: CancellationSignal? = null
+    private val authenticationCallback: BiometricPrompt.AuthenticationCallback
+        get() =
+            @RequiresApi(Build.VERSION_CODES.P)
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+                    super.onAuthenticationError(errorCode, errString)
+                    notifyUser("Authentication error: $errString")
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
+                    super.onAuthenticationSucceeded(result)
+                    notifyUser("Payslip downloaded in Downloads/HR folder!")
+                    val values= ContentValues()
+                    values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
+                    values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
+                    //values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOCUMENTS+"/HR")
+                    values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                    val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
+                    if (uri!=null){
+                        var outputStream=requireActivity().getContentResolver().openOutputStream(uri)
+                        var document= Document()
+
+                        PdfWriter.getInstance(document,outputStream)
+                        document.open()
+
+                        document.addAuthor("HR")
+                        addDataIntoPDF(document)
+
+                        document.close()
+                    }
+                }
+            }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -135,7 +179,9 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
 
             }
             viewModel.payslip.observe(requireActivity(), payslipListObserver)
-            showDownloadDialog()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                biometricAuthentication()
+            }
         }
 
         return binding.root
@@ -167,47 +213,6 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
         (requireActivity() as MainActivity).supportActionBar?.title = "Payslip"
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun showDownloadDialog(){
-        val builder = AlertDialog.Builder(requireActivity(),R.style.CustomAlertDialog)
-            .create()
-        val view = layoutInflater.inflate(R.layout.dialog_payslipconso,null)
-        val cancelButton = view.findViewById<Button>(R.id.cancelButton)
-        val downloadConsoButton = view.findViewById<Button>(R.id.downloadConsoButton)
-        builder.setView(view)
-        cancelButton.setOnClickListener {
-            builder.dismiss()
-        }
-        downloadConsoButton.setOnClickListener{
-            val values= ContentValues()
-            values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
-            values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
-            //values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOCUMENTS+"/HR")
-            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-            val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
-            if (uri!=null){
-                var outputStream=requireActivity().getContentResolver().openOutputStream(uri)
-                var document= Document()
-
-                PdfWriter.getInstance(document,outputStream)
-                document.open()
-
-                document.addAuthor("HR")
-                addDataIntoPDF(document)
-
-                document.close()
-            }
-            builder.dismiss()
-            Toast.makeText(
-                this@PayslipDetailFragment.requireActivity(),
-                "Payslip downloaded in Downloads/HR folder!",
-                Toast.LENGTH_LONG
-            ).show()
-
-        }
-        builder.setCanceledOnTouchOutside(false)
-        builder.show()
-    }
     fun addDataIntoPDF(document: Document){
         val paraGraph= Paragraph()
 
@@ -238,6 +243,60 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
         document.add(paraGraph)
     }
 
+    private fun checkBiometricSupport(): Boolean {
+        val keyguardManager = requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+
+        if (!keyguardManager.isKeyguardSecure){
+            notifyUser("Fingerprint authentication has not been enabled in settings")
+            return false
+        }
+
+        if (activity?.let { ActivityCompat.checkSelfPermission(it.applicationContext, android.Manifest.permission.USE_BIOMETRIC) } != PackageManager.PERMISSION_GRANTED) {
+            notifyUser("Fingerprint authentication permission is not enabled")
+            return false
+        }
+
+        return if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)){
+            true
+        } else true
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun biometricAuthentication(){
+        checkBiometricSupport()
+        val biometricPrompt = activity?.let { it1 ->
+            BiometricPrompt.Builder(activity).setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK)
+                .setTitle("You were not fully logged out!")
+                .setSubtitle("Sign in quickly using your biometric credentials")
+                .setNegativeButton(
+                    "Cancel",
+                    it1.mainExecutor,
+                    DialogInterface.OnClickListener { dialog, which ->
+                        notifyUser("Authentication Cancelled")
+                    }).build()
+        }
+
+        if (biometricPrompt != null) {
+            biometricPrompt.authenticate(
+                getCancellationSignal(),
+                requireContext().mainExecutor,
+                authenticationCallback
+            )
+        }
+    }
+
+    private fun notifyUser(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getCancellationSignal() : CancellationSignal {
+        cancellationSignal = CancellationSignal()
+        cancellationSignal?.setOnCancelListener {
+            notifyUser("Authentication was cancelled by the user")
+        }
+        return cancellationSignal as CancellationSignal
+    }
 
 
     fun addEmptyLines(paragraph: Paragraph, lineCount:Int){
