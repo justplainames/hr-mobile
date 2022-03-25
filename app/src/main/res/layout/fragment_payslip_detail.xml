@@ -43,7 +43,7 @@
             tools:ignore="MissingConstraints" />
 
         <ImageButton
-            android:id="@+id/payslipMoreDetailsButton"
+            android:id="@+id/payslipDownloadButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginTop="12dp"

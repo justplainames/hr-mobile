@@ -44,7 +44,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/payslipDatePickerTo"
+                android:id="@+id/payslipDatePickerFrom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:paddingTop="50dp"
@@ -52,7 +52,7 @@
                 android:layout_marginHorizontal="16dp"
                 app:endIconDrawable="@drawable/ic_baseline_calendar_today_24"
                 app:endIconMode="custom"
-                android:hint="Date (To)"
+                    android:hint="Date (From)"
                 app:endIconTint="@color/main"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.459"
@@ -63,7 +63,7 @@
                 tools:layout_editor_absoluteY="5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/payslipDatePickerToInput"
+                    android:id="@+id/payslipDatePickerFromInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
@@ -74,7 +74,7 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/payslipDatePickerFrom"
+                    android:id="@+id/payslipDatePickerTo"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:paddingTop="150dp"
@@ -82,7 +82,7 @@
                     android:layout_marginHorizontal="16dp"
                     app:endIconDrawable="@drawable/ic_baseline_calendar_today_24"
                     app:endIconMode="custom"
-                    android:hint="Date (From)"
+                    android:hint="Date (To)"
                     app:endIconTint="@color/main"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.459"
@@ -93,7 +93,7 @@
                     tools:layout_editor_absoluteY="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/payslipDatePickerFromInput"
+                        android:id="@+id/payslipDatePickerToInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="date"
