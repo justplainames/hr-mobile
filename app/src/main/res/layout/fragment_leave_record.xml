@@ -29,11 +29,11 @@
                 tools:listitem="@layout/leave_view_all_record" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonCancelLeave"
                 android:layout_width="172dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="17dp"
-                android:text="Button"
+                android:text="@string/leave_cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

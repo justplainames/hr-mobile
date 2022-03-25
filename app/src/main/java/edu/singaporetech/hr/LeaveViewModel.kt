@@ -1,16 +1,18 @@
 package edu.singaporetech.hr
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.FieldValue.serverTimestamp
+import com.google.firebase.storage.FirebaseStorage
 
 class LeaveViewModel : ViewModel(){
     private var _leaveRecords: MutableLiveData<ArrayList<Leave>> = MutableLiveData<ArrayList<Leave>>()
     private lateinit var firestore: FirebaseFirestore
     private var _leaveType: MutableLiveData<ArrayList<LeaveType>> = MutableLiveData<ArrayList<LeaveType>>()
-
+    var image_uri: Uri? = null
 
     init{
         firestore = FirebaseFirestore.getInstance()
@@ -67,7 +69,7 @@ class LeaveViewModel : ViewModel(){
         }
     }
 
-    fun save(leave: Leave){
+    fun save(leave: Leave, location:String, image_uri:Uri){
 //        val document = if(leave.leaveId != null && !leave.leaveId.isEmpty())
         val document = firestore.collection("leave").document()
         leave.leaveId = document.id
@@ -79,7 +81,21 @@ class LeaveViewModel : ViewModel(){
             set.addOnFailureListener {
                 Log.d("firebase", "save failed")
             }
+        val documents =FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
+        image_uri?.let { documents.putFile(it) }
+            ?.addOnSuccessListener {
+                Log.d("firebase", "save image!")
+            }
+            ?.addOnFailureListener {
+                Log.d("firebase", "save failed")
+            }
     }
+
+    fun saveImage(path:String, location:String, image_uri:Uri){
+        //val path = leave.leaveId
+
+    }
+
 
     fun updateAnnualLeaveBalance(){
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")

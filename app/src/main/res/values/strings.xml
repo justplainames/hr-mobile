@@ -51,6 +51,10 @@
     <string name="choose_supervisor">Choose Supervisor</string>
     <string name="leave_days">Days:</string>
     <string name="select_end_date">Select End Date</string>
+    <string name="confirmation_apply_for_leave">Are you sure you want to apply for leave?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="confirmation_cancel_leave">Are you sure you want to cancel the leave?</string>
 
     <string-array name="leaveType">
         <item>Annual Leave</item>
@@ -62,7 +66,7 @@
         <item>Mary Tan</item>
         <item>Alex Lim</item>
     </string-array>
-    
+
     <style name="MonthPickerDialogStyle">
         <item name="monthBgColor">@color/white</item>
         <item name="monthBgSelectedColor">@color/main</item>
