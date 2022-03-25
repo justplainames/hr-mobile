@@ -62,7 +62,7 @@
         <item>Mary Tan</item>
         <item>Alex Lim</item>
     </string-array>
-    
+
     <style name="MonthPickerDialogStyle">
         <item name="monthBgColor">@color/white</item>
         <item name="monthBgSelectedColor">@color/main</item>
@@ -77,5 +77,31 @@
 
         <item name="dialogActionButtonColor">@color/main</item>
     </style>
+
+    <!--For attendance page -->
+    <string name="livelocationLabel">Live Location</string>
+    <string name="authenticationLabel">Authentication</string>
+    <string name="faceid">Face ID</string>
+    <string name="nfc">NFC</string>
+    <string name="onTime">on Time</string>
+    <string name="Late">Late</string>
+    <string name="onLeave">on Leave</string>
+    <string name="absent">Absent</string>
+    <string name="tab_attendance">Attendance</string>
+    <string name="tab_reportIssue">Report Issue</string>
+    <string name="clockInText">Clock In</string>
+    <string name="clockOutText">Clock Out</string>
+    <string name="dateLblText">Date</string>
+    <string name="reasonLblText">Reason</string>
+    <string name="attachmentLblText">Attachment (if any)</string>
+    <string name="timeLblText">Corrected Time</string>
+    <string name="submitText">Submit</string>
+    <string name="cancelText">Cancel</string>
+    <string name="uploadText">Upload Files</string>
+    <string name="dateHint">Select a Date</string>
+    <string name="reasonHint">Enter Reason</string>
+
+    <string name="statusLbl">Status</string>
+
 
 </resources>

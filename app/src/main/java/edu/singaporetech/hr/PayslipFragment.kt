@@ -161,6 +161,7 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onItemClickDownload(position: Int) {
         viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
 
