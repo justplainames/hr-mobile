@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.R
 
 
-class PayslipEarningDetailAdapter (private var payslipArrayList: ArrayList<Payslip>): RecyclerView.Adapter<PayslipEarningDetailAdapter.PayslipDetailViewHolder>() {
+class PayslipEarningDetailAdapter (private var payslipArrayList: ArrayList<Payslip>,private var position: Int): RecyclerView.Adapter<PayslipEarningDetailAdapter.PayslipDetailViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayslipDetailViewHolder {
         return PayslipDetailViewHolder(
@@ -17,7 +17,7 @@ class PayslipEarningDetailAdapter (private var payslipArrayList: ArrayList<Paysl
         )
     }
 
-    override fun onBindViewHolder(holder: PayslipDetailViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PayslipDetailViewHolder, positionFetched: Int) {
         var curItem = payslipArrayList.get(position)
         holder.bonus.text = "$ ${curItem.bonus}"
         holder.totalEarning.text = "$ ${curItem.totalEarning}"

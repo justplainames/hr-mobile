@@ -1,32 +1,71 @@
 package edu.singaporetech.hr
 
-import android.graphics.Color
+import android.app.AlertDialog
+import android.content.ContentValues
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isEmpty
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import com.itextpdf.text.Document
+import com.itextpdf.text.Element
+import com.itextpdf.text.Font
+import com.itextpdf.text.Paragraph
+import com.itextpdf.text.pdf.PdfWriter
 import com.whiteelephant.monthpicker.MonthPickerDialog
-import edu.singaporetech.hr.databinding.FragmentPayslipBinding
 import edu.singaporetech.hr.databinding.FragmentPayslipConsoBinding
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import java.util.*
-import kotlin.properties.Delegates
 
-
-class PayslipConsoFragment : Fragment() {
+class PayslipConsoFragment() : Fragment() {
     // TODO: Rename and change types of parameters
     lateinit var inputpayslipDatePickerTo: String
     lateinit var inputpayslipDatePickerFrom: String
+    private lateinit var viewModel: PayslipConsoViewModel
+    private val PERMISSION_CODE=1000
+    var tempTotalDeductionArray = java.util.ArrayList<String>()
+    var tempTotalEarningArray = java.util.ArrayList<String>()
+    var tempCpfArray = java.util.ArrayList<String>()
+    var tempAsstFundArray = java.util.ArrayList<String>()
+    var tempBasicWageArray = java.util.ArrayList<String>()
+    var tempBonusArray = java.util.ArrayList<String>()
+    var tempOpeOthersArray = java.util.ArrayList<String>()
+    var tempNetPayArray = java.util.ArrayList<String>()
+    var tempOtArray = java.util.ArrayList<String>()
+    var tempDateOfPayDayArray = java.util.ArrayList<String>()
 
 
+    var monthTo:String=""
+    var yearTo:String=""
+    var monthFrom:String=""
+    var yearFrom:String=""
+    var factory = object : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return PayslipConsoViewModel(
+                this@PayslipConsoFragment.requireActivity()!!.application,
+                monthTo, yearTo, monthFrom, yearFrom
+            ) as T
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,11 +124,10 @@ class PayslipConsoFragment : Fragment() {
         )
 
         dateTobuilder.setActivatedMonth(today.get(Calendar.MONTH))
-            .setMinYear(2022)
+            .setMinYear(2021)
             .setActivatedYear(2022)
             .setMaxYear(2022)
             .setTitle("SELECT MONTH AND YEAR OF PAYSLIP")
-            .setMinMonth(Calendar.FEBRUARY)
             .setMonthRange(Calendar.JANUARY, Calendar.DECEMBER)
 
             binding.payslipDatePickerTo.setEndIconOnClickListener{
@@ -108,7 +146,7 @@ class PayslipConsoFragment : Fragment() {
         )
 
         dateFrombuilder.setActivatedMonth(today.get(Calendar.MONTH))
-            .setMinYear(2022)
+            .setMinYear(2021)
             .setActivatedYear(2022)
             .setMaxYear(2022)
             .setTitle("SELECT MONTH AND YEAR OF PAYSLIP")
@@ -119,20 +157,190 @@ class PayslipConsoFragment : Fragment() {
         }
 
         binding.submitButton.setOnClickListener {
-            if (binding.payslipDatePickerToInput.text.isNullOrBlank() || binding.payslipDatePickerFromInput.text.isNullOrBlank()) {
+            var datepickerFrom= binding.payslipDatePickerFromInput.text.toString()
+            var datepickerTo= binding.payslipDatePickerToInput.text.toString()
+            if (datepickerTo.isNullOrBlank() || datepickerFrom.isNullOrBlank()) {
                 Toast.makeText(
                     this@PayslipConsoFragment.requireActivity(),
                     "Please fill in all fields before submit",
                     Toast.LENGTH_LONG
                 ).show()
             }
+            else if(((datepickerFrom.split(" ")[1].toInt() > datepickerTo.split(" ")[1].toInt()) &&
+                (getMonthInt(datepickerFrom.split(" ")[0])!! > getMonthInt(datepickerTo.split(" ")[0])!!))||((datepickerFrom.split(" ")[1].toInt() > datepickerTo.split(" ")[1].toInt()) &&
+                        (getMonthInt(datepickerFrom.split(" ")[0])!! < getMonthInt(datepickerTo.split(" ")[0])!!))||(((datepickerFrom.split(" ")[1].toInt() == datepickerTo.split(" ")[1].toInt()) &&
+                        (getMonthInt(datepickerFrom.split(" ")[0])!! > getMonthInt(datepickerTo.split(" ")[0])!!)))) {
+
+                Toast.makeText(
+                    this@PayslipConsoFragment.requireActivity(),
+                    "Date(From) cannot be later than Date(To)",
+                    Toast.LENGTH_LONG
+                ).show()
+            }else{
+                monthTo=datepickerTo.split(" ")[0]
+                yearTo=datepickerTo.split(" ")[1]
+                monthFrom=datepickerFrom.split(" ")[0]
+                yearFrom=datepickerFrom.split(" ")[1]
+                viewModel = ViewModelProvider(requireActivity(),factory).get(PayslipConsoViewModel::class.java)
+
+                getActivity()?.getViewModelStore()?.clear()
+
+                val payslipListObserver = Observer<ArrayList<Payslip>> { payslip->
+
+                    for (item in payslip){
+                        tempDateOfPayDayArray.add(android.text.format.DateFormat.format("MMM yyyy", item.dateOfPayDay).toString()!!)
+
+                        tempTotalDeductionArray.add(item.totalDeduction.toString()!!)
+                        tempTotalEarningArray.add(item.totalEarning.toString()!!)
+                        tempCpfArray.add(item.cpf.toString()!!)
+                        tempBasicWageArray.add(item.basicWage.toString()!!)
+                        tempBonusArray.add(item.bonus.toString()!!)
+                        tempOpeOthersArray.add(item.opeOthers.toString()!!)
+                        tempNetPayArray.add(item.netPay.toString()!!)
+                        tempOtArray.add(item.ot.toString()!!)
+                        tempAsstFundArray.add(item.asstFund.toString()!!)
+
+
+                    }
+                }
+                viewModel.payslip.observe(requireActivity(), payslipListObserver)
+                showDownloadDialog()
+            }
+
+
+
         }
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun showDownloadDialog(){
+        val builder = AlertDialog.Builder(requireActivity(),R.style.CustomAlertDialog)
+            .create()
+        val view = layoutInflater.inflate(R.layout.dialog_payslipconso,null)
+        val cancelButton = view.findViewById<Button>(R.id.cancelButton)
+        val downloadConsoButton = view.findViewById<Button>(R.id.downloadConsoButton)
+        builder.setView(view)
+        cancelButton.setOnClickListener {
+            builder.dismiss()
+        }
+        downloadConsoButton.setOnClickListener{
+
+           val permissionGranted=requestStoragePermission()
+            if (permissionGranted){
+                pdf()
+                Toast.makeText(
+                    this@PayslipConsoFragment.requireActivity(),
+                    "Payslip downloaded in Downloads/HR folder!",
+                    Toast.LENGTH_LONG
+                ).show()
+                builder.dismiss()
+            }
+        }
+
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+
+
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun pdf(){
+        val values=ContentValues()
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
+        values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOCUMENTS+"/test")
+        //values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS)
+        val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
+        if (uri!=null){
+            var outputStream=requireActivity().getContentResolver().openOutputStream(uri)
+            var document= Document()
+            PdfWriter.getInstance(document,outputStream)
+            document.open()
+            document.addAuthor("HR")
+            addDataIntoPDF(document)
+            document.close()
+        }
+    }
 
 
 
+    private fun requestStoragePermission():Boolean{
+        var permissionGranted=false
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if ( checkSelfPermission(
+                    requireActivity(),
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED) {
+                var permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                permissionGranted = true
+            }
+        }
+        else{
+            permissionGranted=true
+        }
+        return permissionGranted
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            PERMISSION_CODE -> {
+                if(grantResults.size >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    pdf()
+                }else{
+                    Toast.makeText(this@PayslipConsoFragment.requireActivity(), "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    fun addDataIntoPDF(document: Document){
+        val paraGraph= Paragraph()
+
+        val headingFont = Font(Font.FontFamily.HELVETICA,24F,Font.BOLD)
+        val subHeaderFont = Font(Font.FontFamily.HELVETICA,20F,Font.BOLD)
+        val bodyFont = Font(Font.FontFamily.HELVETICA,18F,Font.BOLD)
+        val smallerFont = Font(Font.FontFamily.HELVETICA,13F,Font.BOLD)
+        for (i in 0.rangeTo(tempDateOfPayDayArray.size-1)){
+            paraGraph.add(Paragraph("PAYSLIP ADVICE",headingFont))
+            addEmptyLines(paraGraph,2)
+            paraGraph.add(Paragraph("PERIOD: END-"+tempDateOfPayDayArray[i],subHeaderFont))
+            addEmptyLines(paraGraph,2)
+            paraGraph.add(Paragraph("TOTAL EARNING: $"+tempTotalEarningArray[i],subHeaderFont))
+            paraGraph.add(Paragraph("_______________________________",subHeaderFont))
+            paraGraph.add(Paragraph("BASIC WAGE: $"+tempBasicWageArray[i],bodyFont))
+            paraGraph.add(Paragraph("BONUS: $"+tempBonusArray[i],bodyFont))
+            paraGraph.add(Paragraph("OT: $"+tempOtArray[i],bodyFont))
+            addEmptyLines(paraGraph,2)
+            paraGraph.add(Paragraph("TOTAL DEDUCTION: $"+tempTotalDeductionArray[i],subHeaderFont))
+            paraGraph.add(Paragraph("_______________________________",subHeaderFont))
+            paraGraph.add(Paragraph("OPE-Others: $"+tempOpeOthersArray[i],bodyFont))
+            paraGraph.add(Paragraph("CPF: $"+tempCpfArray[i],bodyFont))
+            paraGraph.add(Paragraph("ASST.FUND: $"+tempAsstFundArray[i],bodyFont))
+            addEmptyLines(paraGraph,2)
+            paraGraph.add(Paragraph("NET PAY: $"+tempNetPayArray[i],subHeaderFont))
+            addEmptyLines(paraGraph,3)
+            paraGraph.add(Paragraph("This is a computer-generated report. Please inform Head/Payroll of HR division immediately should there be any discrepancy in this statement",smallerFont))
+            addEmptyLines(paraGraph,7)
+
+        }
+        document.add(paraGraph)
+    }
+
+    fun addEmptyLines(paragraph: Paragraph,lineCount:Int){
+        for (i in 0 until lineCount){
+            paragraph.add(Paragraph("\n"))
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
