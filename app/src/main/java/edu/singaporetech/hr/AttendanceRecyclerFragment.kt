@@ -37,6 +37,9 @@ class AttendanceRecyclerFragment : Fragment() {
         val binding = inflater.inflate(R.layout.fragment_attendance_recycler, container, false)
 
 
+
+
+
         return binding
     }
 
