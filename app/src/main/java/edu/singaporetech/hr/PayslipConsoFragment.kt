@@ -408,8 +408,8 @@ class PayslipConsoFragment() : Fragment() {
         checkBiometricSupport()
         val biometricPrompt = activity?.let { it1 ->
             BiometricPrompt.Builder(activity).setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK)
-                .setTitle("You were not fully logged out!")
-                .setSubtitle("Sign in quickly using your biometric credentials")
+                .setTitle("Payslip is password protected!")
+                .setSubtitle("Sign in using biometrics")
                 .setNegativeButton(
                     "Cancel",
                     it1.mainExecutor,
