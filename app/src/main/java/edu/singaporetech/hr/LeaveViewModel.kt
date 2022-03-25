@@ -4,17 +4,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FieldValue.serverTimestamp
 
 class LeaveViewModel : ViewModel(){
     private var _leaveRecords: MutableLiveData<ArrayList<Leave>> = MutableLiveData<ArrayList<Leave>>()
     private lateinit var firestore: FirebaseFirestore
-    private var _leave = MutableLiveData<List<Leave>>()
-    open var leaveArrayList = ArrayList<Leave>()
-//    private var _leaveTypes: MutableLiveData<ArrayList<Leave>> = MutableLiveData<ArrayList<Leave>>()
-
     private var _leaveType: MutableLiveData<ArrayList<LeaveType>> = MutableLiveData<ArrayList<LeaveType>>()
-
-    private var _leaveTypes = MutableLiveData<List<LeaveType>>()
 
 
     init{
@@ -24,9 +19,10 @@ class LeaveViewModel : ViewModel(){
         listenToLeaveBalance()
     }
 
-
     private fun listenToLeaveRecord() {
-        firestore.collection("leave").addSnapshotListener {
+        firestore.collection("leave")
+            .orderBy("leaveTimeStamp", Query.Direction.DESCENDING)
+            .addSnapshotListener {
                 snapshot, error ->
             if(error != null){
                 Log.e("firestore Error", error.message.toString())
@@ -39,6 +35,7 @@ class LeaveViewModel : ViewModel(){
                     val leaveRecord = it.toObject(Leave::class.java)
                     if (leaveRecord != null){
                         leaveRecord.leaveId = it.id
+                        //leaveRecord.leaveTimeStamp = serverTimestamp()
                         leaveRecords.add(leaveRecord!!)
                     }
                 }
@@ -69,39 +66,12 @@ class LeaveViewModel : ViewModel(){
             }
         }
     }
-//
-//    private fun getLeaveData() {
-//        firestore.collection("leave")
-//            .addSnapshotListener{
-//                    value: QuerySnapshot?,
-//                    error : FirebaseFirestoreException? ->
-//                    if (error != null){
-//                        Log.e("firestore Error", error.message.toString())
-//                    }
-//
-//                    for (dc: DocumentChange in value?.documentChanges!!){
-//                        if(dc.type == DocumentChange.Type.ADDED){
-//                            _leaveRecords.add(dc.document.toObject(Leave::class.java))
-//                        }
-//                    }
-//
-//                    leaveAdapter.notifyDataSetChanged()
-//                }
-//
-//            })
-//    }
-
-    private fun displayVisualization(liveData: MutableLiveData<ArrayList<Leave>>){
-        firestore.collection("leave").document("leaveTotal").collection("annualLeave")
-
-
-
-    }
 
     fun save(leave: Leave){
 //        val document = if(leave.leaveId != null && !leave.leaveId.isEmpty())
         val document = firestore.collection("leave").document()
         leave.leaveId = document.id
+        //leave.leaveTimeStamp = serverTimestamp()
         val set = document.set(leave)
             set.addOnSuccessListener {
                 Log.d("firebase", "document saved")
@@ -109,6 +79,39 @@ class LeaveViewModel : ViewModel(){
             set.addOnFailureListener {
                 Log.d("firebase", "save failed")
             }
+    }
+
+    fun updateAnnualLeaveBalance(){
+        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val set = document.update("annualLeaveBalance" ,FieldValue.increment(-1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved!!!!!!")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed!!!!")
+        }
+    }
+
+    fun updateSickLeaveBalance(){
+        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val set = document.update("sickLeaveBalance" ,FieldValue.increment(-1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed")
+        }
+    }
+
+    fun updateMaternityLeaveBalance(){
+        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(-1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed")
+        }
     }
 
     internal fun fetchItems(){
@@ -153,6 +156,7 @@ class LeaveViewModel : ViewModel(){
             }
     }
 
+
 //    internal fun displayVisualization(){
 //
 //        firestore.collection("leaveType")
@@ -176,9 +180,7 @@ class LeaveViewModel : ViewModel(){
 //
 //    }
 
-    fun displaytextView():Double?{
-        return(leaveArrayList.get(0).annualLeave)
-    }
+
 
     internal var leave: MutableLiveData<ArrayList<Leave>>
         get() {return _leaveRecords}
