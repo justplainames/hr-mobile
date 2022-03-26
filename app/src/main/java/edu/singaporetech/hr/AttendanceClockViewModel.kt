@@ -4,15 +4,13 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.FieldValue.serverTimestamp
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
 class AttendanceClockViewModel : ViewModel(){
     private var _clockRecords: MutableLiveData<ArrayList<AttendanceItem>> = MutableLiveData<ArrayList<AttendanceItem>>()
     private lateinit var firestore: FirebaseFirestore
+    var documentId = ""
 
     init{
         firestore = FirebaseFirestore.getInstance()
@@ -21,7 +19,7 @@ class AttendanceClockViewModel : ViewModel(){
     }
 
     private fun listenToClockStatus() {
-        firestore.collection("clockStatus")
+        firestore.collection("Attendance")
             .orderBy("UserID", Query.Direction.DESCENDING)
             .addSnapshotListener {
                     snapshot, error ->
@@ -50,9 +48,22 @@ class AttendanceClockViewModel : ViewModel(){
         clockstatus.id = document.id
         val set = document.set(clockstatus)
         set.addOnSuccessListener {
+            documentId = document.id
             Log.d("firebase", "attendance saved")
         }
         set.addOnFailureListener {
+            Log.d("firebase", "save failed")
+        }
+    }
+
+    fun update(document_id: String, clockoutTime: Date, clockoutAddress: String){
+        val document = firestore.collection("Attendance").document(document_id)
+        val update = document.update("clockOutDate" , clockoutTime , "clockOutAddress", clockoutAddress)
+        update.addOnSuccessListener {
+            documentId = ""
+            Log.d("firebase", "attendance saved")
+        }
+        update.addOnFailureListener {
             Log.d("firebase", "save failed")
         }
     }
