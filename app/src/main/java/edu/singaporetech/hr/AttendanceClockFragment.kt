@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.biometrics.BiometricManager
 import android.hardware.biometrics.BiometricPrompt
@@ -51,7 +50,18 @@ class AttendanceClockFragment : Fragment() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
                     notifyUser("Authentication success!")
-                    saveAttendance()
+                    if (binding.attendanceclockBtn.text == getText(R.string.clockInText)) {
+                        saveAttendanceClockIn()
+                        binding.locationTextView.text = ""
+                        binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockout_button)
+                        binding.attendanceclockBtn.setText(R.string.clockOutText)
+                    }
+                    else{
+                        saveAttendanceClockOut()
+                        binding.locationTextView.text = ""
+                        binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockin_button)
+                        binding.attendanceclockBtn.setText(R.string.clockInText)
+                    }
                 }
             }
 
@@ -64,13 +74,13 @@ class AttendanceClockFragment : Fragment() {
             R.layout.fragment_attendance_clock,container, false
         )
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         var btnGetLocation = binding.getLocationButton
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         btnGetLocation.setOnClickListener {
             getLocation()
         }
-
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -112,14 +122,25 @@ class AttendanceClockFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    internal fun saveAttendance(){
-        storeAttendance()
+    internal fun saveAttendanceClockIn(){
+        storeAttendanceClockIn()
         viewModel.save(clockstatus)
         clockstatus = AttendanceItem()
-        Log.d(TAG, "saveAttendance()")
+        Log.d(TAG, "saveAttendanceIn()")
     }
 
-    internal fun storeAttendance(){
+    internal fun saveAttendanceClockOut(){
+        var clockoutDate = Calendar.getInstance().time
+        var clockoutAddress = binding.locationTextView.text as String?
+
+        if (clockoutAddress != null) {
+            viewModel.update(viewModel.documentId, clockoutDate, clockoutAddress)
+        }
+        clockstatus = AttendanceItem()
+        Log.d(TAG, "saveAttendanceOut()")
+    }
+
+    internal fun storeAttendanceClockIn(){
         clockstatus.apply {
             clockInDate = Calendar.getInstance().time
             clockInAddress = binding.locationTextView.text as String?
