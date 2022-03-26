@@ -76,11 +76,6 @@ class AttendanceClockFragment : Fragment() {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        var btnGetLocation = binding.getLocationButton
-
-        btnGetLocation.setOnClickListener {
-            getLocation()
-        }
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -100,6 +95,12 @@ class AttendanceClockFragment : Fragment() {
                     .commitNow()
             }
         })
+
+        var btnGetLocation = binding.getLocationButton
+
+        btnGetLocation.setOnClickListener {
+            getLocation()
+        }
 
         // Submit button
         binding.attendanceclockBtn.setOnClickListener {
