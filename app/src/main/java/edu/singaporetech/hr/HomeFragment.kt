@@ -33,14 +33,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 
 import androidx.core.app.NotificationCompat
-
-
+import androidx.core.content.ContextCompat
 
 
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
     private lateinit var viewLeaveModel: LeaveViewModel
+    private lateinit var viewClockModel: AttendanceClockViewModel
     private lateinit var firestore: FirebaseFirestore
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
@@ -51,10 +51,31 @@ class HomeFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater,R.layout.fragment_home, container, false
         )
+        binding.ivCheck.visibility = View.INVISIBLE
+        binding.ivCross.visibility = View.INVISIBLE
+
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
         viewLeaveModel = ViewModelProvider(requireActivity()).get(LeaveViewModel::class.java)
+        viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
 
+        var timeStamp: String
+
+        viewClockModel.attendance.observe(viewLifecycleOwner, Observer { newTime ->
+            if (newTime[0].clockOutDate == null) {
+                binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
+                    requireContext(), R.color.green))
+                timeStamp = newTime[0].clockInDate.toString()
+                binding.ivCheck.visibility = View.VISIBLE
+                binding.infoTextTitleAttendance.setText(timeStamp)
+            } else {
+                binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
+                    requireContext(), R.color.red))
+                binding.ivCross.visibility = View.VISIBLE
+                timeStamp = newTime[0].clockOutDate.toString()
+                binding.infoTextTitleAttendance.setText(timeStamp)
+            }
+        })
 
 
         var totalLeave: Float

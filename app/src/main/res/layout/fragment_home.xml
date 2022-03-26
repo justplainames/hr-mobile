@@ -255,11 +255,20 @@
                     android:layout_marginBottom="5dp"/>
 
                 <ImageView
+                    android:id="@+id/iv_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="45dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_vector_check"
+                    android:layout_gravity="top|center" />
+                <ImageView
+                    android:id="@+id/iv_cross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="45dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_vector_cross"
                     android:layout_gravity="top|center" />
 
 

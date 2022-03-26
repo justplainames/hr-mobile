@@ -20,7 +20,7 @@ class AttendanceClockViewModel : ViewModel(){
 
     private fun listenToClockStatus() {
         firestore.collection("Attendance")
-            .orderBy("UserID", Query.Direction.DESCENDING)
+            .orderBy("clockInDate", Query.Direction.DESCENDING)
             .addSnapshotListener {
                     snapshot, error ->
                 if(error != null){
@@ -67,4 +67,8 @@ class AttendanceClockViewModel : ViewModel(){
             Log.d("firebase", "save failed")
         }
     }
+
+    internal var attendance: MutableLiveData<ArrayList<AttendanceItem>>
+        get() {return _clockRecords}
+        set(value) {_clockRecords = value}
 }
