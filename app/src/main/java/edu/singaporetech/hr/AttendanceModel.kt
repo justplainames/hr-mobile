@@ -21,12 +21,9 @@ class AttendanceModel : ViewModel() {
         firestore = FirebaseFirestore.getInstance()
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToAttendanceRecord()
-
-
     }
 
     fun listenToAttendanceRecord(){
-
         firestore.collection("Attendance").addSnapshotListener {
                 snapshot, error ->
             if(error != null){

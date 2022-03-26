@@ -41,7 +41,10 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: PayslipViewModel
     private lateinit var viewLeaveModel: LeaveViewModel
     private lateinit var viewClockModel: AttendanceClockViewModel
+    private lateinit var viewAttendanceModel: AttendanceModel
     private lateinit var firestore: FirebaseFirestore
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -58,10 +61,41 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
         viewLeaveModel = ViewModelProvider(requireActivity()).get(LeaveViewModel::class.java)
         viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
+        viewAttendanceModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
 
-        var timeStamp: String
+        viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { summary ->
+            binding.tvAttendanceSummaryWorkingDaysValue.setText("${summary.daysWorked}\n Days")
+            binding.tvAttendanceSummaryMissedDaysValue.setText("${summary.daysMissed}\n Days")
+            if (summary.daysMissed in 6..8){
+                binding.tvAttendanceSummaryMissedDaysValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.orange))
+            } else if (summary.daysMissed > 8 ){
+                binding.tvAttendanceSummaryMissedDaysValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.red))}
+            else {
+                binding.tvAttendanceSummaryMissedDaysValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.main))}
+            binding.tvAttendanceSummaryOTWorkedValue.setText("${summary.totalOT}\nHours ")
+
+
+            if (summary.totalOT > 40) {
+                binding.tvAttendanceSummaryOTWorkedValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.red))}
+
+            binding.tvAttendanceSummaryHoursWorkedValue.setText(
+                "${summary.hoursWorked}:${summary.minutesWorked} \nHours")
+
+            val formatValue = String.format("%.0f", summary.percentageMissed * 100)
+            binding.infoTextAttendanceRate.setText("Attendance Rate \n $formatValue%")
+            binding.circularAttendanceRate.apply {
+                setProgressWithAnimation(summary.percentageMissed*360f, 2000) // =1s
+                // Set Progress Max
+                progressMax = 360f
+            }
+        })
 
         viewClockModel.attendance.observe(viewLifecycleOwner, Observer { newTime ->
+            var timeStamp: String
             if (newTime[0].clockOutDate == null) {
                 binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
                     requireContext(), R.color.green))
@@ -75,6 +109,10 @@ class HomeFragment : Fragment() {
                 timeStamp = newTime[0].clockOutDate.toString()
                 binding.infoTextTitleAttendance.setText(timeStamp)
             }
+        })
+
+        viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { logs ->
+            Log.i("HOMEPAGE", "$logs")
         })
 
 
@@ -103,13 +141,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-        //Todo: add viewmodel for attendace
-
-        binding.circularAttendanceRate.apply {
-            setProgressWithAnimation(180.0f, 2000) // =1s
-            // Set Progress Max
-            progressMax = 360f
-        }
         //COUNTDOWN
         viewModel.payslip.observe(viewLifecycleOwner, Observer { payslip->
             val now= LocalDate.now()
