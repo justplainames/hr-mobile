@@ -50,17 +50,19 @@ class AttendanceClockFragment : Fragment() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
                     notifyUser("Authentication success!")
-                    if (binding.attendanceclockBtn.text == getText(R.string.clockInText)) {
+                    if (viewModel.clockInStatus.value == true) {
+                        Log.d("TESTING", "saveAttendanceIn()")
                         saveAttendanceClockIn()
+
                         binding.locationTextView.text = ""
-                        binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockout_button)
-                        binding.attendanceclockBtn.setText(R.string.clockOutText)
                     }
                     else{
+                        Log.d("TESTING", "EnterOnAuthenticationSucceed(False)")
                         saveAttendanceClockOut()
+                        viewModel.clockInStatus.value = true
                         binding.locationTextView.text = ""
-                        binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockin_button)
-                        binding.attendanceclockBtn.setText(R.string.clockInText)
+                        Log.d("TESTING", "onAuthenticationSucceeded")
+
                     }
                 }
             }
@@ -73,6 +75,18 @@ class AttendanceClockFragment : Fragment() {
             inflater,
             R.layout.fragment_attendance_clock,container, false
         )
+
+        viewModel.clockInStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer { status ->
+            if (status) {
+                binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockin_button)
+                binding.attendanceclockBtn.setText(R.string.clockInText)
+            }
+            else{
+                binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockout_button)
+                binding.attendanceclockBtn.setText(R.string.clockOutText)
+
+            }
+        })
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -124,21 +138,29 @@ class AttendanceClockFragment : Fragment() {
     }
 
     internal fun saveAttendanceClockIn(){
+
+        Log.d("TESTING", "saveAttendanceIn()")
         storeAttendanceClockIn()
         viewModel.save(clockstatus)
         clockstatus = AttendanceItem()
-        Log.d(TAG, "saveAttendanceIn()")
+        Log.d("TESTING", "saveAttendanceIn1()")
     }
 
     internal fun saveAttendanceClockOut(){
+        Log.d("TESTING", "saveAttendanceOUT()")
         var clockoutDate = Calendar.getInstance().time
         var clockoutAddress = binding.locationTextView.text as String?
+        Log.d("TESTING", "saveAttendanceOUT1()")
 
         if (clockoutAddress != null) {
+            Log.d("TESTING", "saveAttendanceOUT3()")
             viewModel.update(viewModel.documentId, clockoutDate, clockoutAddress)
+            Log.d("TESTING", "saveAttendanceOUT3()")
         }
+
         clockstatus = AttendanceItem()
-        Log.d(TAG, "saveAttendanceOut()")
+
+        Log.d(TAG, "saveAttendanceOut()4")
     }
 
     internal fun storeAttendanceClockIn(){

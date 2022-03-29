@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater,R.layout.fragment_home, container, false
         )
+        Log.d("TESTING", "saveAttendanceIn(TESTs)")
         binding.ivCheck.visibility = View.INVISIBLE
         binding.ivCross.visibility = View.INVISIBLE
 
@@ -64,6 +65,7 @@ class HomeFragment : Fragment() {
         viewAttendanceModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
 
         viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { summary ->
+            Log.d("TESTING", "saveAttendanceIn()")
             binding.tvAttendanceSummaryWorkingDaysValue.setText("${summary.daysWorked}\n Days")
             binding.tvAttendanceSummaryMissedDaysValue.setText("${summary.daysMissed}\n Days")
             if (summary.daysMissed in 6..8){
@@ -95,23 +97,27 @@ class HomeFragment : Fragment() {
         })
 
         viewClockModel.attendance.observe(viewLifecycleOwner, Observer { newTime ->
+            Log.d("TESTING", "saveAttendanceIn(11)")
             var timeStamp: String
             if (newTime[0].clockOutDate == null) {
                 binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
                     requireContext(), R.color.green))
                 timeStamp = newTime[0].clockInDate.toString()
                 binding.ivCheck.visibility = View.VISIBLE
+                binding.ivCross.visibility = View.INVISIBLE
                 binding.infoTextTitleAttendance.setText(timeStamp)
             } else {
                 binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
                     requireContext(), R.color.red))
                 binding.ivCross.visibility = View.VISIBLE
+                binding.ivCheck.visibility = View.INVISIBLE
                 timeStamp = newTime[0].clockOutDate.toString()
                 binding.infoTextTitleAttendance.setText(timeStamp)
             }
         })
 
         viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { logs ->
+            Log.d("TESTING", "saveAttendanceIn(111)")
             Log.i("HOMEPAGE", "$logs")
         })
 
@@ -120,6 +126,7 @@ class HomeFragment : Fragment() {
         var totalBalanceLeave: Float
 //            Amount of leave Left
         viewLeaveModel.leaveType.observe(viewLifecycleOwner, Observer { leaveTypes ->
+            Log.d("TESTING", "saveAttendanceIn(11111)")
 
             // Leave left
             totalLeave = leaveTypes[0].annualLeaveTotal.toFloat()
@@ -143,6 +150,7 @@ class HomeFragment : Fragment() {
 
         //COUNTDOWN
         viewModel.payslip.observe(viewLifecycleOwner, Observer { payslip->
+            Log.d("TESTING", "saveAttendanceIn(222)")
             val now= LocalDate.now()
             print(now)
             var payslipLatestDate: String =android.text.format.DateFormat.format("yyyy-MM-dd", payslip[0].dateOfPayDay).toString()
