@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.leave.LeaveRecordViewAllAdaptor
 import java.util.ArrayList
 
-class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>) : RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder>() {
+class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,private val listener: AttendanceAdapter.OnItemClickListener) : RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder>() {
+    private lateinit var mListener : OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
         return AttendanceViewHolder(
@@ -20,22 +21,29 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>)
         )
     }
 
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, clockInDate: String, id: String)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        mListener = listener
+    }
+
+
     override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
 
         var curItem = attendanceArrayList.get(position)
         val delim = " at "
         var tempDateTime = curItem.ClockInDate.toString()
-        tempDateTime.split(delim)
-        Log.d("attendance", "temp: " + tempDateTime)
+        val test = tempDateTime.split(delim).last()
+        Log.d("attendance", "temp: " + test)
 
         holder.dateTv.text = "${curItem.ClockInDate.toString()}"
-        holder.timeTv.text = "${curItem.ClockInDate.toString()}"
+        holder.timeTv.text = "${curItem.ClockOutDate.toString()}"
         holder.statusTV.text = "${curItem.attendanceStatus.toString()}"
     //    holder.timeTv.text = "${curItem.ClockOut.toString()}"//"${android.text.format.DateFormat.format("MMM yyyy", curItem.dateOfPayDay).toString()}"
     //    holder.statusTV.text = "${curItem.attendanceStatus}"
-
-
-
 
     }
 
@@ -46,22 +54,44 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>)
     }
 
     fun onItemClickDetail(position: Int) {}
-//        fun onItemClickDetail(position: Int)
-
-//    private lateinit var mListener: AttendanceAdapter.onItemClickListener
-//    fun setOnItemClickListener(listener: AttendanceAdapter.onItemClickListener){
-//        mListener = listener
-//    }
 
 
 
-    inner class AttendanceViewHolder(views: View) : RecyclerView.ViewHolder(views) {
+
+    inner class AttendanceViewHolder(views: View) : RecyclerView.ViewHolder(views), View.OnClickListener {
         var dateTv: TextView = views.findViewById(R.id.dateTv)
         var timeTv: TextView = views.findViewById(R.id.timeTv)
         var statusTV: TextView = views.findViewById(R.id.statusTV)
+        var reportBtn: ImageButton = views.findViewById(R.id.reportBtn)
+       // var attendanceSummaryBtn: Button = views.findViewById(R.id.attendanceSummaryBtn)
 
-        var attendanceSummaryBtn: Button = views.findViewById(R.id.attendanceSummaryBtn)
-     //   var downloadButton: ImageButton = views.findViewById(R.id.downloadButton)
+        init{
+            reportBtn.setOnClickListener(this)
+//            reportBtn.setOnClickListener{
+//                listener.onItemClick(bindingAdapterPosition)
+//               // listener.onItemClick(attendanceArrayList.get(position))
+//                Log.d("reportBtn", "click")
+//            }
+        }
+        override fun onClick(v: View?) {
+            val position:Int=adapterPosition
+            if (v != null) {
+                if(v.id==R.id.reportBtn){
+                    if (position!=RecyclerView.NO_POSITION){
+                        var curItem = attendanceArrayList.get(position)
+                        var selectedDate =curItem.ClockInDate.toString()
+                        var id = curItem.id.toString()
+                           // clockInDate: String, id: String
+                        listener.onItemClick(position,selectedDate,id)
+                        Log.d("reportBtn", "click" + position + "details:" + curItem.ClockInDate.toString())
+                    }
+                }
+
+            }
+
+        }
+
+
        // var nextButton: ImageButton = views.findViewById(R.id.nextButton)
      //   attendanceSummaryBtn.setOnClickListener(this);
 
@@ -80,9 +110,6 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>)
 //
 //        }
 
-    interface OnItemClickListener{
-        //fun onItemClickDownload(position: Int)
-        fun onItemClickNext()
-    }
+
 
 }

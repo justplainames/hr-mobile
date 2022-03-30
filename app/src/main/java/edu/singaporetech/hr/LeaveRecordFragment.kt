@@ -77,16 +77,11 @@ class LeaveRecordFragment : Fragment() {
         leaveRecordRecyclerView.adapter = leaveRecordAdapter
         leaveRecordAdapter.setOnItemClickListener(object:LeaveRecordViewAllAdaptor.onItemClickListener{
             override fun onItemClickDetail(position: Int)  {
-
-
                 requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragmentContainerView, LeaveDetailFragment(position))
                     .commitNow()
-
-
-
             }
 
 //            override fun onItemClickDetail(position: Int) {

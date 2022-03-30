@@ -10,9 +10,6 @@
         android:label="HomePage"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_nav_leave"
-            app:destination="@id/leaveFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_attendanceOverviewFragment2"
             app:destination="@id/attendanceOverviewFragment" />
     </fragment>
@@ -28,6 +25,9 @@
         <action
             android:id="@+id/action_attendanceOverviewFragment_to_attendanceClockFragment4"
             app:destination="@id/attendanceClockFragment4" />
+        <action
+            android:id="@+id/action_attendanceOverviewFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/attendanceFragment"
@@ -35,8 +35,11 @@
         android:label="fragment_attendance"
         tools:layout="@layout/fragment_attendance" >
         <action
-            android:id="@+id/action_attendanceFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_attendanceFragment_to_attendanceOverviewFragment"
+            app:destination="@id/attendanceOverviewFragment" />
+        <action
+            android:id="@+id/action_attendanceFragment_to_reportAttendanceFragment"
+            app:destination="@id/reportAttendanceFragment" />
     </fragment>
     <fragment
         android:id="@+id/attendanceClockFragment4"
@@ -45,6 +48,15 @@
         <action
             android:id="@+id/action_attendanceClockFragment4_to_attendanceOverviewFragment"
             app:destination="@id/attendanceOverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportAttendanceFragment"
+        android:name="edu.singaporetech.hr.ReportAttendanceFragment"
+        android:label="report_attendance_fragment"
+        tools:layout="@layout/report_attendance_fragment" >
+        <action
+            android:id="@+id/action_reportAttendanceFragment_to_attendanceFragment"
+            app:destination="@id/attendanceFragment" />
     </fragment>
 
 </navigation>
