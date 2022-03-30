@@ -34,9 +34,10 @@ class AttendanceFragment : Fragment(), AttendanceAdapter.OnItemClickListener {
         //getActivity()?.getViewModelStore()?.clear()
         val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
 
-
+           // viewModel.attendenceArrayList.clear()
             adapter=AttendanceAdapter(items,this) // add items to adapter
-//            adapter=PayslipAdapter(items,this) // add items to adapter
+           // binding.recyclerViewAttendence.invalidate();
+
             adapter.notifyDataSetChanged()
             binding.recyclerViewAttendence.adapter=adapter
         }
