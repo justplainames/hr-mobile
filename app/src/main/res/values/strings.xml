@@ -109,7 +109,9 @@
     <string name="uploadText">Upload Files</string>
     <string name="dateHint">Select a Date</string>
     <string name="reasonHint">Enter Reason</string>
-
+    <string name="confirmation_submit_report">Are you sure you want to submit your reason?</string>
+    <string name="success_submit_report">Reason for being late is submitted!</string>
+    <string name="okText">Ok</string>
     <string name="statusLbl">Status</string>
 
 

@@ -31,7 +31,7 @@ class AttendanceFragment : Fragment(), AttendanceAdapter.OnItemClickListener {
             inflater,R.layout.fragment_attendance, container, false
         )
         viewModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
-        //getActivity()?.getViewModelStore()?.clear()
+
         val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
 
            // viewModel.attendenceArrayList.clear()

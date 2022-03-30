@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.service.controls.ControlsProviderService.TAG
 import android.text.Editable
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -83,27 +84,51 @@ class AttendanceModel : ViewModel() {
 
     }
 
-    internal fun updateAttendanceRecord(id: String, reason: Editable?): Boolean{
-        var submitted: Boolean = false
-        Log.d("reportBtn", "reach " + id + reason)
+    internal fun updateAttendanceRecord(id: String, reason: Editable?): Boolean {
+        var submitted: Boolean = true
         val attendanceRecord = HashMap<String, Any>()
         //attendanceRecord.put("id",id)
         val updatedReason = reason.toString()
-        attendanceRecord.put("issueReason",updatedReason)
+        attendanceRecord.put("issueReason", updatedReason)
 
-        val document = firestore.collection("Attendance").document(id.toString())
-      //  Log.d("reportBtn", document.toString())
+        val document = firestore.collection("Attendance").document(id)
 
-        val updateAttendanceReason = document.update(attendanceRecord)
-        updateAttendanceReason.addOnSuccessListener {
-            Log.d("reportBtn", "document saved!!!!!!")
-            submitted = true
-        }
-        updateAttendanceReason.addOnFailureListener {
-            Log.d("reportBtn", "save failed!!!!")
-            submitted = true
-        }
+       // val updateAttendanceReason = document.update(attendanceRecord)
+        document
+            .update("issueReason", updatedReason.toString())
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully updated!")
+                submitted = true
+
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error updating document", e)
+                submitted = false
+            }
         return submitted
+    }
+//
+//        Log.d("reportBtn", "value: " + updateAttendanceReason.toString())
+//        submitted = if(updateAttendanceReason.isSuccessful){
+//            Log.d("reportBtn", "document saved!!!!!!")
+//             true
+//        }else{
+//            Log.d("reportBtn", "save failed!!!!")
+//             false
+//        }
+      //  val result = updateAttendanceReason.isSuccessful
+     //   Log.d("reportBtn", result.toString())
+
+//        updateAttendanceReason.addOnSuccessListener {
+//            Log.d("reportBtn", "document saved!!!!!!")
+//            submitted = true
+//
+//        }
+//        updateAttendanceReason.addOnFailureListener {
+//            Log.d("reportBtn", "save failed!!!!")
+//            submitted = false
+//        }
+//        return submitted
 //        myRef.child(id!!).setValue(reason).addOnCompleteListener{
 //            if(it.isSuccessful){
 //                _result.value = null
@@ -129,7 +154,7 @@ class AttendanceModel : ViewModel() {
 //                // ...
 //            }
 
-    }
+
 
 
 

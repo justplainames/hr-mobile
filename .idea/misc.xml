@@ -46,6 +46,9 @@
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/activity_payslipitem.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/activity_paysliplist.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/attendance_overview.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/confirm_report_dialog.xml" value="0.2" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/dialog_report_fail.xml" value="0.23369565217391305" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/dialog_report_success.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance_clock.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance_recycler.xml" value="0.23802083333333332" />
@@ -53,12 +56,16 @@
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_payslip.xml" value="0.1359375" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_payslip_detail.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_payslip_list.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_recover_success.xml" value="0.1" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/fragment_report.xml" value="0.1" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/leave_apply_dialog.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/leave_cancel_dialog.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/leave_detail_item.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/leave_record.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/leavetype_dropdown_item.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/recyclerview_item.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/report_attendance_fragment.xml" value="0.18446601941747573" />
+        <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/submit_report_success.xml" value="0.264" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/drawable/ic_email_focused.xml" value="0.1" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/drawable/or.xml" value="0.1" />
