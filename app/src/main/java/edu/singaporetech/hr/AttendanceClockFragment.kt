@@ -165,8 +165,20 @@ class AttendanceClockFragment : Fragment() {
 
     internal fun storeAttendanceClockIn(){
         clockstatus.apply {
-            clockInDate = Calendar.getInstance().time
+            val clockIntime = Calendar.getInstance()
+            clockInDate = clockIntime.time
+            val hours = clockIntime.get(Calendar.HOUR_OF_DAY)
+            Log.d("TESTINGgggg", clockIntime.toString())
+            Log.d("TESTINGgggg", clockInDate.toString())
+            Log.d("TESTINGgggg", hours.toString())
             clockInAddress = binding.locationTextView.text as String?
+
+            if ( hours.toString() < "23"){
+                attendanceStatus = "onTime"
+            } else{
+                attendanceStatus = "late"
+            }
+//            attendanceStatus
         }
     }
 
