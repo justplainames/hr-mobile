@@ -210,11 +210,11 @@
                android:id="@+id/textViewAvailableLeave"
                android:layout_width="166dp"
                android:layout_height="0dp"
-               android:layout_marginBottom="104dp"
+               android:layout_marginBottom="100dp"
                android:text="@string/leave_available"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintHorizontal_bias="0.427"
+               app:layout_constraintHorizontal_bias="0.458"
                app:layout_constraintStart_toStartOf="parent" />
 
            <Button
@@ -239,13 +239,15 @@
 
            <Button
                android:id="@+id/buttonCamera"
-               android:layout_width="102dp"
+               android:layout_width="313dp"
                android:layout_height="45dp"
-               android:layout_marginBottom="124dp"
-               android:text="Button"
+               android:layout_marginBottom="132dp"
+               android:drawableLeft="@drawable/ic_baseline_add_a_photo_24"
+               android:drawablePadding="10dp"
+               android:text="@string/upload_mc"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintHorizontal_bias="0.914"
+               app:layout_constraintHorizontal_bias="0.387"
                app:layout_constraintStart_toStartOf="parent" />
 
        </androidx.constraintlayout.widget.ConstraintLayout>
