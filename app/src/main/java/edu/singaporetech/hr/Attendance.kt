@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import com.google.firebase.database.Exclude
 import java.util.*
 
 data class Attendance(
@@ -10,4 +11,24 @@ data class Attendance(
     var IssueStatus:  String? = "",
     var UserID: String? = "",
     var attendanceStatus: String? = ""
-)
+){
+    @Exclude
+    fun getMap(): Map<String,Any?>{
+        return  mapOf(
+            "id" to id
+        )
+    }
+}
+
+data class UpdateAttendance(
+    var id: String? = "",
+    var IssueReason: String? = ""
+){
+    @Exclude
+    fun getMap(): Map<String,Any?>{
+        return  mapOf(
+            "id" to id
+        )
+    }
+}
+

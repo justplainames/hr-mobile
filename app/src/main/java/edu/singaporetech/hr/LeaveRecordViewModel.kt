@@ -84,7 +84,8 @@ class LeaveRecordViewModel  : ViewModel(){
     }
 
     fun updateAnnualLeaveBalance(){
-        val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
+        val document = firestore.collection("leaveType").document(
+            "imEaChWkIuehvw3yxTDu")
         val set = document.update("annualLeaveBalance" ,FieldValue.increment(1) )
         set.addOnSuccessListener {
             Log.d("firebase", "document saved!!!!!!")

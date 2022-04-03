@@ -1,46 +1,32 @@
 package edu.singaporetech.hr
 
-import android.app.AlertDialog
-import android.content.ContentValues
-import android.graphics.Color
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
-import com.itextpdf.text.Document
-import com.itextpdf.text.Font
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import edu.singaporetech.hr.databinding.FragmentAttendanceBinding
-import edu.singaporetech.hr.databinding.FragmentPayslipBinding
-import edu.singaporetech.hr.leave.LeaveRecordViewAllAdaptor
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
+import edu.singaporetech.hr.leave.LeaveRecordAdaptor
+import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
 import java.util.*
 
 
-class AttendanceFragment : Fragment() {
+class AttendanceFragment : Fragment(), AttendanceAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: AttendanceModel
     private lateinit var adapter : AttendanceAdapter
     private lateinit var attendancedapter: AttendanceAdapter
+    private lateinit var attendanceArrayList: ArrayList<Attendance>
+
+    private lateinit var attendanceRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,17 +36,45 @@ class AttendanceFragment : Fragment() {
             inflater,R.layout.fragment_attendance, container, false
         )
         viewModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
-        //viewModelConso = ViewModelProvider(requireActivity()).get(PayslipConsoViewModel::class.java)
-        val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
-            adapter=AttendanceAdapter(items) // add items to adapter
-//            adapter=PayslipAdapter(items,this) // add items to adapter
-            binding.recyclerViewAttendence.adapter=adapter
-        }
 
-        viewModel.attendance.observe(requireActivity(), attendanceListObserver)
+        getActivity()?.getViewModelStore()?.clear()
 
-        binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
-        binding.recyclerViewAttendence.setHasFixedSize(true)
+//        val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
+//
+//           // viewModel.attendenceArrayList.clear()
+//            adapter=AttendanceAdapter(items,this) // add items to adapter
+//           // binding.recyclerViewAttendence.invalidate();
+//            binding.recyclerViewAttendence.adapter=adapter
+////            attendanceArrayList.removeAll(attendanceArrayList)
+////            attendanceArrayList.addAll(items)
+//            adapter.notifyDataSetChanged()
+//
+//        }
+
+//        viewModel.attendance.observe(requireActivity(), attendanceListObserver)
+
+
+
+
+        attendanceRecyclerView = binding.recyclerViewAttendence
+        attendanceRecyclerView.layoutManager = LinearLayoutManager(activity)
+        attendanceRecyclerView.setHasFixedSize(true)
+        attendanceRecyclerView.itemAnimator = DefaultItemAnimator()
+
+        //val ref = FirebaseFirestore.getInstance()
+
+
+        attendanceArrayList = arrayListOf()
+        attendancedapter = AttendanceAdapter(attendanceArrayList,this)
+        attendanceRecyclerView.adapter = attendancedapter
+
+        viewModel.attendance.observe(viewLifecycleOwner, Observer {
+                attendance ->
+            attendanceArrayList.removeAll(attendanceArrayList)
+            attendanceArrayList.addAll(attendance)
+            attendanceRecyclerView.adapter!!.notifyDataSetChanged()
+        })
+
 
         binding.attendanceSummaryBtn.setOnClickListener({
             requireActivity()
@@ -89,30 +103,6 @@ class AttendanceFragment : Fragment() {
             }
         })
 
-//        attendancedapter.set(object: LeaveRecordViewAllAdaptor.onItemClickListener{
-//            override fun onItemClickDetail(position: Int)  {
-//
-//
-//                requireActivity()
-//                    .supportFragmentManager
-//                    .beginTransaction()
-//                    .replace(R.id.fragmentContainerView, LeaveDetailFragment(position))
-//                    .commitNow()
-//
-//
-//
-//            }
-//
-////            override fun onItemClickDetail(position: Int) {
-////                requireActivity()
-////                    .supportFragmentManager
-////                    .beginTransaction()
-////                    .replace(R.id.fragmentContainerView, LeaveDetailFragment())
-////                    .commitNow()
-////            }
-//
-//        })
-
     }
 
     override fun onResume() {
@@ -124,16 +114,17 @@ class AttendanceFragment : Fragment() {
         (requireActivity() as MainActivity).supportActionBar?.title = "Attendance"
     }
 
+    override fun onItemClick(position: Int,clockInDate: String, id: String) {
+
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentContainerView, ReportAttendanceFragment(position,clockInDate,id))
+            .commitNow()
+    }
 
 
 
-//    override fun onItemClickNext(position: Int) {
-//        requireActivity()
-//            .supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.fragmentContainerView, PayslipDetailFragment(position))
-//            .commitNow()
-//    }
 
 //
 
