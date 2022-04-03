@@ -61,6 +61,10 @@
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/drawable/search_bar.xml" value="0.1" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/activity_payslipitem.xml" value="0.12001811594202899" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/activity_paysliplist.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/attendance_overview.xml" value="0.264" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance_clock.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave.xml" value="0.2" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave_apply.xml" value="0.264" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave_detail.xml" value="0.10601851851851851" />
