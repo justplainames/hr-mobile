@@ -31,28 +31,29 @@ class AttendanceClockViewModel : ViewModel(){
 
         firestore.collection("Attendance")
             .orderBy("clockInDate", Query.Direction.DESCENDING)
-            .addSnapshotListener {
-                    snapshot, error ->
-                if(error != null){
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
                     Log.e("firestore Error", error.message.toString())
                     return@addSnapshotListener
                 }
-                if(snapshot!=null){
+                if (snapshot != null) {
                     val clockRecords = ArrayList<AttendanceItem>()
                     val documents = snapshot.documents
-                    documents.forEach{
+                    documents.forEach {
                         val clockRecord = it.toObject(AttendanceItem::class.java)
-                        if (clockRecord != null){
+                        if (clockRecord != null) {
                             clockRecord.id = it.id
 
                             clockRecords.add(clockRecord!!)
                         }
                     }
                     _clockRecords.value = clockRecords
-                    if (clockRecords.get(0).clockOutDate == null){
+                    if (clockRecords.get(0).clockOutDate == null) {
                         _clockInStatus.value = false
                         Log.i("TESTING", "CAME IN}")
-                    } else {_clockInStatus.value = true}
+                    } else {
+                        _clockInStatus.value = true
+                    }
 
                     Log.i("TESTING", "clockRecords.get(0): ${(clockRecords.get(0).clockOutDate)}")
                     Log.i("TESTING", "_clocInStatus.value: ${_clockInStatus.value}")
@@ -63,7 +64,7 @@ class AttendanceClockViewModel : ViewModel(){
 
         val currentYear = LocalDateTime.now().year
         val currentMonth = LocalDateTime.now().month
-        val startDate = LocalDateTime.of(currentYear, currentMonth, 1,0,0,1)
+        val startDate = LocalDateTime.of(currentYear, currentMonth, 1, 0, 0, 1)
         var zdt = startDate.atZone(ZoneId.of("Singapore"));
         var millis = zdt.toInstant().toEpochMilli();
 
@@ -72,49 +73,59 @@ class AttendanceClockViewModel : ViewModel(){
             .orderBy("clockInDate", Query.Direction.DESCENDING)
             .whereGreaterThanOrEqualTo("clockInDate", Date(millis))
             .whereLessThanOrEqualTo("clockInDate", Date())
-            .addSnapshotListener {
-                    snapshot, error ->
-                if(error != null){
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
                     Log.e("firestore Error", error.message.toString())
                     return@addSnapshotListener
                 }
-                if(snapshot!=null){
+                if (snapshot != null) {
 
                     var daysWorked = 0
                     var hoursWorked = 0f
                     var minutesWorked = 0f
                     var daysMissed = 0
                     var totalOT = 0f
+                    var daysLate = 0
+                    var daysOnTime = 0
+
                     val documents = snapshot.documents
-                    documents.forEach{
+                    documents.forEach {
                         val attendanceRecord = it.toObject(AttendanceItem::class.java)
 
-                        if (attendanceRecord != null){
+                        if (attendanceRecord != null) {
                             // ADD THIS IN THE PARAMETER WHEN SETTLED attendanceRecord.attendanceStatus=="Present"
-                            if (attendanceRecord.clockOutDate!=null){
+                            if (attendanceRecord.clockOutDate != null) {
                                 var clockin = (attendanceRecord.clockInDate)?.getTime()
                                 var clockout = (attendanceRecord.clockOutDate)?.getTime()
-                                hoursWorked +=((clockout!! - clockin!!)/ 1000 / 60 / 60)
-                                minutesWorked+=((clockout!! - clockin!!)/ 1000 / 60 % 60)
+                                hoursWorked += ((clockout!! - clockin!!) / 1000 / 60 / 60)
+                                minutesWorked += ((clockout!! - clockin!!) / 1000 / 60 % 60)
                                 daysWorked += 1
-                            } else if (attendanceRecord.attendanceStatus=="Absent"){
+                                daysMissed = 20 - daysWorked
+                            } else if (attendanceRecord.attendanceStatus == "Absent") {
                                 daysMissed += 1
-                            } else {}
+                            } else if (attendanceRecord.attendanceStatus == "Late") {
+                                daysLate += 1
+                            } else if (attendanceRecord.attendanceStatus == "onTime") {
+                                daysOnTime += 1
+                            }
 
                         }
+                        if (hoursWorked > 40) {
+                            totalOT = (40 - hoursWorked) * -1
+                        }
 
+
+                        _attendanceSummary.value = AttendanceSummary(
+                            hoursWorked = hoursWorked.toInt(),
+                            daysWorked = daysWorked,
+                            minutesWorked = minutesWorked.toInt(),
+                            daysMissed = daysMissed,
+                            totalOT = totalOT,
+                            percentageMissed = daysWorked.toFloat() / (daysWorked.toFloat() + daysMissed.toFloat()),
+                            daysLate = daysLate,
+                            daysOnTime = daysWorked
+                        )
                     }
-                    if(hoursWorked > 40 ){
-                        totalOT = (40 - hoursWorked) * -1
-                    }
-
-
-                    _attendanceSummary.value = AttendanceSummary(hoursWorked=hoursWorked.toInt()
-                        , daysWorked = daysWorked
-                        , minutesWorked = minutesWorked.toInt()
-                        , daysMissed = daysMissed
-                        , totalOT = totalOT
-                        , percentageMissed = daysWorked.toFloat()/(daysWorked.toFloat()+daysMissed.toFloat()))
                 }
             }
     }
@@ -147,6 +158,7 @@ class AttendanceClockViewModel : ViewModel(){
             Log.d("firebase", "save failed")
         }
     }
+
 
     internal var attendance: MutableLiveData<ArrayList<AttendanceItem>>
         get() {return _clockRecords}

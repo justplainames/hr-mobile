@@ -7,5 +7,7 @@ data class AttendanceSummary(
     var minutesWorked: Int,
     var daysMissed: Int,
     var totalOT: Float,
-    var percentageMissed: Float
+    var percentageMissed: Float,
+    var daysLate:Int,
+    var daysOnTime: Int
 )
