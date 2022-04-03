@@ -1,7 +1,6 @@
 package edu.singaporetech.hr
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.KeyguardManager
 import android.content.ContentValues
 import android.content.Context
@@ -15,10 +14,10 @@ import android.os.Bundle
 import android.os.CancellationSignal
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
@@ -30,14 +29,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.itextpdf.text.Document
-import com.itextpdf.text.Element
 import com.itextpdf.text.Font
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import edu.singaporetech.hr.databinding.FragmentPayslipConsoBinding
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 class PayslipConsoFragment() : Fragment() {
@@ -186,6 +183,8 @@ class PayslipConsoFragment() : Fragment() {
         binding.submitButton.setOnClickListener {
             var datepickerFrom= binding.payslipDatePickerFromInput.text.toString()
             var datepickerTo= binding.payslipDatePickerToInput.text.toString()
+            Log.d("TODATE",datepickerTo)
+            Log.d("FRODATE",datepickerFrom)
             if (datepickerTo.isNullOrBlank() || datepickerFrom.isNullOrBlank()) {
                 Toast.makeText(
                     this@PayslipConsoFragment.requireActivity(),
