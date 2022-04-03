@@ -14,5 +14,6 @@ data class LeaveRecordViewAllItem (
     val leaveStatus: String="",
     val leaveReason: String = "",
     val leaveSupervisor: String = "",
+    var imageName: String? = "",
     @ServerTimestamp
     var leaveTimeStamp: Date? = null )

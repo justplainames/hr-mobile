@@ -49,8 +49,8 @@
             android:id="@+id/textViewLeaveRecordStatus"
             android:layout_width="85dp"
             android:layout_height="43dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
             android:background="@color/teal_200"
             android:gravity="center"
             android:text="status"
@@ -58,18 +58,6 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/buttonLeaveDetail"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="4dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/next_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.storage.FirebaseStorage
 import edu.singaporetech.hr.databinding.FragmentLeaveDetailBinding
 import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
+import java.io.File
 
 private const val ARG_PARAM1 = "title"
 
@@ -34,10 +37,27 @@ class LeaveDetailFragment(private var position: Int) : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(LeaveRecordViewModel::class.java)
 
         val leaveRecordObserver = Observer<ArrayList<LeaveRecordViewAllItem>> { leave ->
+
+//            var path = "${leave.ld}/${leaveRecord.imageName}"
+//            val documents = FirebaseStorage.getInstance().getReference("images/$path")
+//
+//            val localFile = File.createTempFile("path", "jpg")
+//            documents.getFile(localFile).addOnSuccessListener {
+//                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//            }
+//
             adaptorDetail = LeaveDetailAdaptor(leave, position)
             binding.recyclerViewLeaveDetail.adapter = adaptorDetail
         }
         viewModel.leave.observe(requireActivity(), leaveRecordObserver)
+
+
+        viewModel.leave.observe(viewLifecycleOwner, Observer {
+                leave ->
+//            binding.
+        })
+
+//        viewModel.fetchImage(leave )
 
         binding.recyclerViewLeaveDetail.layoutManager = LinearLayoutManager(activity)
         binding.recyclerViewLeaveDetail.setHasFixedSize(true)

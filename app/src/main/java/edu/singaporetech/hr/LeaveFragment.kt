@@ -25,15 +25,11 @@ class LeaveFragment : Fragment() {
 
     private lateinit var leaveArrayList: ArrayList<Leave>
     private lateinit var binding: FragmentLeaveBinding
-    private lateinit var db: FirebaseFirestore
     private lateinit var leaveAdapter: LeaveRecordAdaptor
     private lateinit var leaveRecyclerView: RecyclerView
     private val viewModel: LeaveViewModel by viewModels()
-    private var _leaveRecord = ArrayList<Leave>()
 
-    private var _leaveType = ArrayList<LeaveType>()
-    private var leave = Leave()
-//    val viewModel = ViewModelProvider(this)[LeaveViewModel::class.java]
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,8 +41,6 @@ class LeaveFragment : Fragment() {
         )
 
 
-
-        var text = viewModel.fetchLeaveTypes()
         var annual:Int
         var annualCurr:Int
         var maternity:Int
@@ -86,22 +80,6 @@ class LeaveFragment : Fragment() {
                 .start()
         })
 
-
-//    binding.textViewAnnualLeaveTotal.setText(textvieww.toString())
-//    _leaveType.get(0).annualLeaveTotal
-//        viewModel.leave.observe(viewLifecycleOwner, Observer {
-//                leave ->
-//
-//            binding.textViewAnnualLeaveTotal = _leaveTypes
-//            leaveArrayList.removeAll(leaveArrayList)
-//            leaveArrayList.addAll(leave)
-//            leaveRecyclerView.adapter!!.notifyDataSetChanged()
-//    })
-//        binding.textViewAnnualLeaveTotal =
-
-//        var annualLeaveTotal: Float? = viewModel.displaytextView()?.toFloat()?: 0.0f
-//        binding.textViewAnnualLeaveTotal.text = annualLeaveTotal.toString()
-        // Recycler view
         leaveRecyclerView = binding.recyclerViewLeaveRecord
         leaveRecyclerView.layoutManager = LinearLayoutManager(activity)
         leaveRecyclerView.setHasFixedSize(true)
@@ -121,11 +99,6 @@ class LeaveFragment : Fragment() {
             leaveRecyclerView.adapter!!.notifyDataSetChanged()
         })
 
-        viewModel.fetchItems()
-
-
-
-
         binding.buttonApplyLeave.setOnClickListener {
             requireActivity()
                 .supportFragmentManager
@@ -143,31 +116,6 @@ class LeaveFragment : Fragment() {
 
     }
 
-//    private fun getLeaveData() {
-//        db = FirebaseFirestore.getInstance()
-//        db.collection("leave")
-//            .addSnapshotListener(object: EventListener<QuerySnapshot>{
-//                override fun onEvent(
-//                    value: QuerySnapshot?,
-//                    error : FirebaseFirestoreException?
-//                ){
-//                    if (error != null){
-//                        Log.e("firestore Error", error.message.toString())
-//                    }
-//
-//                    for (dc:DocumentChange in value?.documentChanges!!){
-//                        if(dc.type == DocumentChange.Type.ADDED){
-//                            leaveArrayList.add(dc.document.toObject(Leave::class.java))
-//                        }
-//                    }
-//
-//                    leaveAdapter.notifyDataSetChanged()
-//                }
-//
-//            })
-//    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object:OnBackPressedCallback(true){
@@ -181,9 +129,6 @@ class LeaveFragment : Fragment() {
                     .commitNow()
             }
         })
-
-//        viewModel = ViewModelProvider.of(this).get(LeaveViewModel::class.java)
-//        viewModel.leave
     }
 
 
@@ -196,7 +141,6 @@ class LeaveFragment : Fragment() {
         super.onStart()
         (requireActivity() as MainActivity).supportActionBar?.title = "Leave"
     }
-
 
 
 }

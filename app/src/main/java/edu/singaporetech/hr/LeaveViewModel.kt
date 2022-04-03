@@ -82,6 +82,7 @@ class LeaveViewModel : ViewModel(){
                 Log.d("firebase", "save failed")
             }
         val documents =FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
+        val file = documents.downloadUrl
         image_uri?.let { documents.putFile(it) }
             ?.addOnSuccessListener {
                 Log.d("firebase", "save image!")
@@ -89,9 +90,10 @@ class LeaveViewModel : ViewModel(){
             ?.addOnFailureListener {
                 Log.d("firebase", "save failed")
             }
+        leave.imageName = documents.downloadUrl.toString()
     }
 
-    fun saveImage(path:String, location:String, image_uri:Uri){
+    fun GetImage(path:String, location:String, image_uri:Uri){
         //val path = leave.leaveId
 
     }
@@ -130,74 +132,6 @@ class LeaveViewModel : ViewModel(){
         }
     }
 
-    internal fun fetchItems(){
-        firestore.collection("leave")
-//            .orderBy("", "desc")
-            .addSnapshotListener{
-                    value: QuerySnapshot?,
-                    error : FirebaseFirestoreException? ->
-                    if (error != null){
-                        Log.e("firestore Error", error.message.toString())
-                    }
-
-                    for (dc: DocumentChange in value?.documentChanges!!){
-                        if(dc.type == DocumentChange.Type.ADDED){
-                            var items = dc.document.toObject(Leave::class.java)
-                            _leaveRecords.postValue(items)
-                        }
-                    }
-//                    leaveAdapter.notifyDataSetChanged()
-                }
-            }
-
-    internal fun fetchLeaveTypes(){
-        firestore.collection("leaveType").document("leaveTotal")
-//            .orderBy("", "desc")
-            .addSnapshotListener{
-                    querySnapshot,
-                    firebaseFirestoreException ->
-                var item = querySnapshot?.toObject(LeaveType::class.java)
-                _leaveType.postValue(item!!)
-//                if (error != null){
-//                    Log.e("firestore Error", error.message.toString())
-//                }
-
-//                for (dc: DocumentChange in value?.documentChanges!!){
-//                    if(dc.type == DocumentChange.Type.ADDED){
-//                        var items = dc.document.toObject(Leave::class.java)
-//                        _leaveRecords.postValue(items)
-//                    }
-//                }
-//                    leaveAdapter.notifyDataSetChanged()
-            }
-    }
-
-
-//    internal fun displayVisualization(){
-//
-//        firestore.collection("leaveType")
-////            .orderBy("", "desc")
-//            .addSnapshotListener{
-//                    value: QuerySnapshot?,
-//                    error : FirebaseFirestoreException? ->
-//                if (error != null){
-//                    Log.e("firestore Error", error.message.toString())
-//                }
-//
-//                for (dc: DocumentChange in value?.documentChanges!!){
-//                    if(dc.type == DocumentChange.Type.ADDED){
-//                        var items = dc.document.toObject(Leave::class.java)
-//                        _leaveTypes.postValue(items)
-//                    }
-//                }
-//
-////                    leaveAdapter.notifyDataSetChanged()
-//            }
-//
-//    }
-
-
-
     internal var leave: MutableLiveData<ArrayList<Leave>>
         get() {return _leaveRecords}
         set(value) {_leaveRecords = value}
@@ -220,11 +154,6 @@ private fun <T> MutableLiveData<T>.postValue(items: Leave) {
 }
 
 
-//        var eventCollection = firestore.collection("leave")
-//            .document()
-//        eventCollection.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//            var innerEvents = querySnapshot?.toObject(Leave::class.java)
-//            _leave.postValue(arrayListOf(innerEvents!!))
 
 
 
