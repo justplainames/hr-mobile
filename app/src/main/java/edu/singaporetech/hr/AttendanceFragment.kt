@@ -9,9 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
 import edu.singaporetech.hr.databinding.FragmentAttendanceBinding
+import edu.singaporetech.hr.leave.LeaveRecordAdaptor
 import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
 import java.util.*
 
@@ -23,6 +26,8 @@ class AttendanceFragment : Fragment(), AttendanceAdapter.OnItemClickListener {
     private lateinit var attendancedapter: AttendanceAdapter
     private lateinit var attendanceArrayList: ArrayList<Attendance>
 
+    private lateinit var attendanceRecyclerView: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,28 +37,44 @@ class AttendanceFragment : Fragment(), AttendanceAdapter.OnItemClickListener {
         )
         viewModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
 
-        val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
+        getActivity()?.getViewModelStore()?.clear()
 
-           // viewModel.attendenceArrayList.clear()
-            adapter=AttendanceAdapter(items,this) // add items to adapter
-           // binding.recyclerViewAttendence.invalidate();
+//        val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
+//
+//           // viewModel.attendenceArrayList.clear()
+//            adapter=AttendanceAdapter(items,this) // add items to adapter
+//           // binding.recyclerViewAttendence.invalidate();
+//            binding.recyclerViewAttendence.adapter=adapter
+////            attendanceArrayList.removeAll(attendanceArrayList)
+////            attendanceArrayList.addAll(items)
+//            adapter.notifyDataSetChanged()
+//
+//        }
 
-            adapter.notifyDataSetChanged()
-            binding.recyclerViewAttendence.adapter=adapter
-        }
-
-        viewModel.attendance.observe(requireActivity(), attendanceListObserver)
-
-//        viewModel.attendance.observe(viewLifecycleOwner, Observer {
-//                attendance ->
-//            leaveArrayList.removeAll(leaveArrayList)
-//            leaveArrayList.addAll(leave)
-//            leaveRecordRecyclerView.adapter!!.notifyDataSetChanged()
-//        })
+//        viewModel.attendance.observe(requireActivity(), attendanceListObserver)
 
 
-        binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
-        binding.recyclerViewAttendence.setHasFixedSize(true)
+
+
+        attendanceRecyclerView = binding.recyclerViewAttendence
+        attendanceRecyclerView.layoutManager = LinearLayoutManager(activity)
+        attendanceRecyclerView.setHasFixedSize(true)
+        attendanceRecyclerView.itemAnimator = DefaultItemAnimator()
+
+        //val ref = FirebaseFirestore.getInstance()
+
+
+        attendanceArrayList = arrayListOf()
+        attendancedapter = AttendanceAdapter(attendanceArrayList,this)
+        attendanceRecyclerView.adapter = attendancedapter
+
+        viewModel.attendance.observe(viewLifecycleOwner, Observer {
+                attendance ->
+            attendanceArrayList.removeAll(attendanceArrayList)
+            attendanceArrayList.addAll(attendance)
+            attendanceRecyclerView.adapter!!.notifyDataSetChanged()
+        })
+
 
         binding.attendanceSummaryBtn.setOnClickListener({
             requireActivity()

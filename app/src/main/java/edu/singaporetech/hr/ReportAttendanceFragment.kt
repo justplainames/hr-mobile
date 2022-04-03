@@ -105,10 +105,6 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                 }
 
             }
-
-
-
-
         }
 
         return binding.root
