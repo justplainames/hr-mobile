@@ -47,18 +47,13 @@
             android:layout_height="wrap_content">
         </TextView>
 
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        <com.androidplot.pie.PieChart
             android:id="@+id/circularProgressBar"
             android:layout_width="250dp"
             android:layout_height="220dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="32dp"
-            app:cpb_background_progressbar_color="#b6bbd8"
-            app:cpb_background_progressbar_width="10dp"
-            app:cpb_progress_direction="to_right"
-            app:cpb_progressbar_color="#3f51b5"
-            app:cpb_progressbar_width="10dp"
-            app:cpb_round_border="false"
+            app:graphBackgroundColor="@color/ap_transparent"
             app:layout_constraintBottom_toTopOf="@id/attendanceInfoRow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -98,10 +93,10 @@
                 >
                 <!-- Card contents -->
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:id="@+id/textViewOnTime"
+                    android:layout_width="26dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"></TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/onTimeTV"
@@ -130,10 +125,10 @@
                 >
                 <!-- Card contents -->
                 <TextView
+                    android:id="@+id/textViewLate"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"></TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="@string/Late"
@@ -162,10 +157,10 @@
                 >
                 <!-- Card contents -->
                 <TextView
+                    android:id="@+id/textViewOnLeave"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"></TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="@string/onLeave"
@@ -194,10 +189,10 @@
                 >
                 <!-- Card contents -->
                 <TextView
+                    android:id="@+id/textViewAbsent"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"></TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/absentTV"
