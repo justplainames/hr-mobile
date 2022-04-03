@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckedTextView
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import edu.singaporetech.hr.leave.LeaveRecordViewAllAdaptor
 import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
 
@@ -34,6 +36,11 @@ class LeaveDetailAdaptor(private val leaveRecordViewAllList: ArrayList<LeaveReco
         holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveStatus
         holder.leaveRecordViewAllReason.text = currentItemViewAll.leaveReason
         holder.leaveRecordViewAllSupervisor.text = currentItemViewAll.leaveSupervisor
+        //holder.imageViewLeave. =
+
+        Glide.with(holder.itemView).load(currentItemViewAll.imageName).into(holder.imageViewLeave)
+        //Glide.with(holder.itemView).load(currentItemViewAll.getImageURL()).into(holder.imageViewLeave)
+
     }
 
     override fun getItemCount() = leaveRecordViewAllList.size
@@ -45,7 +52,7 @@ class LeaveDetailAdaptor(private val leaveRecordViewAllList: ArrayList<LeaveReco
         val leaveRecordViewAllSupervisor = itemView.findViewById<TextView>(R.id.textViewLeaveSupervisorDetail)
         val leaveRecordViewAllReason = itemView.findViewById<TextView>(R.id.textViewLeaveReasonDetail)
         val leaveRecordViewAllStatus = itemView.findViewById<TextView>(R.id.textViewLeaveStatusDetail)
-
+        val imageViewLeave  = itemView.findViewById<ImageView>(R.id.imageViewLeave)
     }
 
 

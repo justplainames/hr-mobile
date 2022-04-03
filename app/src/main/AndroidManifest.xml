@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HR"
         tools:replace="android:icon">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <receiver android:name=".Notification"  android:enabled="true"/>
         <activity android:name=".SignActivity"
             android:label="@string/signInPageHeader"

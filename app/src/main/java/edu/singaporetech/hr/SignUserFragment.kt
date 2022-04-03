@@ -64,12 +64,10 @@ class  SignUserFragment : Fragment() {
         if (user != null) {
             binding.tvFaceId.visibility = View.VISIBLE
             binding.ibFaceId.visibility = View.VISIBLE
-            binding.imageView.visibility = View.VISIBLE
             biometricAuthentication()
         } else{
             binding.tvFaceId.visibility = View.INVISIBLE
             binding.ibFaceId.visibility = View.INVISIBLE
-            binding.imageView.visibility = View.INVISIBLE
         }
 
         auth = FirebaseAuth.getInstance()

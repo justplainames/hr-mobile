@@ -41,6 +41,8 @@
         <entry key="..\:/Users/JustP/Downloads/csc2007-team08-2022-main/app/src/main/res/layout/fragment_leave.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/JustP/Downloads/csc2007-team08-2022-main/app/src/main/res/layout/fragment_leave_apply.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/JustP/Downloads/csc2007-team08-2022-main/app/src/main/res/layout/fragment_leave_record.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/JustP/OneDrive/Documents/SiT/Y2T2/CSC2007 Mobile Development/CSC2007_project/csc2007-team08-2022/app/src/main/res/layout/fragment_home.xml" value="0.1838768115942029" />
+        <entry key="..\:/Users/JustP/OneDrive/Documents/SiT/Y2T2/CSC2007 Mobile Development/CSC2007_project/csc2007-team08-2022/app/src/main/res/layout/fragment_sign_user.xml" value="0.14792299898682879" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/activity_attendance_clock.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/activity_attendenceitem.xml" value="0.22456140350877193" />
         <entry key="..\:/Users/jiayi/Downloads/SIT COM SCIENCE/Y2S2/Mobile/Project/New folder (2)/all/csc2007-team08-2022/app/src/main/res/layout/activity_payslipitem.xml" value="0.23802083333333332" />
@@ -72,8 +74,13 @@
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/drawable/search_bar.xml" value="0.1" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/activity_payslipitem.xml" value="0.12001811594202899" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/activity_paysliplist.xml" value="0.22592592592592592" />
-        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave.xml" value="0.264" />
-        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave_apply.xml" value="0.2151268115942029" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/attendance_overview.xml" value="0.264" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_attendance_clock.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave.xml" value="0.2" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave_apply.xml" value="0.264" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave_detail.xml" value="0.10601851851851851" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_leave_record.xml" value="0.2" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_payslip.xml" value="0.12001811594202899" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_payslip_conso.xml" value="0.12001811594202899" />
@@ -81,8 +88,14 @@
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_payslip_list.xml" value="0.12001811594202899" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_recover_success.xml" value="0.12001811594202899" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/fragment_sign_user.xml" value="0.1" />
-        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_record.xml" value="0.1" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_all_record.xml" value="0.11367753623188406" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_apply_dialog.xml" value="0.11367753623188406" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_apply_leave.xml" value="0.10601851851851851" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_cancel_dialog.xml" value="0.11367753623188406" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_homepage.xml" value="0.264" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_record.xml" value="0.264" />
         <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/leave_view_all_record.xml" value="0.6" />
+        <entry key="..\:/Users/jie lin/Documents/GitHub/csc2007-team08-2022/app/src/main/res/layout/recyclerview_item.xml" value="0.11367753623188406" />
       </map>
     </option>
   </component>

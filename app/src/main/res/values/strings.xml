@@ -55,6 +55,7 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="confirmation_cancel_leave">Are you sure you want to cancel the leave?</string>
+    <string name="upload_mc">Upload MC</string>
 
     <string-array name="leaveType">
         <item>Annual Leave</item>

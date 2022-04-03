@@ -117,7 +117,7 @@
                                 android:gravity="center"/>
 
                             <TextView
-                                android:id="@+id/tvAttendanceSummaryHoursWorkedValue"
+                                android:id="@+id/tvAttendanceSummaryMissedDaysValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5 \nDays"
@@ -131,7 +131,7 @@
                                 android:textColor="@color/orange"/>
 
                             <TextView
-                                android:id="@+id/tvAttendanceSummaryOTWorked"
+                                android:id="@+id/tvAttendanceSummaryOTWorkedTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
@@ -145,7 +145,7 @@
                                 android:gravity="center"/>
 
                             <TextView
-                                android:id="@+id/tvAttendanceSummaryMissedDaysValue"
+                                android:id="@+id/tvAttendanceSummaryOTWorkedValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="40 \nHours"
@@ -172,7 +172,7 @@
                             app:rowCount="2">
 
                             <TextView
-                                android:id="@+id/tv"
+                                android:id="@+id/tvAttendanceSummaryHoursWorkedTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
@@ -186,7 +186,7 @@
                                 app:layout_columnWeight="1"/>
 
                             <TextView
-                                android:id="@+id/a11"
+                                android:id="@+id/tvAttendanceSummaryHoursWorkedValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
@@ -255,11 +255,20 @@
                     android:layout_marginBottom="5dp"/>
 
                 <ImageView
+                    android:id="@+id/iv_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="45dp"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_vector_check"
+                    android:layout_gravity="top|center" />
+                <ImageView
+                    android:id="@+id/iv_cross"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="45dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_vector_cross"
                     android:layout_gravity="top|center" />
 
 

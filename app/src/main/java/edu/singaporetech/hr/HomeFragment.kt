@@ -33,15 +33,18 @@ import android.content.Intent
 import android.content.SharedPreferences
 
 import androidx.core.app.NotificationCompat
-
-
+import androidx.core.content.ContextCompat
 
 
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
     private lateinit var viewLeaveModel: LeaveViewModel
+    private lateinit var viewClockModel: AttendanceClockViewModel
+    private lateinit var viewAttendanceModel: AttendanceModel
     private lateinit var firestore: FirebaseFirestore
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -51,16 +54,79 @@ class HomeFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater,R.layout.fragment_home, container, false
         )
+        Log.d("TESTING", "saveAttendanceIn(TESTs)")
+        binding.ivCheck.visibility = View.INVISIBLE
+        binding.ivCross.visibility = View.INVISIBLE
+
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
         viewLeaveModel = ViewModelProvider(requireActivity()).get(LeaveViewModel::class.java)
+        viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
+        viewAttendanceModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
 
+        viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { summary ->
+            Log.d("TESTING", "saveAttendanceIn()")
+            binding.tvAttendanceSummaryWorkingDaysValue.setText("${summary.daysWorked}\n Days")
+            binding.tvAttendanceSummaryMissedDaysValue.setText("${summary.daysMissed}\n Days")
+            if (summary.daysMissed in 6..8){
+                binding.tvAttendanceSummaryMissedDaysValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.orange))
+            } else if (summary.daysMissed > 8 ){
+                binding.tvAttendanceSummaryMissedDaysValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.red))}
+            else {
+                binding.tvAttendanceSummaryMissedDaysValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.main))}
+            binding.tvAttendanceSummaryOTWorkedValue.setText("${summary.totalOT}\nHours ")
+
+
+            if (summary.totalOT > 40) {
+                binding.tvAttendanceSummaryOTWorkedValue.setTextColor(ContextCompat.getColor(
+                    requireContext(),R.color.red))}
+
+            binding.tvAttendanceSummaryHoursWorkedValue.setText(
+                "${summary.hoursWorked}:${summary.minutesWorked} \nHours")
+
+            val formatValue = String.format("%.0f", summary.percentageMissed * 100)
+            binding.infoTextAttendanceRate.setText("Attendance Rate \n $formatValue%")
+            binding.circularAttendanceRate.apply {
+                setProgressWithAnimation(summary.percentageMissed*360f, 2000) // =1s
+                // Set Progress Max
+                progressMax = 360f
+            }
+        })
+
+        viewClockModel.attendance.observe(viewLifecycleOwner, Observer { newTime ->
+            Log.d("TESTING", "saveAttendanceIn(11)")
+            var timeStamp: String
+            if (newTime[0].clockOutDate == null) {
+                binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
+                    requireContext(), R.color.green))
+                timeStamp = newTime[0].clockInDate.toString()
+                binding.ivCheck.visibility = View.VISIBLE
+                binding.ivCross.visibility = View.INVISIBLE
+                binding.infoTextTitleAttendance.setText(timeStamp)
+            } else {
+                binding.cardViewAttendanceCheck.setCardBackgroundColor(ContextCompat.getColor(
+                    requireContext(), R.color.red))
+                binding.ivCross.visibility = View.VISIBLE
+                binding.ivCheck.visibility = View.INVISIBLE
+                timeStamp = newTime[0].clockOutDate.toString()
+                binding.infoTextTitleAttendance.setText(timeStamp)
+            }
+        })
+
+        viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { logs ->
+            Log.d("TESTING", "saveAttendanceIn(111)")
+            Log.i("HOMEPAGE", "$logs")
+        })
 
 
         var totalLeave: Float
         var totalBalanceLeave: Float
 //            Amount of leave Left
         viewLeaveModel.leaveType.observe(viewLifecycleOwner, Observer { leaveTypes ->
+            Log.d("TESTING", "saveAttendanceIn(11111)")
 
             // Leave left
             totalLeave = leaveTypes[0].annualLeaveTotal.toFloat()
@@ -82,15 +148,9 @@ class HomeFragment : Fragment() {
             }
         })
 
-        //Todo: add viewmodel for attendace
-
-        binding.circularAttendanceRate.apply {
-            setProgressWithAnimation(180.0f, 2000) // =1s
-            // Set Progress Max
-            progressMax = 360f
-        }
         //COUNTDOWN
         viewModel.payslip.observe(viewLifecycleOwner, Observer { payslip->
+            Log.d("TESTING", "saveAttendanceIn(222)")
             val now= LocalDate.now()
             print(now)
             var payslipLatestDate: String =android.text.format.DateFormat.format("yyyy-MM-dd", payslip[0].dateOfPayDay).toString()

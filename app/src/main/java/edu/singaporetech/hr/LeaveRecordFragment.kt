@@ -101,7 +101,7 @@ class LeaveRecordFragment : Fragment() {
             leaveRecordRecyclerView.adapter!!.notifyDataSetChanged()
         })
 
-        viewModel.fetchItems()
+        //viewModel.fetchItems()
 
 
 
