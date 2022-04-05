@@ -6,7 +6,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LeaveRecordFragment">
+        tools:context=".LeaveRecordFragment"
+        android:id="@+id/fragment_leave_record">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
