@@ -43,7 +43,7 @@ class LeaveDetailAdaptor(private val leaveRecordViewAllList: ArrayList<LeaveReco
 
     }
 
-    override fun getItemCount() = leaveRecordViewAllList.size
+    override fun getItemCount() = 1
 
     class LeaveDetailViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val leaveType = itemView.findViewById<TextView>(R.id.textViewLeaveTypeDetail)

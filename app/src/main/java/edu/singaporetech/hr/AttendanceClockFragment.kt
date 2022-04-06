@@ -173,13 +173,13 @@ class AttendanceClockFragment : Fragment() {
             Log.d("TESTINGgggg", hours.toString())
             clockInAddress = binding.locationTextView.text as String?
 
-            if ( hours.toString() < "9"){
+            if ( hours < 9){
                 //if ( hours.toString() > "9"){
-                    attendanceStatus = "Late"
+                viewModel.updateAttendanceStatusOnTime()
 
-                } else{
-                    attendanceStatus = "onTIme"
-                }
+            } else{
+                viewModel.updateAttendanceStatusLate()
+            }
 
 //            attendanceStatus
         }

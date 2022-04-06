@@ -18,12 +18,14 @@ class AttendanceClockViewModel : ViewModel(){
     private var _clockInStatus : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     private lateinit var firestore: FirebaseFirestore
     var documentId = ""
+    private var _attendanceStatus: MutableLiveData<ArrayList<AttendanceStatus>> = MutableLiveData<ArrayList<AttendanceStatus>>()
 
 
     init{
         firestore = FirebaseFirestore.getInstance()
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToClockStatus()
+        listenToAttendanceStatus()
     }
 
     @SuppressLint("NewApi")
@@ -101,34 +103,78 @@ class AttendanceClockViewModel : ViewModel(){
                                 minutesWorked += ((clockout!! - clockin!!) / 1000 / 60 % 60)
                                 daysWorked += 1
                                 daysMissed = 20 - daysWorked
-                            } else if (attendanceRecord.attendanceStatus == "Absent") {
-                                daysMissed += 1
-                            } else if (attendanceRecord.attendanceStatus == "Late") {
-                                daysLate += 1
-                            } else if (attendanceRecord.attendanceStatus == "onTime") {
-                                daysOnTime += 1
+
+                                if (attendanceRecord.attendanceStatus == "Late") {
+                                    daysLate += 1
+                                    Log.d("attendance record", daysLate.toString())
+                                }
+
+                                if (attendanceRecord.attendanceStatus == "onTime") {
+                                    daysOnTime += 1
+                                    Log.d("attendance record", daysOnTime.toString())
+                                }
+                                if (attendanceRecord.attendanceStatus == "Absent") {
+                                    daysMissed += 1
+                                    Log.d("attendance record", daysMissed.toString())
+                                }
+
+//                            } else if (attendanceRecord.attendanceStatus == "Late") {
+//                                daysLate += 1
+//                                Log.d("attendance record", daysLate.toString())
+//                            } else if (attendanceRecord.attendanceStatus == "onTime") {
+//                                daysOnTime += 1
+//                                Log.d("attendance record", daysOnTime.toString())
+//                            } else if (attendanceRecord.attendanceStatus == "Absent") {
+//                                daysMissed += 1
+//                                Log.d("attendance record", daysMissed.toString())
+//                            }
+
+                            }
+                            if (hoursWorked > 40) {
+                                totalOT = (40 - hoursWorked) * -1
                             }
 
-                        }
-                        if (hoursWorked > 40) {
-                            totalOT = (40 - hoursWorked) * -1
-                        }
 
-
-                        _attendanceSummary.value = AttendanceSummary(
-                            hoursWorked = hoursWorked.toInt(),
-                            daysWorked = daysWorked,
-                            minutesWorked = minutesWorked.toInt(),
-                            daysMissed = daysMissed,
-                            totalOT = totalOT,
-                            percentageMissed = daysWorked.toFloat() / (daysWorked.toFloat() + daysMissed.toFloat()),
-                            daysLate = daysLate,
-                            daysOnTime = daysWorked
-                        )
+                            _attendanceSummary.value = AttendanceSummary(
+                                hoursWorked = hoursWorked.toInt(),
+                                daysWorked = daysWorked,
+                                minutesWorked = minutesWorked.toInt(),
+                                daysMissed = daysMissed,
+                                totalOT = totalOT,
+                                percentageMissed = daysWorked.toFloat() / (daysWorked.toFloat() + daysMissed.toFloat()),
+                                daysLate = daysLate,
+                                daysOnTime = daysWorked
+                            )
+                        }
                     }
                 }
             }
     }
+
+    private fun listenToAttendanceStatus() {
+        firestore.collection("attendanceStatus")
+            .addSnapshotListener {
+                    snapshot, error ->
+                if(error != null){
+                    Log.e("firestore Error", error.message.toString())
+                    return@addSnapshotListener
+                }
+                if(snapshot!=null){
+                    val attendance = ArrayList<AttendanceStatus>()
+//                val documents = snapshot.documents
+                    snapshot!!.documents.forEach{
+                        val attendanceStatus = it.toObject(AttendanceStatus::class.java)
+                        if (attendanceStatus != null){
+//                        leaveRecord.leaveId = it.id
+                            attendance.add(attendanceStatus!!)
+                        }
+                    }
+                    _attendanceStatus.value = attendance
+                }
+            }
+    }
+
+
 
     fun save(clockstatus: AttendanceItem){
         val document = firestore.collection("Attendance").document()
@@ -140,6 +186,28 @@ class AttendanceClockViewModel : ViewModel(){
         }
         set.addOnFailureListener {
             Log.d("firebase", "save failed")
+        }
+    }
+
+    fun updateAttendanceStatusLate(){
+        val document = firestore.collection("attendanceStatus").document("attendance")
+        val set = document.update("late" ,FieldValue.increment(1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved!!!!!!")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed!!!!")
+        }
+    }
+
+    fun updateAttendanceStatusOnTime(){
+        val document = firestore.collection("attendanceStatus").document("attendance")
+        val set = document.update("onTime" ,FieldValue.increment(1) )
+        set.addOnSuccessListener {
+            Log.d("firebase", "document saved!!!!!!")
+        }
+        set.addOnFailureListener {
+            Log.d("firebase", "save failed!!!!")
         }
     }
 
@@ -171,4 +239,9 @@ class AttendanceClockViewModel : ViewModel(){
     internal var clockInStatus: MutableLiveData<Boolean>
         get() {return _clockInStatus}
         set(value) {_clockInStatus = value}
+
+    internal var attendanceStatus: MutableLiveData<ArrayList<AttendanceStatus>>
+        get() {return _attendanceStatus}
+        set(value) {_attendanceStatus = value}
+
 }

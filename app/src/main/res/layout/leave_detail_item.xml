@@ -53,7 +53,7 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="start - end"
+                    android:text="Start Date - End Date"
                     android:textSize="20dp" />
 
                 <TextView

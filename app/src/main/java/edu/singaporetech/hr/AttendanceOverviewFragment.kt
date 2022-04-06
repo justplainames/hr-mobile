@@ -2,12 +2,14 @@ package edu.singaporetech.hr
 
 import android.animation.AnimatorSet
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidplot.pie.Segment
 import com.androidplot.pie.SegmentFormatter
 import edu.singaporetech.hr.databinding.AttendanceOverviewBinding
+import java.time.LocalDateTime
 //import edu.singaporetech.hr.databinding.FragmentAttendanceBinding
 import java.util.ArrayList
 
@@ -26,6 +29,7 @@ class AttendanceOverviewFragment: Fragment() {
     private lateinit var viewClockModel: AttendanceClockViewModel
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,31 +40,32 @@ class AttendanceOverviewFragment: Fragment() {
 
         viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
 
-        viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { summary ->
+        viewClockModel.attendanceStatus.observe(viewLifecycleOwner, Observer { summary ->
             Log.d("TESTING", "saveAttendanceIn()")
-            binding.textViewOnTime.setText("${summary.daysOnTime}")
-            binding.textViewLate.setText("${summary.daysLate}")
-            if (summary.daysMissed in 6..8){
-                binding.textViewAbsent.setTextColor(
-                    ContextCompat.getColor(
-                    requireContext(),R.color.orange))
-            } else if (summary.daysMissed > 8 ){
-                binding.textViewAbsent.setTextColor(
-                    ContextCompat.getColor(
-                    requireContext(),R.color.red))}
-            else {
-                binding.textViewAbsent.setTextColor(
-                    ContextCompat.getColor(
-                    requireContext(),R.color.main))}
-            binding.textViewOnLeave.setText("${summary.daysMissed}")
+            binding.textViewOnTime.setText(summary[1].onTime.toString())
+            binding.textViewLate.setText(summary[1].late.toString())
+//            if (summary.daysMissed in 6..8){
+//                binding.textViewAbsent.setTextColor(
+//                    ContextCompat.getColor(
+//                    requireContext(),R.color.orange))
+//            } else if (summary.daysMissed > 8 ){
+//                binding.textViewAbsent.setTextColor(
+//                    ContextCompat.getColor(
+//                    requireContext(),R.color.red))}
+//            else {
+//                binding.textViewAbsent.setTextColor(
+//                    ContextCompat.getColor(
+//                    requireContext(),R.color.main))}
+            var miss = LocalDateTime.now().dayOfMonth - summary[1].onTime - summary[1].late
+            binding.textViewAbsent.setText(miss.toString())
 
 
-            val formatValue = String.format("%.0f", summary.percentageMissed * 100)
+//            val formatValue = String.format("%.0f", summary.percentageMissed * 100)
 
             val arrayListChart = ArrayList<Int>()
-            arrayListChart.add(Integer.valueOf(summary.daysOnTime))
-            arrayListChart.add(Integer.valueOf(summary.daysLate))
-            arrayListChart.add(Integer.valueOf(summary.daysMissed))
+            arrayListChart.add(Integer.valueOf(summary[1].onTime.toInt()))
+            arrayListChart.add(Integer.valueOf(summary[1].late.toInt()))
+            arrayListChart.add(Integer.valueOf(miss.toInt()))
             //arrayListChart.add(Integer.valueOf(summary.daysOnLeave))
 
             val s1 = Segment("On Time", arrayListChart.get(0))
