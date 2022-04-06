@@ -40,19 +40,22 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,
         var tempDateTime = curItem.ClockInDate.toString()
         val test = tempDateTime.split(delim).last()
         Log.d("attendance", "temp: " + test)
-        val clockin = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(curItem.ClockInDate)
-        val clockout = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(curItem.ClockOutDate)
+        var clockin:String? = ""
+        clockin= SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(curItem.ClockInDate)
+        var clockout:String? = ""
+        if(curItem.ClockOutDate != null){
+            clockout= SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(curItem.ClockOutDate)}
         holder.dateTv.text = "ClockIn: ${clockin}"
         holder.timeTv.text = "ClockOut:${clockout}"
         if (curItem.attendanceStatus==null){
-            holder.statusTV.text = ""
+            holder.statusTV.text = "Status:"
         }else{
             holder.statusTV.text = "Status: ${curItem.attendanceStatus.toString()}"
         }
         if (curItem.IssueReason==null){
-            holder.reason.text = ""
+            holder.reason.text = "Reason:"
         }else{
-            holder.statusTV.text = "Reason: ${curItem.IssueReason.toString()}"
+            holder.reason.text = "Reason: ${curItem.IssueReason.toString()}"
         }
 
 

@@ -199,9 +199,11 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
 
             if ( hours < 9){
                 //if ( hours.toString() > "9"){
+                attendanceStatus = "On Time"
                 viewModel.updateAttendanceStatusOnTime()
 
             } else{
+                attendanceStatus = "Late"
                 viewModel.updateAttendanceStatusLate()
             }
 

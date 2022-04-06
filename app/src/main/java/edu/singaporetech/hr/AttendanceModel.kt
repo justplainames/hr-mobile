@@ -33,7 +33,9 @@ class AttendanceModel : ViewModel() {
 
     fun listenToAttendanceRecord(){
         attendenceArrayList.clear()
-        firestore.collection("Attendance").addSnapshotListener {
+        firestore.collection("Attendance")
+            .orderBy("clockInDate", Query.Direction.DESCENDING)
+            .addSnapshotListener {
                 snapshot, error ->
             if(error != null){
                 Log.e("firestore Error", error.message.toString())
