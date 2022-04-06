@@ -10,7 +10,8 @@
        <androidx.constraintlayout.widget.ConstraintLayout
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:background="@color/background">
+           android:background="@color/background"
+           android:id="@+id/fragment_leave_apply">
 
            <com.google.android.material.textfield.TextInputLayout
                android:id="@+id/textInputLayout"

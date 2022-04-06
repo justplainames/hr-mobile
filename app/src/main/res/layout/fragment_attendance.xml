@@ -5,7 +5,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="edu.singaporetech.hr.AttendanceFragment">
+        tools:context="edu.singaporetech.hr.AttendanceFragment"
+        android:id="@+id/fragment_attendance">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

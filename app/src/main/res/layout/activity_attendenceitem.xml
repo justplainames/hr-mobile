@@ -5,8 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:id="@+id/activity_attendanceitem">
         android:layout_height="153dp">
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="367dp"
