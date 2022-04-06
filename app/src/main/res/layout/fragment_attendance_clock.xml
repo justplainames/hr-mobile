@@ -11,13 +11,14 @@
             android:layout_height="match_parent"
             android:background="@color/background">
 
+
             <TextView
                 android:id="@+id/livelocationLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginStart="25dp"
-                android:layout_marginBottom="232dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="28dp"
                 android:text="@string/livelocationLabel"
                 android:textColor="#000000"
                 android:textSize="20sp"
@@ -31,6 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
+                android:layout_marginTop="28dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/box"
                 android:orientation="vertical"
@@ -45,14 +47,14 @@
                     android:layout_height="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/livelocationLinearLayout"/>
+                    app:layout_constraintTop_toBottomOf="@id/livelocationLinearLayout" />
 
                 <Button
                     android:id="@+id/getLocationButton"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/getlocation"
                     android:textColor="@color/black"
@@ -64,8 +66,8 @@
                     android:id="@+id/locationTextView"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -73,63 +75,29 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/authenticationLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:layout_marginStart="15dp"
-                android:text="@string/authenticationLabel"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_authentication"
-                app:layout_constraintStart_toStartOf="@+id/livelocationLinearLayout"
-                app:layout_constraintTop_toBottomOf="@+id/livelocationLinearLayout" />
-
-            <LinearLayout
-                android:id="@+id/authenticationlinearLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/box"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/authenticationLabel">
-
-                <Button
-                    android:id="@+id/faceidButton"
-                    android:layout_width="120dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:text="@string/fingerprint"
-                    android:textColor="@color/black"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-
             <DigitalClock
                 android:id="@+id/digitalClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
                 android:textSize="35sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/authenticationlinearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/livelocationLinearLayout" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/attendanceclockBtn"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="36dp"
                 android:background="@drawable/clockin_button"
                 android:text="@string/clockInText"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/digitalClock" />
 

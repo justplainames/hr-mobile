@@ -87,13 +87,13 @@ class AttendanceOverviewFragment: Fragment() {
             binding.circularProgressBar.getBackgroundPaint().setColor(Color.TRANSPARENT)
         })
 
-        binding.clockInBtn.setOnClickListener({
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView, AttendanceClockFragment())
-                .commitNow()
-        })
+//        binding.clockInBtn.setOnClickListener({
+//            requireActivity()
+//                .supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.fragmentContainerView, AttendanceClockFragment())
+//                .commitNow()
+//        })
 
         binding.clockOutBtn.setOnClickListener({
             requireActivity()
