@@ -30,7 +30,8 @@ class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Pays
     }
 
     override fun getItemCount(): Int {
-        return payslipArrayList.size
+        //record return 1 record
+        return 1
     }
 
     class PayslipDeductionDetailViewHolder(views: View) : RecyclerView.ViewHolder(views) {

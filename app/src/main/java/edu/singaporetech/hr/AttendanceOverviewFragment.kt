@@ -34,14 +34,6 @@ class AttendanceOverviewFragment: Fragment() {
             inflater,R.layout.attendance_overview, container, false
         )
 
-        binding.allAttendanceBtn.setOnClickListener({
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView, AttendanceFragment())
-                .commitNow()
-        })
-
         viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
 
         viewClockModel.attendanceSummary.observe(viewLifecycleOwner, Observer { summary ->
@@ -85,27 +77,23 @@ class AttendanceOverviewFragment: Fragment() {
             binding.circularProgressBar.addSegment(s3,sf3)
             binding.circularProgressBar.getBorderPaint().setColor(Color.TRANSPARENT)
             binding.circularProgressBar.getBackgroundPaint().setColor(Color.TRANSPARENT)
+
+            binding.clockOutBtn.setOnClickListener({
+                requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, AttendanceClockFragment())
+                    .commitNow()
+            })
+
+            binding.allAttendanceBtn.setOnClickListener({
+                requireActivity()
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, AttendanceFragment())
+                    .commitNow()
+            })
         })
-
-//        binding.clockInBtn.setOnClickListener({
-//            requireActivity()
-//                .supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.fragmentContainerView, AttendanceClockFragment())
-//                .commitNow()
-//        })
-
-        binding.clockOutBtn.setOnClickListener({
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView, AttendanceClockFragment())
-                .commitNow()
-        })
-
-
-
-
 
         return binding.root
     }
@@ -113,7 +101,6 @@ class AttendanceOverviewFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object:
             OnBackPressedCallback(true){
 
@@ -136,18 +123,6 @@ class AttendanceOverviewFragment: Fragment() {
         super.onStart()
         (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
     }
-
-
-
-//    override fun onItemClickNext(position: Int) {
-//        requireActivity()
-//            .supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.fragmentContainerView, PayslipDetailFragment(position))
-//            .commitNow()
-//    }
-
-//
 
 
 }

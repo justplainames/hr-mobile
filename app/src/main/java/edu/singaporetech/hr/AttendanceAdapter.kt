@@ -23,6 +23,7 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,
 
 
     interface OnItemClickListener {
+
         fun onItemClick(position: Int, clockInDate: String, id: String)
     }
 
@@ -49,15 +50,8 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,
 
 
     override fun getItemCount(): Int {
-
         return attendanceArrayList.size
     }
-
-    fun onItemClickDetail(position: Int) {}
-
-
-
-
     inner class AttendanceViewHolder(views: View) : RecyclerView.ViewHolder(views), View.OnClickListener {
         var dateTv: TextView = views.findViewById(R.id.dateTv)
         var timeTv: TextView = views.findViewById(R.id.timeTv)
@@ -67,11 +61,7 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,
 
         init{
             reportBtn.setOnClickListener(this)
-//            reportBtn.setOnClickListener{
-//                listener.onItemClick(bindingAdapterPosition)
-//               // listener.onItemClick(attendanceArrayList.get(position))
-//                Log.d("reportBtn", "click")
-//            }
+
         }
         override fun onClick(v: View?) {
             val position:Int=adapterPosition
@@ -83,7 +73,6 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,
                         var id = curItem.id.toString()
                            // clockInDate: String, id: String
                         listener.onItemClick(position,selectedDate,id)
-                        Log.d("reportBtn", "click" + position + "details:" + curItem.ClockInDate.toString())
                     }
                 }
 

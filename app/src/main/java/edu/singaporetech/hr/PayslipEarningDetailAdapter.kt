@@ -26,7 +26,8 @@ class PayslipEarningDetailAdapter (private var payslipArrayList: ArrayList<Paysl
     }
 
     override fun getItemCount(): Int {
-        return payslipArrayList.size
+        //record return 1 record
+        return 1
     }
 
     class PayslipDetailViewHolder(views: View) : RecyclerView.ViewHolder(views) {

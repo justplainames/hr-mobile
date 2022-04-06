@@ -23,7 +23,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
 //    }
 
     private lateinit var viewModel: AttendanceModel
-    private lateinit var reportAttendanceAdapter: ReportAdapter
+    //private lateinit var reportAttendanceAdapter: ReportAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
         )
         viewModel = ViewModelProvider(this).get(AttendanceModel::class.java)
 
-        reportAttendanceAdapter = ReportAdapter(selectedDate,id)
+//        reportAttendanceAdapter = ReportAdapter(selectedDate,id)
 
         binding.selectedDateTV.text = selectedDate
         val submitBtn = binding.submitBtn
@@ -52,6 +52,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
         submitBtn.setOnClickListener{
             //Log.d("reportBtn", "this is" + reason.toString() + reason)
            //validation for submiting
+
             if (binding.reasonET.text.isNullOrBlank()) {
                 Log.d("reportBtn", "this is empty")
                 Toast.makeText(
@@ -73,6 +74,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
 
                 confirmYesButton.setOnClickListener {
                     alertDialog.dismiss()
+                    getActivity()?.getViewModelStore()?.clear()
                     var isSubmitted = viewModel.updateAttendanceRecord(id,reason)
                     Log.d("reportBtn", isSubmitted.toString())
                     if(isSubmitted){
@@ -87,6 +89,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                                     .beginTransaction()
                                     .replace(R.id.fragmentContainerView, AttendanceFragment())
                                     .commitNow()
+
                             }
 
                     }else{
