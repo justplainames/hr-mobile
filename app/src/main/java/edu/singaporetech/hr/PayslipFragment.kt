@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.KeyguardManager
@@ -24,6 +25,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -47,6 +49,7 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
     private lateinit var adapter : PayslipAdapter
+    private val PERMISSION_CODE=1000
     var tempTotalDeduction = ""
     var tempTotalEarning = ""
     var tempCpf = ""
@@ -70,8 +73,11 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
-                    notifyUser("Payslip downloaded in Downloads/HR folder!")
-                    showDownloadDialog()
+                    val permissionGranted=requestStoragePermission()
+                    if (permissionGranted){
+                        showDownloadDialog()
+                        notifyUser("Payslip downloaded in Downloads/HR folder!")
+                    }
                 }
             }
 
@@ -135,24 +141,18 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
                 setProgressWithAnimation(value, 2000) // =1s
                 // Set Progress Max
                 progressMax = 360f
-                // Set ProgressBar Color
-                progressBarColor = Color.GREEN
                 // Set background ProgressBar Color
-                backgroundProgressBarColor = Color.GRAY
+                backgroundProgressBarColor = Color.RED
                 // or with gradient
-                backgroundProgressBarColorStart = Color.RED
-                backgroundProgressBarColorEnd = Color.RED
                 backgroundProgressBarColorDirection =
                     CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-
                 // Set Width
                 progressBarWidth = 15f // in DP
                 backgroundProgressBarWidth = 15f // in DP
-
                 // Other
-                roundBorder = true
+                roundBorder = false
                 startAngle = 0f
-                progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                progressDirection = CircularProgressBar.ProgressDirection.TO_LEFT
             }
         })
 
@@ -271,7 +271,43 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
         addEmptyLines(paraGraph,7)
         document.add(paraGraph)
     }
+    private fun requestStoragePermission():Boolean{
+        var permissionGranted=false
 
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if ( ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED) {
+                var permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                permissionGranted = true
+            }
+        }
+        else{
+            permissionGranted=true
+        }
+        return permissionGranted
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            PERMISSION_CODE -> {
+                if(grantResults.size >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    showDownloadDialog()
+                    notifyUser("Payslip downloaded in Downloads/HR folder!")
+                }else{
+                    Toast.makeText(this@PayslipFragment.requireActivity(), "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
 
     fun addEmptyLines(paragraph: Paragraph, lineCount:Int){

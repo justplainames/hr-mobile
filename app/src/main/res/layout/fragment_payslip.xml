@@ -48,11 +48,11 @@
                 android:layout_width="216dp"
                 android:layout_height="222dp"
                 android:layout_marginTop="32dp"
-                app:cpb_background_progressbar_color="#b6bbd8"
-                app:cpb_background_progressbar_width="5dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="#3f51b5"
-                app:cpb_progressbar_width="10dp"
+                app:cpb_background_progressbar_color="@color/red"
+                app:cpb_background_progressbar_width="16dp"
+                app:cpb_progress_direction="to_left"
+                app:cpb_progressbar_color="@color/green"
+                app:cpb_progressbar_width="16dp"
                 app:cpb_round_border="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,6 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
-
                 android:layout_width="74dp"
                 android:layout_height="19dp"
                 android:layout_margin="5dp"
@@ -169,7 +168,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.436"
+                app:layout_constraintHorizontal_bias="0.475"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"
                 tools:ignore="MissingConstraints" />
@@ -204,7 +203,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:text="Deduction"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.515"

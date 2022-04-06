@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.KeyguardManager
@@ -24,6 +25,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +41,7 @@ class PayslipListFragment() : Fragment() ,PayslipAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
     private lateinit var adapter : PayslipAdapter
+    private val PERMISSION_CODE=1000
     var tempTotalDeduction = ""
     var tempTotalEarning = ""
     var tempCpf = ""
@@ -62,8 +65,11 @@ class PayslipListFragment() : Fragment() ,PayslipAdapter.OnItemClickListener {
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
-                    notifyUser("Payslip downloaded in Downloads/HR folder!")
-                    showDownloadDialog()
+                    val permissionGranted=requestStoragePermission()
+                    if (permissionGranted){
+                        showDownloadDialog()
+                        notifyUser("Payslip downloaded in Downloads/HR folder!")
+                    }
                 }
             }
 
@@ -246,7 +252,43 @@ class PayslipListFragment() : Fragment() ,PayslipAdapter.OnItemClickListener {
             )
         }
     }
+    private fun requestStoragePermission():Boolean{
+        var permissionGranted=false
 
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if ( ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED) {
+                var permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                permissionGranted = true
+            }
+        }
+        else{
+            permissionGranted=true
+        }
+        return permissionGranted
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            PERMISSION_CODE -> {
+                if(grantResults.size >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    showDownloadDialog()
+                    notifyUser("Payslip downloaded in Downloads/HR folder!")
+                }else{
+                    Toast.makeText(this@PayslipListFragment.requireActivity(), "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
     private fun notifyUser(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }

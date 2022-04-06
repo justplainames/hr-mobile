@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.KeyguardManager
@@ -29,6 +30,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
@@ -61,7 +63,7 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
     var tempNetPay= ""
     var tempOt= ""
     var tempDateOfPayDay= ""
-
+    private val PERMISSION_CODE=1000
     private var cancellationSignal: CancellationSignal? = null
     private val authenticationCallback: BiometricPrompt.AuthenticationCallback
         get() =
@@ -74,24 +76,10 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
-                    notifyUser("Payslip downloaded in Downloads/HR folder!")
-                    val values= ContentValues()
-                    values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
-                    values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
-                    values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS+"/HR")
-                    //values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-                    val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
-                    if (uri!=null){
-                        var outputStream=requireActivity().getContentResolver().openOutputStream(uri)
-                        var document= Document()
-
-                        PdfWriter.getInstance(document,outputStream)
-                        document.open()
-
-                        document.addAuthor("HR")
-                        addDataIntoPDF(document)
-
-                        document.close()
+                    val permissionGranted=requestStoragePermission()
+                    if (permissionGranted){
+                        showDownloadDialog()
+                        notifyUser("Payslip downloaded in Downloads/HR folder!")
                     }
                 }
             }
@@ -147,24 +135,18 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
                 setProgressWithAnimation(value, 2000) // =1s
                 // Set Progress Max
                 progressMax = 360f
-                // Set ProgressBar Color
-                progressBarColor = Color.GREEN
                 // Set background ProgressBar Color
-                backgroundProgressBarColor = Color.GRAY
+                backgroundProgressBarColor = Color.RED
                 // or with gradient
-                backgroundProgressBarColorStart = Color.RED
-                backgroundProgressBarColorEnd = Color.RED
                 backgroundProgressBarColorDirection =
                     CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-
                 // Set Width
                 progressBarWidth = 15f // in DP
                 backgroundProgressBarWidth = 15f // in DP
-
                 // Other
-                roundBorder = true
+                roundBorder = false
                 startAngle = 0f
-                progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+                progressDirection = CircularProgressBar.ProgressDirection.TO_LEFT
             }
         })
         binding.payslipDownloadButton.setOnClickListener{
@@ -292,7 +274,27 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
             )
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun showDownloadDialog(){
+        val values= ContentValues()
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
+        values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS+"/HR")
+        //values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+        val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
+        if (uri!=null){
+            var outputStream=requireActivity().getContentResolver().openOutputStream(uri)
+            var document= Document()
 
+            PdfWriter.getInstance(document,outputStream)
+            document.open()
+
+            document.addAuthor("HR")
+            addDataIntoPDF(document)
+
+            document.close()
+        }
+    }
     private fun notifyUser(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
@@ -309,6 +311,43 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
     fun addEmptyLines(paragraph: Paragraph, lineCount:Int){
         for (i in 0 until lineCount){
             paragraph.add(Paragraph("\n"))
+        }
+    }
+    private fun requestStoragePermission():Boolean{
+        var permissionGranted=false
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if ( ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED) {
+                var permission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                permissionGranted = true
+            }
+        }
+        else{
+            permissionGranted=true
+        }
+        return permissionGranted
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            PERMISSION_CODE -> {
+                if(grantResults.size >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    showDownloadDialog()
+                    notifyUser("Payslip downloaded in Downloads/HR folder!")
+                }else{
+                    Toast.makeText(this@PayslipDetailFragment.requireActivity(), "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

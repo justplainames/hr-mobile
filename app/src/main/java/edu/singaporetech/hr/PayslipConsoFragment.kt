@@ -34,7 +34,10 @@ import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import com.whiteelephant.monthpicker.MonthPickerDialog
 import edu.singaporetech.hr.databinding.FragmentPayslipConsoBinding
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class PayslipConsoFragment() : Fragment() {
@@ -82,8 +85,13 @@ class PayslipConsoFragment() : Fragment() {
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
-                    notifyUser("Payslip downloaded in Downloads/HR folder!")
-                    showDownloadDialog()
+                    val permissionGranted=requestStoragePermission()
+                    if (permissionGranted){
+                        showDownloadDialog()
+                        notifyUser("Payslip downloaded in Downloads/HR folder!")
+                    }
+
+
                 }
             }
 
@@ -181,10 +189,14 @@ class PayslipConsoFragment() : Fragment() {
         }
 
         binding.submitButton.setOnClickListener {
+
             var datepickerFrom= binding.payslipDatePickerFromInput.text.toString()
             var datepickerTo= binding.payslipDatePickerToInput.text.toString()
-            Log.d("TODATE",datepickerTo)
-            Log.d("FRODATE",datepickerFrom)
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+            val formatted = current.format(formatter)
+            var year= formatted.split("-")[0]
+            var mth= formatted.split("-")[1]
             if (datepickerTo.isNullOrBlank() || datepickerFrom.isNullOrBlank()) {
                 Toast.makeText(
                     this@PayslipConsoFragment.requireActivity(),
@@ -192,6 +204,7 @@ class PayslipConsoFragment() : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             else if(((datepickerFrom.split(" ")[1].toInt() > datepickerTo.split(" ")[1].toInt()) &&
                 (getMonthInt(datepickerFrom.split(" ")[0])!! > getMonthInt(datepickerTo.split(" ")[0])!!))||((datepickerFrom.split(" ")[1].toInt() > datepickerTo.split(" ")[1].toInt()) &&
                         (getMonthInt(datepickerFrom.split(" ")[0])!! < getMonthInt(datepickerTo.split(" ")[0])!!))||(((datepickerFrom.split(" ")[1].toInt() == datepickerTo.split(" ")[1].toInt()) &&
@@ -202,7 +215,16 @@ class PayslipConsoFragment() : Fragment() {
                     "Date(From) cannot be later than Date(To)",
                     Toast.LENGTH_LONG
                 ).show()
-            }else{
+            }
+            else if ((getMonthInt(datepickerTo.split(" ")[0])!!.toInt() >= mth.toInt())||(getMonthInt(datepickerFrom.split(" ")[0])!!.toInt() >= mth.toInt())){
+                Toast.makeText(
+                    this@PayslipConsoFragment.requireActivity(),
+                    "Date(To)/Date(From) cannot be later than current date",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            else{
                 monthTo=datepickerTo.split(" ")[0]
                 yearTo=datepickerTo.split(" ")[1]
                 monthFrom=datepickerFrom.split(" ")[0]
@@ -231,6 +253,7 @@ class PayslipConsoFragment() : Fragment() {
                 }
                 viewModel.payslip.observe(requireActivity(), payslipListObserver)
                 biometricAuthentication()
+
             }
 
 
@@ -256,30 +279,20 @@ class PayslipConsoFragment() : Fragment() {
 
             document.addAuthor("HR")
             addDataIntoPDF(document)
-
+            tempTotalDeductionArray.clear()
+            tempTotalEarningArray.clear()
+            tempCpfArray.clear()
+            tempAsstFundArray.clear()
+            tempBasicWageArray.clear()
+            tempBonusArray.clear()
+            tempOpeOthersArray.clear()
+            tempNetPayArray.clear()
+            tempOtArray.clear()
+            tempDateOfPayDayArray.clear()
             document.close()
         }
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun pdf(){
-        val values=ContentValues()
-        values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
-        values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOCUMENTS+"/test")
-        //values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS)
-        val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
-        if (uri!=null){
-            var outputStream=requireActivity().getContentResolver().openOutputStream(uri)
-            var document= Document()
-            PdfWriter.getInstance(document,outputStream)
-            document.open()
-            document.addAuthor("HR")
-            addDataIntoPDF(document)
-            document.close()
-        }
-    }
 
 
 
@@ -312,7 +325,8 @@ class PayslipConsoFragment() : Fragment() {
         when(requestCode){
             PERMISSION_CODE -> {
                 if(grantResults.size >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    pdf()
+                    showDownloadDialog()
+                    notifyUser("Payslip downloaded in Downloads/HR folder!")
                 }else{
                     Toast.makeText(this@PayslipConsoFragment.requireActivity(), "Permission denied", Toast.LENGTH_SHORT).show()
                 }
