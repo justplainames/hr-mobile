@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.FieldValue.serverTimestamp
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
 class LeaveViewModel : ViewModel(){
@@ -13,6 +14,7 @@ class LeaveViewModel : ViewModel(){
     private lateinit var firestore: FirebaseFirestore
     private var _leaveType: MutableLiveData<ArrayList<LeaveType>> = MutableLiveData<ArrayList<LeaveType>>()
     var image_uri: Uri? = null
+    var imageReff = ""
 
     init{
         firestore = FirebaseFirestore.getInstance()
@@ -73,24 +75,61 @@ class LeaveViewModel : ViewModel(){
 //        val document = if(leave.leaveId != null && !leave.leaveId.isEmpty())
         val document = firestore.collection("leave").document()
         leave.leaveId = document.id
+        leave.imageNamee = "gs://csc2008-hr-app.appspot.com/images/${leave.leaveId}/$location"
+//        val gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://csc2008-hr-app.appspot.com/images/${leave.leaveId}/$location")
+//        leave.imageRef = documents.
+
         //leave.leaveTimeStamp = serverTimestamp()
-        val set = document.set(leave)
-            set.addOnSuccessListener {
-                Log.d("firebase", "document saved")
-            }
-            set.addOnFailureListener {
-                Log.d("firebase", "save failed")
-            }
+
+        //        leave.imageRef = documents.downloadUrl.toString()
+//      val file = documents.downloadUrl
+//        documents.downloadUrl.addOnSuccessListener {Uri->
+//
+//            imageReff = Uri.toString()
+//            leave.imageRef = Uri.toString()
+//            Log.d("firebbaseeeeeeee",  imageReff)}
+
+//        leave.imageRef = documents.downloadUrl.await().toString()
+
         val documents =FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
-        val file = documents.downloadUrl
+
         image_uri?.let { documents.putFile(it) }
             ?.addOnSuccessListener {
                 Log.d("firebase", "save image!")
+                documents.downloadUrl.addOnSuccessListener {Uri->
+
+//
+                    imageReff = Uri.toString()
+                    leave.imageRef = imageReff
+                    val set = document.set(leave)
+                    set.addOnSuccessListener {
+                        Log.d("firebase", "document saved")
+                    }
+                    set.addOnFailureListener {
+                        Log.d("firebase", "save failed")
+                    }
+                }
+                    // Log.d("firebbaseeeeeeee",  Uri.toString())}
+
+//                    documents.set
+
+//                document.getDown
+                //leave.imageNamee = "gs://csc2008-hr-app.appspot.com/images/${leave.leaveId}/$location"
+//                Log.d("firebaseeeeee", leave.imageNamee.toString())
             }
             ?.addOnFailureListener {
-                Log.d("firebase", "save failed")
+                Log.d("firebaseeeeeeee", "save failed")
             }
-        leave.imageName = documents.downloadUrl.toString()
+
+        Log.d("firebbaseeeeeeee",  imageReff)
+//        Log.d("firebbaseeeeeeee",  imageReff)
+//        leave.imageRef = imageReff
+
+
+//        val imageref = FirebaseStorage.reference.child()
+
+
+
     }
 
     fun GetImage(path:String, location:String, image_uri:Uri){

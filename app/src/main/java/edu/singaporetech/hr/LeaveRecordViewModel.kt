@@ -3,6 +3,7 @@ package edu.singaporetech.hr
 import android.content.ContentValues.TAG
 import android.graphics.BitmapFactory
 import android.util.Log
+import androidx.core.graphics.createBitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
@@ -41,19 +42,30 @@ class LeaveRecordViewModel  : ViewModel(){
                         leaveRecord.leaveId = it.id
 
 
-                        var path = "${leaveRecord.leaveId}/${leaveRecord.imageName}"
-                        val documents = FirebaseStorage.getInstance().getReference("images/$path")
+                        var path = "${leaveRecord.leaveId}/${leaveRecord.imageName}.jpg"
+                        //val documents = FirebaseStorage.getInstance().getReference("images/$path")
+//                        val documents = FirebaseStorage.getInstance().getReference("images/$path")
+//
+//                        val localFile = File.createTempFile("path", "jpg")
+//                        documents.getFile(localFile).addOnSuccessListener {
+                        val documents =FirebaseStorage.getInstance().reference.child("images/$path")
+//                        val task = documents.putFile()
+//                        val file = documents.downloadUrl
+//                        leaveRecord.imageName=file.toString()
+                        Log.e("firestoreee Error", leaveRecord.imageName.toString())
+//                            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//                            return@addOnSuccessListener bitmap
+//                        }
 
-                        val localFile = File.createTempFile("path", "jpg")
-                        documents.getFile(localFile)
-                            ?.addOnSuccessListener {
-                                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                                leaveRecord.imageName = path
-                                Log.d("firebase", "get image!")
-                        }
-                            ?.addOnFailureListener {
-                                Log.d("firebase", "save failed")
-                            }
+//                        documents.getFile(localFile)
+//                            ?.addOnSuccessListener {
+//                                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+//                                leaveRecord.imageName = bitmap
+//                                Log.d("firebase", "get image!")
+//                        }
+//                            ?.addOnFailureListener {
+//                                Log.d("firebase", "save failed")
+//                            }
                         leaveRecords.add(leaveRecord!!)
                     }
                 }
@@ -118,14 +130,27 @@ class LeaveRecordViewModel  : ViewModel(){
     }
     fun fetchImage(leave: Leave){
 
-        var path = "${leave.leaveId}/${leave.imageName}"
-        val documents = FirebaseStorage.getInstance().getReference("images/$path")
-
-        val localFile = File.createTempFile("path", "jpg")
-        documents.getFile(localFile).addOnSuccessListener {
-            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-
-        }
+//        var path = "${leave.leaveId}/${leave.imageName}.jpg"
+//        val documents = FirebaseStorage.getInstance().getReference("images/$path")
+//
+//        val localFile = File.createTempFile("path", "jpg")
+//        documents.getFile(localFile).addOnSuccessListener {
+//
+//            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+////            return@addOnSuccessListener bitmap
+//        }
+//        val documents =FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
+//        val file = documents.downloadUrl
+//        documents.putFile() }
+//            ?.addOnSuccessListener {
+//                Log.d("firebase", "save image!")
+////                document.getDown
+//                leave.imageName = documents.downloadUrl.toString()
+//                Log.d("firebaseeeeee", leave.imageName.toString())
+//            }
+//            ?.addOnFailureListener {
+//                Log.d("firebaseeeeeeee", "save failed")
+//            }
     }
 
 

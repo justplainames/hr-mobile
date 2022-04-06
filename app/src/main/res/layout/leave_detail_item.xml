@@ -218,10 +218,12 @@
                 </TableRow>
 
                 <TableRow>
+
                     <ImageView
                         android:id="@+id/imageViewLeave"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="322dp"
+                        android:layout_height="200dp"
+                        android:gravity="center"
                         android:src="@drawable/table_border" />
                 </TableRow>
             </TableLayout>

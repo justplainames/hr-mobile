@@ -15,6 +15,8 @@ data class Leave(
     var leaveSupervisor: String? = null,
     var leaveType: String? = null,
     var imageName: String? = "",
+    var imageNamee: String? = "",
+    var imageRef: String? = "",
     @ServerTimestamp
     var leaveTimeStamp:Date? = null ){
 

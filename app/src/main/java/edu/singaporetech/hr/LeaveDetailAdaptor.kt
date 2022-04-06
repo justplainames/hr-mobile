@@ -36,9 +36,10 @@ class LeaveDetailAdaptor(private val leaveRecordViewAllList: ArrayList<LeaveReco
         holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveStatus
         holder.leaveRecordViewAllReason.text = currentItemViewAll.leaveReason
         holder.leaveRecordViewAllSupervisor.text = currentItemViewAll.leaveSupervisor
-        //holder.imageViewLeave. =
+//        holder.imageViewLeave.setImageBitmap(currentItemViewAll.imageName)
 
-        Glide.with(holder.itemView).load(currentItemViewAll.imageName).into(holder.imageViewLeave)
+
+        Glide.with(holder.itemView).load(currentItemViewAll.imageRef).into(holder.imageViewLeave)
         //Glide.with(holder.itemView).load(currentItemViewAll.getImageURL()).into(holder.imageViewLeave)
 
     }
@@ -57,3 +58,7 @@ class LeaveDetailAdaptor(private val leaveRecordViewAllList: ArrayList<LeaveReco
 
 
 }
+
+//private fun ImageView.setImageBitmap(imageName: String?) {
+//
+//}

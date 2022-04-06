@@ -20,6 +20,7 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCaller
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.singaporetech.hr.databinding.FragmentLeaveApplyBinding
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 import java.util.jar.Manifest
 
@@ -56,6 +58,7 @@ class LeaveApplyFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :
@@ -154,21 +157,40 @@ class LeaveApplyFragment : Fragment() {
             // validation for date picker
             var datePickerStartDate = binding.textViewLeaveStartDate.text.toString()
             var datePickerEndDate = binding.textViewLeaveEndDate.text.toString()
-
+            var time = LocalDateTime.now().toString()
+            Log.d("timee",LocalDateTime.now().toString() )
+            Log.d("timee",time.split("-")[1] ) //month
+            Log.d("timee",datePickerStartDate.split("/")[0] )
             if (binding.textViewLeaveStartDate.text.isNullOrBlank() || binding.textViewLeaveEndDate.text.isNullOrBlank()
                 || binding.autoCompleteTextViewLeaveType.text.isNullOrBlank() || selectedDay == "0" || binding.autoCompleteTextViewLeaveSupervisor.text.isNullOrBlank()) {
                 Toast.makeText(
                     this@LeaveApplyFragment.requireActivity(),
                     "Please fill in all the fields before you submit!", Toast.LENGTH_SHORT
                 ).show()
-            } else if ((datePickerEndDate.split("/")[0] < datePickerStartDate.split("/")[0]) &&
+            } else if ((datePickerStartDate.split("/")[0] < time.split("-")[2]) &&
+                (datePickerStartDate.split("/")[1] <= time.split("-")[1])){
+                //Log.d("timee",LocalDateTime.now().toString() )
+                Toast.makeText(
+                    this@LeaveApplyFragment.requireActivity(),
+                    "You cannot apply leave before today!", Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            else if ((datePickerEndDate.split("/")[0] < datePickerStartDate.split("/")[0]) &&
                 (datePickerEndDate.split("/")[1] <= datePickerStartDate.split("/")[1])
             ) {
                 Toast.makeText(
                     this@LeaveApplyFragment.requireActivity(),
                     "Start Date cannot be later than End Date!", Toast.LENGTH_SHORT
                 ).show()
-            } else {
+            } else if (image_uri == null){
+                Toast.makeText(
+                    this@LeaveApplyFragment.requireActivity(),
+                    "Please upload your MC!!", Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            else {
                 val dialogView = layoutInflater.inflate(R.layout.leave_apply_dialog, null)
                 val dialogBuilder = AlertDialog.Builder(context)
                     .setView(dialogView)
@@ -212,10 +234,11 @@ class LeaveApplyFragment : Fragment() {
         }
 
         binding.buttonCamera.setOnClickListener {
-            val permissionGranted = requestCameraPermission()
-            if (permissionGranted){
-                requestCameraPermission()
-            }
+            //val permissionGranted = requestCameraPermission()
+            requestCameraPermission()
+//            if (permissionGranted){
+//                requestCameraPermission()
+//            }
         }
     }
 
@@ -235,7 +258,11 @@ class LeaveApplyFragment : Fragment() {
 
         internal fun saveLeave(){
             storeLeave()
-            image_uri?.let { viewModel.save(leave, fileName, it) }
+            val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+            val now = Date()
+            fileName = formatter.format(now)
+            var pic = fileName + ".jpg"
+            image_uri?.let { viewModel.save(leave, pic, it) }
             leave = Leave()
         }
 
@@ -243,6 +270,7 @@ class LeaveApplyFragment : Fragment() {
             val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
             val now = Date()
             fileName = formatter.format(now)
+            var pic = fileName + ".jpg"
             leave.apply {
                 leaveType = binding.autoCompleteTextViewLeaveType.text.toString()
                 leaveStartDate = binding.textViewLeaveStartDate.text.toString()
@@ -251,8 +279,9 @@ class LeaveApplyFragment : Fragment() {
                 leaveSupervisor = binding.autoCompleteTextViewLeaveSupervisor.text.toString()
                 leaveReason = binding.editTextLeaveReason.text.toString()
                 leaveStatus = "Pending"
-                imageName = fileName
-                Log.d("file",fileName)
+                imageName = pic
+//                imageNamee = "gs://csc2008-hr-app.appspot.com/images/"
+                Log.d("file",pic)
             }
         }
 
@@ -314,7 +343,7 @@ class LeaveApplyFragment : Fragment() {
          when(requestCode){
              CAMERA_PERMISSION_CODE -> {
                  if(grantResults.size >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                     openCamera()
+                     Toast.makeText(this@LeaveApplyFragment.requireActivity(), "Permission granted", Toast.LENGTH_SHORT).show()
                  }else{
                      Toast.makeText(this@LeaveApplyFragment.requireActivity(), "Permission denied", Toast.LENGTH_SHORT).show()
                  }

@@ -72,6 +72,7 @@
                android:ems="10"
                android:gravity="center"
                android:hint="@string/select_start_date"
+               android:src="@drawable/table_border"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toStartOf="@+id/textViewLeaveEndDate"
                app:layout_constraintStart_toStartOf="parent"
