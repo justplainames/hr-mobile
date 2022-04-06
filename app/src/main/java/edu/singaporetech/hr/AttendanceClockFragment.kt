@@ -118,7 +118,14 @@ class AttendanceClockFragment : Fragment() {
 
         // Submit button
         binding.attendanceclockBtn.setOnClickListener {
-            biometricAuthentication()
+            if(binding.locationTextView.text.isNullOrBlank()){
+                Toast.makeText(
+                    this@AttendanceClockFragment.requireActivity(),
+                    "Location Missing, Please click on GET LOCATION before you submit!", Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                biometricAuthentication()
+            }
         }
     }
 
@@ -152,11 +159,11 @@ class AttendanceClockFragment : Fragment() {
         var clockoutAddress = binding.locationTextView.text as String?
         Log.d("TESTING", "saveAttendanceOUT1()")
 
+        Log.d("TESTING", "saveAttendanceOUT3()")
         if (clockoutAddress != null) {
-            Log.d("TESTING", "saveAttendanceOUT3()")
             viewModel.update(viewModel.documentId, clockoutDate, clockoutAddress)
-            Log.d("TESTING", "saveAttendanceOUT3()")
         }
+        Log.d("TESTING", "saveAttendanceOUT3()")
 
         clockstatus = AttendanceItem()
 
