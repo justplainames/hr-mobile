@@ -3,6 +3,7 @@ package edu.singaporetech.hr
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
+import android.content.ContentValues
 import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
@@ -21,16 +22,30 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import edu.singaporetech.hr.databinding.FragmentAttendanceClockBinding
 import java.util.*
 
-class AttendanceClockFragment : Fragment() {
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
+    private var map: GoogleMap? = null
+    private var locationPermissionGranted = false
+    // A default location (Google Asia Pacific, Singapore) and default zoom to use when location permission is
+    // not granted.
+    private val defaultLocation = LatLng(1.2765, 103.7992)
+    // The geographical location where the device is currently located. That is, the last-known
+    // location retrieved by the Fused Location Provider.
+    private var lastKnownLocation: Location? = null
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var binding: FragmentAttendanceClockBinding
 
     private val viewModel: AttendanceClockViewModel by viewModels()
@@ -70,7 +85,7 @@ class AttendanceClockFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_attendance_clock,container, false
@@ -110,9 +125,15 @@ class AttendanceClockFragment : Fragment() {
             }
         })
 
-        var btnGetLocation = binding.getLocationButton
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.attendanceMap) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
+
+        val btnGetLocation = binding.getLocationButton
 
         btnGetLocation.setOnClickListener {
+            getLocationPermission()
+            updateLocationUI()
             getLocation()
         }
 
@@ -140,10 +161,6 @@ class AttendanceClockFragment : Fragment() {
         (requireActivity() as MainActivity).supportActionBar?.title = "Clock Attendance"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     internal fun saveAttendanceClockIn(){
 
         Log.d("TESTING", "saveAttendanceIn()")
@@ -155,8 +172,8 @@ class AttendanceClockFragment : Fragment() {
 
     internal fun saveAttendanceClockOut(){
         Log.d("TESTING", "saveAttendanceOUT()")
-        var clockoutDate = Calendar.getInstance().time
-        var clockoutAddress = binding.locationTextView.text as String?
+        val clockoutDate = Calendar.getInstance().time
+        val clockoutAddress = binding.locationTextView.text as String?
         Log.d("TESTING", "saveAttendanceOUT1()")
 
         Log.d("TESTING", "saveAttendanceOUT3()")
@@ -170,7 +187,7 @@ class AttendanceClockFragment : Fragment() {
         Log.d(TAG, "saveAttendanceOut()4")
     }
 
-    internal fun storeAttendanceClockIn(){
+    private fun storeAttendanceClockIn(){
         clockstatus.apply {
             val clockIntime = Calendar.getInstance()
             clockInDate = clockIntime.time
@@ -193,37 +210,81 @@ class AttendanceClockFragment : Fragment() {
     }
 
     private fun getLocation(){
-        var txtLocation = binding.locationTextView
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(
-                    android.Manifest.permission.ACCESS_FINE_LOCATION,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                44
-            )
-        }
-        else {
-            fusedLocationProviderClient.lastLocation
-                .addOnSuccessListener { location : Location? ->
-                    // Got last known location. In some rare situations this can be null.
-                    if (location != null){
-                        var geocoder = Geocoder(requireContext(), Locale.getDefault())
-                        var addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+        val txtLocation = binding.locationTextView
+        try{
+            if(locationPermissionGranted) {
+                val locationResult = fusedLocationProviderClient.lastLocation
+                locationResult.addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        // Set the map's camera position to the current location of the device.
+                        lastKnownLocation = task.result
+                        if (lastKnownLocation != null) {
+                            map?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ), DEFAULT_ZOOM.toFloat()
+                                )
+                            )
+                        }
+                        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                        val addresses = geocoder.getFromLocation(
+                            lastKnownLocation!!.latitude,
+                            lastKnownLocation!!.longitude,
+                            1
+                        )
                         txtLocation.text = addresses.get(0).getAddressLine(0)
-                    }
-                    else{
-
+                    } else {
+                        Log.d(ContentValues.TAG, "Current location is null. Using defaults.")
+                        Log.e(ContentValues.TAG, "Exception: %s", task.exception)
+                        map?.moveCamera(
+                            CameraUpdateFactory
+                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                        )
+                        map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message, e)
+        }
+
+    }
+
+    private fun getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun updateLocationUI() {
+        if (map == null) {
+            return
+        }
+        try {
+            if (locationPermissionGranted) {
+                map?.isMyLocationEnabled = true
+                map?.uiSettings?.isMyLocationButtonEnabled = true
+            } else {
+                map?.isMyLocationEnabled = false
+                map?.uiSettings?.isMyLocationButtonEnabled = false
+                lastKnownLocation = null
+                getLocationPermission()
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message, e)
         }
     }
 
@@ -247,7 +308,7 @@ class AttendanceClockFragment : Fragment() {
             return false
         }
 
-        if (activity?.let { ActivityCompat.checkSelfPermission(it.applicationContext, android.Manifest.permission.USE_BIOMETRIC) } != PackageManager.PERMISSION_GRANTED) {
+        if (activity?.let { ActivityCompat.checkSelfPermission(it.applicationContext, Manifest.permission.USE_BIOMETRIC) } != PackageManager.PERMISSION_GRANTED) {
             notifyUser("Fingerprint authentication permission is not enabled")
             return false
         }
@@ -282,4 +343,15 @@ class AttendanceClockFragment : Fragment() {
         }
     }
 
+    companion object {
+        private const val DEFAULT_ZOOM = 15
+        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        this.map = map
+        getLocationPermission()
+        updateLocationUI()
+        getLocation()
+    }
 }
