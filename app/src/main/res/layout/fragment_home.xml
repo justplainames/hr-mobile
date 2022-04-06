@@ -72,7 +72,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:rowCount="2"
-                            app:columnCount="3">
+                            app:columnCount="2">
 
 
                             <TextView
@@ -130,32 +130,6 @@
                                 android:gravity="center"
                                 android:textColor="@color/orange"/>
 
-                            <TextView
-                                android:id="@+id/tvAttendanceSummaryOTWorkedTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:text="Total OT"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                app:layout_row="0"
-                                app:layout_column="2"
-                                app:layout_gravity="fill_horizontal"
-                                app:layout_columnWeight="1"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:id="@+id/tvAttendanceSummaryOTWorkedValue"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="40 \nHours"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                app:layout_row="1"
-                                app:layout_column="2"
-                                app:layout_gravity="fill_horizontal"
-                                app:layout_columnWeight="1"
-                                android:gravity="center"/>
                         </androidx.gridlayout.widget.GridLayout>
 
                         <androidx.gridlayout.widget.GridLayout
@@ -199,12 +173,13 @@
                                 app:layout_columnWeight="1"/>
 
                             <TextView
-                                android:id="@+id/a2"
+                                android:id="@+id/tvAttendanceSummaryOTWorkedTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:gravity="center"
-                                android:text="Some other attribute"
+                                android:text="Total OT"
+                                android:paddingHorizontal="28dp"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:layout_column="1"
@@ -213,11 +188,11 @@
                                 app:layout_columnWeight="1"/>
 
                             <TextView
-                                android:id="@+id/a22"
+                                android:id="@+id/tvAttendanceSummaryOTWorkedValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="40 \nHours"
+                                android:text=""
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 app:layout_column="1"

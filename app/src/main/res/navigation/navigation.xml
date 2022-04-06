@@ -7,21 +7,18 @@
     <fragment
         android:id="@+id/signUserFragment"
         android:name="edu.singaporetech.hr.SignUserFragment"
-        android:label="fragment_sign_user"
+        android:label="Sign In"
         tools:layout="@layout/fragment_sign_user">
         <action
             android:id="@+id/action_signUserFragment_to_forgetUserFragment"
             app:destination="@id/forgetUserFragment"
             app:popUpTo="@id/signUserFragment"
             app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_signUserFragment_to_signFacialFragment"
-            app:destination="@id/signFacialFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgetUserFragment"
         android:name="edu.singaporetech.hr.ForgetUserFragment"
-        android:label="fragment_forget_user"
+        android:label="Forget Password?"
         tools:layout="@layout/fragment_forget_user" >
         <action
             android:id="@+id/action_forgetUserFragment_to_recoverSuccessFragment"
@@ -32,21 +29,12 @@
     <fragment
         android:id="@+id/recoverSuccessFragment"
         android:name="edu.singaporetech.hr.RecoverSuccessFragment"
-        android:label="fragment_recover_success"
+        android:label="Recovery Success!"
         tools:layout="@layout/fragment_recover_success" >
         <action
             android:id="@+id/action_recoverSuccessFragment_to_signUserFragment"
             app:destination="@id/signUserFragment"
             app:popUpTo="@id/signUserFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/signFacialFragment"
-        android:name="edu.singaporetech.hr.SignFacialFragment"
-        android:label="fragment_sign_facial"
-        tools:layout="@layout/fragment_sign_facial" >
-        <action
-            android:id="@+id/action_signFacialFragment_to_signUserFragment"
-            app:destination="@id/signUserFragment" />
     </fragment>
 </navigation>

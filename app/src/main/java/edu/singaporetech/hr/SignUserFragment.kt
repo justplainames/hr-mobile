@@ -1,6 +1,7 @@
 package edu.singaporetech.hr
 
 import android.annotation.SuppressLint
+import android.app.ActionBar
 import android.app.Activity
 import android.app.KeyguardManager
 import android.content.ContentValues.TAG
@@ -29,6 +30,7 @@ import edu.singaporetech.hr.databinding.FragmentSignUserBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.itextpdf.text.xml.xmp.DublinCoreProperties.setTitle
 
 
 class  SignUserFragment : Fragment() {
@@ -54,6 +56,10 @@ class  SignUserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val actionBar = (activity as SignActivity).supportActionBar
+        actionBar!!.setDisplayShowTitleEnabled(true)
+        actionBar!!.setTitle("Sign In")
+
         val binding = DataBindingUtil.inflate<FragmentSignUserBinding>(
             inflater,
             R.layout.fragment_sign_user, container, false
@@ -83,11 +89,6 @@ class  SignUserFragment : Fragment() {
         binding.btnForgot.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_signUserFragment_to_forgetUserFragment)
         }
-
-        binding.ibFaceId.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_signUserFragment_to_signFacialFragment)
-        }
-
 
         binding.ibFaceId.setOnClickListener {
             biometricAuthentication()
