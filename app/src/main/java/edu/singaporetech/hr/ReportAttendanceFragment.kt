@@ -45,7 +45,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragmentContainerView, AttendanceFragment())
+                .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                 .commitNow()
         }
 
@@ -74,7 +74,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
 
                 confirmYesButton.setOnClickListener {
                     alertDialog.dismiss()
-                    getActivity()?.getViewModelStore()?.clear()
+
                     var isSubmitted = viewModel.updateAttendanceRecord(id,reason)
                     Log.d("reportBtn", isSubmitted.toString())
                     if(isSubmitted){
@@ -87,7 +87,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                                 requireActivity()
                                     .supportFragmentManager
                                     .beginTransaction()
-                                    .replace(R.id.fragmentContainerView, AttendanceFragment())
+                                    .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                                     .commitNow()
 
                             }
@@ -126,7 +126,7 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                 requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentContainerView, AttendanceFragment())
+                    .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                     .commitNow()
             }
         })

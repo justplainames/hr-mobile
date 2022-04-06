@@ -55,7 +55,6 @@
                 app:cpb_progressbar_width="10dp"
                 app:cpb_round_border="false"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
@@ -72,6 +71,26 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/next_button"
                 tools:ignore="MissingConstraints" />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+
+                android:layout_width="74dp"
+                android:layout_height="19dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="4dp"
+                android:backgroundTint="@color/green"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="30dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toStartOf="@id/materialCardView2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNetPay">
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/selectedPayslipMthYr"
@@ -146,7 +165,6 @@
                 android:id="@+id/textViewNetPay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:text="Netpay:"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -155,6 +173,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/circularProgressBar"
                 tools:ignore="MissingConstraints" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView2"
+                android:layout_width="83dp"
+                android:layout_height="21dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/cancelColour"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNetPay" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="52dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="20dp"
+                android:text="Net Pay"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Deduction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.515"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

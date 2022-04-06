@@ -146,8 +146,8 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
                     CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
 
                 // Set Width
-                progressBarWidth = 7f // in DP
-                backgroundProgressBarWidth = 7f // in DP
+                progressBarWidth = 15f // in DP
+                backgroundProgressBarWidth = 15f // in DP
 
                 // Other
                 roundBorder = true
@@ -225,8 +225,8 @@ class PayslipFragment : Fragment(),PayslipAdapter.OnItemClickListener {
         val values= ContentValues()
         values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
         values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
-        //values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOCUMENTS+"/HR")
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS+"/HR")
+        //values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
         val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
         if (uri!=null){
             var outputStream=requireActivity().getContentResolver().openOutputStream(uri)

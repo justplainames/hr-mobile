@@ -16,17 +16,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.androidplot.pie.Segment
 import com.androidplot.pie.SegmentFormatter
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import edu.singaporetech.hr.databinding.AttendanceOverviewBinding
 import java.time.LocalDateTime
 //import edu.singaporetech.hr.databinding.FragmentAttendanceBinding
 import java.util.ArrayList
 
-class AttendanceOverviewFragment: Fragment() {
+class AttendanceOverviewFragment: Fragment(),AttendanceAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: AttendanceModel
     private lateinit var viewClockModel: AttendanceClockViewModel
+    private lateinit var attendancedapter: AttendanceAdapter
+    private lateinit var attendanceArrayList: ArrayList<Attendance>
+    private lateinit var attendanceRecyclerView: RecyclerView
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,6 +42,18 @@ class AttendanceOverviewFragment: Fragment() {
         val binding = DataBindingUtil.inflate<AttendanceOverviewBinding>(
             inflater,R.layout.attendance_overview, container, false
         )
+        getActivity()?.getViewModelStore()?.clear()
+        viewModel = ViewModelProvider(requireActivity()).get(AttendanceModel::class.java)
+
+        val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
+            attendancedapter=AttendanceAdapter(items.take(items.size) as java.util.ArrayList<Attendance>,this) // add items to adapter
+            binding.recyclerViewAttendence.adapter=attendancedapter
+        }
+
+        viewModel.attendance.observe(requireActivity(), attendanceListObserver)
+
+        binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
+        binding.recyclerViewAttendence.setHasFixedSize(true)
 
         viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
 
@@ -44,44 +61,51 @@ class AttendanceOverviewFragment: Fragment() {
             Log.d("TESTING", "saveAttendanceIn()")
             binding.textViewOnTime.setText(summary[1].onTime.toString())
             binding.textViewLate.setText(summary[1].late.toString())
-//            if (summary.daysMissed in 6..8){
-//                binding.textViewAbsent.setTextColor(
-//                    ContextCompat.getColor(
-//                    requireContext(),R.color.orange))
-//            } else if (summary.daysMissed > 8 ){
-//                binding.textViewAbsent.setTextColor(
-//                    ContextCompat.getColor(
-//                    requireContext(),R.color.red))}
-//            else {
-//                binding.textViewAbsent.setTextColor(
-//                    ContextCompat.getColor(
-//                    requireContext(),R.color.main))}
             var miss = LocalDateTime.now().dayOfMonth - summary[1].onTime - summary[1].late
             binding.textViewAbsent.setText(miss.toString())
+            var onTime: Float = summary[1].onTime?.toFloat() ?: 0.0f
+            var late: Float =summary[1].late?.toFloat() ?: 0.0f
+            var total:Float= onTime+late
+            val value:Float= ((onTime) / (total)) *360f
+            val circularProgressBar = binding.circularProgressBar
+            circularProgressBar.apply {
 
+                setProgressWithAnimation(value, 2000) // =1s
+                // Set Progress Max
+                progressMax = 360f
+                // Set ProgressBar Color
+                progressBarColor = Color.GREEN
+                // Set background ProgressBar Color
+                backgroundProgressBarColor = Color.GRAY
+                // or with gradient
+                backgroundProgressBarColorStart = Color.RED
+                backgroundProgressBarColorEnd = Color.RED
+                backgroundProgressBarColorDirection =
+                    CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
 
+                // Set Width
+                progressBarWidth = 15f // in DP
+                backgroundProgressBarWidth = 15f // in DP
+
+                // Other
+                roundBorder = true
+                startAngle = 0f
+                progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+            }
 //            val formatValue = String.format("%.0f", summary.percentageMissed * 100)
-
-            val arrayListChart = ArrayList<Int>()
-            arrayListChart.add(Integer.valueOf(summary[1].onTime.toInt()))
-            arrayListChart.add(Integer.valueOf(summary[1].late.toInt()))
-            arrayListChart.add(Integer.valueOf(miss.toInt()))
+//
+//            val arrayListChart = ArrayList<Int>()
+//            arrayListChart.add(Integer.valueOf(summary[1].onTime.toInt()))
+//            arrayListChart.add(Integer.valueOf(summary[1].late.toInt()))
+//            arrayListChart.add(Integer.valueOf(miss.toInt()))
             //arrayListChart.add(Integer.valueOf(summary.daysOnLeave))
-
-            val s1 = Segment("On Time", arrayListChart.get(0))
-            val s2 = Segment("Late", arrayListChart.get(1))
-            val s3 = Segment("Absent", arrayListChart.get(2))
+//
+//            val s1 = Segment("On Time", arrayListChart.get(0))
+//            val s2 = Segment("Late", arrayListChart.get(1))
+//            val s3 = Segment("Absent", arrayListChart.get(2))
 //            val s4 = Segment("On Time", arrayListChart.get(0))
 
-            val sf1 = SegmentFormatter(Color.parseColor("#2BFBB8"))
-            val sf2 = SegmentFormatter(Color.parseColor("#FB502B"))
-            val sf3 = SegmentFormatter(Color.parseColor("#FFC300"))
 
-            binding.circularProgressBar.addSegment(s1,sf1)
-            binding.circularProgressBar.addSegment(s2,sf2)
-            binding.circularProgressBar.addSegment(s3,sf3)
-            binding.circularProgressBar.getBorderPaint().setColor(Color.TRANSPARENT)
-            binding.circularProgressBar.getBackgroundPaint().setColor(Color.TRANSPARENT)
 
             binding.clockOutBtn.setOnClickListener({
                 requireActivity()
@@ -91,13 +115,7 @@ class AttendanceOverviewFragment: Fragment() {
                     .commitNow()
             })
 
-            binding.allAttendanceBtn.setOnClickListener({
-                requireActivity()
-                    .supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainerView, AttendanceFragment())
-                    .commitNow()
-            })
+
         })
 
         return binding.root
@@ -129,5 +147,12 @@ class AttendanceOverviewFragment: Fragment() {
         (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
     }
 
+    override fun onItemClick(position: Int, clockInDate: String, id: String) {
+        requireActivity()
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentContainerView, ReportAttendanceFragment(position,clockInDate,id))
+            .commitNow()
+    }
 
 }

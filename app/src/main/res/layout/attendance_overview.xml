@@ -27,30 +27,16 @@
 <!--                />-->
         </LinearLayout>
 
-        <TextView
-            app:layout_constraintBottom_toBottomOf="@id/circularProgressBar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/circularProgressBar"
-            android:layout_width="wrap_content"
-            android:id="@+id/amntWorkingDaysTV"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="bottom|center"
-            android:text="20 working days"
-            android:layout_height="wrap_content">
-        </TextView>
-
-        <com.androidplot.pie.PieChart
-            android:id="@+id/circularProgressBar"
-            android:layout_width="250dp"
-            android:layout_height="220dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="32dp"
-            app:graphBackgroundColor="@color/ap_transparent"
-            app:layout_constraintBottom_toTopOf="@id/attendanceInfoRow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <!--        <com.androidplot.pie.PieChart-->
+<!--            android:id="@+id/circularProgressBar"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="220dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginBottom="32dp"-->
+<!--            app:graphBackgroundColor="@color/ap_transparent"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/attendanceInfoRow"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
 
 
@@ -64,182 +50,167 @@
         <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar"
+            android:layout_width="282dp"
+            android:layout_height="250dp"
+            android:layout_margin="5dp"
+            app:cpb_background_progressbar_color="@color/red"
+            app:cpb_background_progressbar_width="16dp"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progressbar_color="@color/green"
+            app:cpb_progressbar_width="16dp"
+            app:cpb_round_border="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <LinearLayout
             android:id="@+id/attendanceInfoRow"
+            android:layout_width="338dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             android:weightSum="4"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circularProgressBar">
+
             <com.google.android.material.card.MaterialCardView
-                app:cardCornerRadius="7dp"
-                app:cardElevation="2dp"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
                 android:clickable="true"
                 android:focusable="true"
-                android:backgroundTint="@color/white"
-                android:layout_height="80dp"
-                android:layout_width="80dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                >
+                app:cardCornerRadius="7dp"
+                app:cardElevation="2dp">
                 <!-- Card contents -->
                 <TextView
                     android:id="@+id/textViewOnTime"
                     android:layout_width="26dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"></TextView>
+                    android:layout_gravity="center"
+                    android:textColor="#009688"></TextView>
+
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/onTimeTV"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:text="@string/onTime"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:textSize="16sp"
+                    android:textStyle="bold"></TextView>
 
             </com.google.android.material.card.MaterialCardView>
+
             <com.google.android.material.card.MaterialCardView
+                android:layout_width="84dp"
+                android:layout_height="86dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="7dp"
                 app:cardElevation="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:backgroundTint="@color/white"
-                android:layout_height="80dp"
-                android:layout_width="80dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                >
+                app:layout_constraintTop_toTopOf="parent">
                 <!-- Card contents -->
                 <TextView
                     android:id="@+id/textViewLate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"></TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="@string/Late"
-                    android:id="@+id/lateTV"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="bottom|center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_gravity="center"
+                    android:textColor="#F44336"></TextView>
 
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                app:cardCornerRadius="7dp"
-                app:cardElevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:backgroundTint="@color/white"
-                android:layout_height="80dp"
-                android:layout_width="80dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                >
-                <!-- Card contents -->
                 <TextView
-                    android:id="@+id/textViewOnLeave"
+                    android:id="@+id/lateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"></TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="@string/onLeave"
-                    android:id="@+id/onLeaveTV"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     android:layout_gravity="bottom|center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:text="@string/Late"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></TextView>
 
             </com.google.android.material.card.MaterialCardView>
+
             <com.google.android.material.card.MaterialCardView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="7dp"
                 app:cardElevation="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:backgroundTint="@color/white"
-                android:layout_height="80dp"
-                android:layout_width="80dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                >
+                app:layout_constraintTop_toTopOf="parent">
                 <!-- Card contents -->
                 <TextView
                     android:id="@+id/textViewAbsent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"></TextView>
+
                 <TextView
-                    android:layout_width="wrap_content"
                     android:id="@+id/absentTV"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:text="@string/absent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:text="@string/absent"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></TextView>
             </com.google.android.material.card.MaterialCardView>
 
 
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/btnLinearLayout"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintTop_toBottomOf="@id/attendanceInfoRow"
-            >
-
-            <Button
-                android:id="@+id/clockOutBtn"
-                android:layout_width="365dp"
-                android:layout_height="60dp"
-                android:layout_margin="15dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/colorClockInBtn"
-                android:text="CLOCK IN / CLOCK OUT"></Button>
-
-        </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/btnAttendanceLinearLayout"
+            android:id="@+id/btnLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="116dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/attendanceInfoRow">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/allAttendanceBtn"
-                android:layout_width="357dp"
-                android:layout_height="58dp"
-                android:layout_margin="15dp"
-                android:text="@string/attendanceDetailBtnText">
-
-            </com.google.android.material.button.MaterialButton>
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAttendence"
+            android:layout_width="388dp"
+            android:layout_height="303dp"
+            android:layout_marginEnd="1dp"
+            android:background="#FAF9F9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/activity_attendenceitem" />
+
+        <Button
+            android:id="@+id/clockOutBtn"
+            android:layout_width="365dp"
+            android:layout_height="60dp"
+            android:layout_margin="15dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorClockInBtn"
+            android:text="CLOCK IN / CLOCK OUT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/attendanceInfoRow"></Button>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -302,14 +302,13 @@
                     android:id="@+id/circularAttendanceRate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     app:cpb_background_progressbar_color="@color/red"
                     app:cpb_background_progressbar_width="16dp"
                     app:cpb_progress_direction="to_left"
                     app:cpb_progressbar_color="@color/green"
                     app:cpb_progressbar_width="16dp"
-                    app:cpb_round_border="false"
-                    android:layout_margin="5dp"
-                    />
+                    app:cpb_round_border="false" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
