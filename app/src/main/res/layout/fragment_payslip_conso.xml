@@ -5,7 +5,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.singaporetech.hr.PayslipConsoFragment"
+    tools:context="edu.singaporetech.hr.fragment.payslip.PayslipConsoFragment"
     android:id="@+id/fragment_payslip_conso">
 
     <androidx.constraintlayout.widget.ConstraintLayout

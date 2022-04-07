@@ -3,6 +3,7 @@ package edu.singaporetech.hr
 
 
 import com.google.common.truth.Truth.assertThat
+import edu.singaporetech.hr.validator.SignActivityValidator
 import org.junit.Test
 
 class SignActivityTest {
@@ -14,7 +15,7 @@ class SignActivityTest {
      */
     @Test
     fun emptyemail() {
-        val result=SignActivityValidator.validateLoginInput(
+        val result= SignActivityValidator.validateLoginInput(
             "",
             "qwerty"
         )
@@ -25,7 +26,7 @@ class SignActivityTest {
      */
     @Test
     fun emptypass() {
-        val result=SignActivityValidator.validateLoginInput(
+        val result= SignActivityValidator.validateLoginInput(
             "mary@csc2008.com",
             ""
         )
@@ -36,7 +37,7 @@ class SignActivityTest {
      */
     @Test
     fun validateSuccess() {
-        val result=SignActivityValidator.validateLoginInput(
+        val result= SignActivityValidator.validateLoginInput(
             "mary@csc2008.com",
             "qwerty"
         )
@@ -47,7 +48,7 @@ class SignActivityTest {
      */
     @Test
     fun wrongPassword() {
-        val result=SignActivityValidator.validateLoginInput(
+        val result= SignActivityValidator.validateLoginInput(
             "mary@csc2008.com",
             "qwerty1001"
         )
@@ -58,7 +59,7 @@ class SignActivityTest {
      */
     @Test
     fun wrongEmail() {
-        val result=SignActivityValidator.validateLoginInput(
+        val result= SignActivityValidator.validateLoginInput(
             "mary1001@csc2008.com",
             "qwerty"
         )
@@ -70,7 +71,7 @@ class SignActivityTest {
     */
     @Test
     fun noUserInput() {
-        val result=SignActivityValidator.validateLoginInput(
+        val result= SignActivityValidator.validateLoginInput(
             "",
             ""
         )

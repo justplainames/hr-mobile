@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="edu.singaporetech.hr.HomeFragment"
+        android:name="edu.singaporetech.hr.fragment.HomeFragment"
         android:label="HomePage"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
 
     <fragment
     android:id="@+id/attendanceOverviewFragment"
-    android:name="edu.singaporetech.hr.AttendanceOverviewFragment"
+    android:name="edu.singaporetech.hr.fragment.attendance.AttendanceOverviewFragment"
     android:label="AttendanceOverviewFragment"
         tools:layout="@layout/attendance_overview">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/attendanceFragment"
-        android:name="edu.singaporetech.hr.AttendanceFragment"
+        android:name="edu.singaporetech.hr.fragment.attendance.AttendanceFragment"
         android:label="fragment_attendance"
         tools:layout="@layout/fragment_attendance" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/attendanceClockFragment4"
-        android:name="edu.singaporetech.hr.AttendanceClockFragment"
+        android:name="edu.singaporetech.hr.fragment.attendance.AttendanceClockFragment"
         android:label="AttendanceClockFragment" >
         <action
             android:id="@+id/action_attendanceClockFragment4_to_attendanceOverviewFragment"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/reportAttendanceFragment"
-        android:name="edu.singaporetech.hr.ReportAttendanceFragment"
+        android:name="edu.singaporetech.hr.fragment.attendance.ReportAttendanceFragment"
         android:label="report_attendance_fragment"
         tools:layout="@layout/report_attendance_fragment" >
         <action

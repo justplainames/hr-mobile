@@ -3,10 +3,9 @@ package edu.singaporetech.hr.leave
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import edu.singaporetech.hr.Leave
+import edu.singaporetech.hr.data.Leave
 import edu.singaporetech.hr.R
 
 

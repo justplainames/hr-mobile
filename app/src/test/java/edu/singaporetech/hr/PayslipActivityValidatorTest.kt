@@ -1,7 +1,7 @@
 package edu.singaporetech.hr
 
 import com.google.common.truth.Truth
-import org.junit.Assert.*
+import edu.singaporetech.hr.validator.PayslipActivityValidator
 import org.junit.Test
 
 class PayslipActivityValidatorTest {
@@ -17,7 +17,7 @@ class PayslipActivityValidatorTest {
     */
     @Test
     fun noInput() {
-        val result=PayslipActivityValidator.validatePayslipInput(
+        val result= PayslipActivityValidator.validatePayslipInput(
             "",
             ""
         )
@@ -28,7 +28,7 @@ class PayslipActivityValidatorTest {
     */
     @Test
     fun emptyStartDate() {
-        val result=PayslipActivityValidator.validatePayslipInput(
+        val result= PayslipActivityValidator.validatePayslipInput(
             "",
             "Feb 2022"
         )
@@ -39,7 +39,7 @@ class PayslipActivityValidatorTest {
    */
     @Test
     fun emptyEndDate() {
-        val result=PayslipActivityValidator.validatePayslipInput(
+        val result= PayslipActivityValidator.validatePayslipInput(
             "Jan 2022",
             ""
         )
@@ -50,7 +50,7 @@ class PayslipActivityValidatorTest {
     */
     @Test
     fun submitConsoFormSuccess() {
-        val result=PayslipActivityValidator.validatePayslipInput(
+        val result= PayslipActivityValidator.validatePayslipInput(
             "Jan 2022",
             "Feb 2022",
 
@@ -62,7 +62,7 @@ class PayslipActivityValidatorTest {
     */
     @Test
     fun datePickerFromLater() {
-        val result=PayslipActivityValidator.validatePayslipInput(
+        val result= PayslipActivityValidator.validatePayslipInput(
             "Feb 2022",
             "Jan 2022",
 

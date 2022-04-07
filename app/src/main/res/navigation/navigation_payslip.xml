@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/payslipFragment"
-        android:name="edu.singaporetech.hr.PayslipFragment"
+        android:name="edu.singaporetech.hr.fragment.payslip.PayslipFragment"
         android:label="fragment_payslip"
         android:title="@string/payslipPageHeader"
         tools:layout="@layout/fragment_payslip" >
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/payslipDetailFragment"
-        android:name="edu.singaporetech.hr.PayslipDetailFragment"
+        android:name="edu.singaporetech.hr.fragment.payslip.PayslipDetailFragment"
         android:label="fragment_payslip_detail"
         android:title="@string/payslipPageHeader"
         tools:layout="@layout/fragment_payslip_detail" >
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/payslipConsoFragment"
-        android:name="edu.singaporetech.hr.PayslipConsoFragment"
+        android:name="edu.singaporetech.hr.fragment.payslip.PayslipConsoFragment"
         android:label="fragment_payslip_conso"
         android:title="@string/payslipPageHeader"
         tools:layout="@layout/fragment_payslip_conso" >
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/payslipListFragment"
-        android:name="edu.singaporetech.hr.PayslipListFragment"
+        android:name="edu.singaporetech.hr.fragment.payslip.PayslipListFragment"
         android:label="fragment_payslip_list"
         android:title="@string/payslipPageHeader"
         tools:layout="@layout/fragment_payslip_list" >
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="edu.singaporetech.hr.HomeFragment"
+        android:name="edu.singaporetech.hr.fragment.HomeFragment"
         android:label="fragment_home"
         android:title="@string/homePageHeader"
         tools:layout="@layout/fragment_home" >

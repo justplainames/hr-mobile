@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="edu.singaporetech.hr.HomeFragment"
+        android:name="edu.singaporetech.hr.fragment.HomeFragment"
         android:label="HomePage"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/leaveFragment"
-        android:name="edu.singaporetech.hr.LeaveFragment"
+        android:name="edu.singaporetech.hr.fragment.leave.LeaveFragment"
         android:label="Leave"
         tools:layout="@layout/fragment_leave" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/leaveApplyFragment"
-        android:name="edu.singaporetech.hr.LeaveApplyFragment"
+        android:name="edu.singaporetech.hr.fragment.leave.LeaveApplyFragment"
         android:label="fragment_leave_apply"
         tools:layout="@layout/fragment_leave_apply" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/leaveRecordFragment"
-        android:name="edu.singaporetech.hr.LeaveRecordFragment"
+        android:name="edu.singaporetech.hr.fragment.leave.LeaveRecordFragment"
         android:label="fragment_leave_record"
         tools:layout="@layout/fragment_leave_record" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/leaveDetailFragment"
-        android:name="edu.singaporetech.hr.LeaveDetailFragment"
+        android:name="edu.singaporetech.hr.fragment.leave.LeaveDetailFragment"
         android:label="fragment_leave_detail"
         tools:layout="@layout/fragment_leave_detail" />
 

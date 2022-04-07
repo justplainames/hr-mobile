@@ -1,5 +1,6 @@
 package edu.singaporetech.hr
 import com.google.common.truth.Truth.assertThat
+import edu.singaporetech.hr.validator.LeaveActivityValidator
 import org.junit.Test
 
 class LeaveActivityValidatorTest {
@@ -13,7 +14,7 @@ class LeaveActivityValidatorTest {
      */
     @Test
     fun emptytextViewLeaveStartDate() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "",
             "8/4/2022",
             "Annual Leave",
@@ -27,7 +28,7 @@ class LeaveActivityValidatorTest {
      */
     @Test
     fun emptytextViewLeaveEndDate() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "4/4/2022",
             "",
             "Annual Leave",
@@ -41,7 +42,7 @@ class LeaveActivityValidatorTest {
     */
     @Test
     fun emptyLeaveType() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "4/4/2022",
             "8/4/2022",
             "",
@@ -55,7 +56,7 @@ class LeaveActivityValidatorTest {
     */
     @Test
     fun emptySelectedDay() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "4/4/2022",
             "8/4/2022",
             "Sick Leave",
@@ -69,7 +70,7 @@ class LeaveActivityValidatorTest {
     */
     @Test
     fun emptyLeaveSupervisor() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "4/4/2022",
             "8/4/2022",
             "Sick Leave",
@@ -83,7 +84,7 @@ class LeaveActivityValidatorTest {
     */
     @Test
     fun noInput() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "",
             "",
             "",
@@ -97,7 +98,7 @@ class LeaveActivityValidatorTest {
     */
     @Test
     fun submitLeaveFormSuccess() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "4/4/2022",
             "8/4/2022",
             "Annual Leave",
@@ -111,7 +112,7 @@ class LeaveActivityValidatorTest {
     */
     @Test
     fun startDateLater() {
-        val result=LeaveActivityValidator.validateApplyLeaveInput(
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
             "10/4/2022",
             "8/4/2022",
             "Annual Leave",

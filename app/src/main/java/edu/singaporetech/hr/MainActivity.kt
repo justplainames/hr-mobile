@@ -10,12 +10,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationView
-import edu.singaporetech.hr.PayslipViewModel
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import edu.singaporetech.hr.LeaveFragment
 import com.google.firebase.auth.FirebaseAuth
-
+import edu.singaporetech.hr.fragment.HomeFragment
+import edu.singaporetech.hr.fragment.attendance.AttendanceOverviewFragment
+import edu.singaporetech.hr.fragment.leave.LeaveFragment
+import edu.singaporetech.hr.fragment.payslip.PayslipFragment
 
 
 /**
@@ -60,7 +59,9 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.payslipPage->{
 
-                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,PayslipFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,
+                        PayslipFragment()
+                    ).commit()
                     drawerLayout.closeDrawers()
                     //setActionBarTitle(it.title.toString())
 
@@ -75,14 +76,18 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.homePage->{
                     supportActionBar?.setTitle("HomePage")
-                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,HomeFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,
+                        HomeFragment()
+                    ).commit()
                     drawerLayout.closeDrawers()
                     //setActionBarTitle(it.title.toString())
                 }
 
                 R.id.attendencePage->{
                     supportActionBar?.setTitle("Attendance Overview")
-                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,AttendanceOverviewFragment()).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,
+                        AttendanceOverviewFragment()
+                    ).commit()
                     drawerLayout.closeDrawers()
                 }
 
