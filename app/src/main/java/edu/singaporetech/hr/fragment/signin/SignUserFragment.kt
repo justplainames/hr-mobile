@@ -5,10 +5,10 @@ import android.app.Activity
 import android.app.KeyguardManager
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.biometrics.BiometricManager.Authenticators.*
+import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
 import android.os.Bundle
@@ -19,19 +19,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import edu.singaporetech.hr.databinding.FragmentSignUserBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.singaporetech.hr.MainActivity
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.SignActivity
+import edu.singaporetech.hr.databinding.FragmentSignUserBinding
 
 
 class  SignUserFragment : Fragment() {
@@ -56,10 +57,10 @@ class  SignUserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val actionBar = (activity as SignActivity).supportActionBar
         actionBar!!.setDisplayShowTitleEnabled(true)
-        actionBar!!.setTitle("Sign In")
+        actionBar.title = "Sign In"
 
         val binding = DataBindingUtil.inflate<FragmentSignUserBinding>(
             inflater,
@@ -80,7 +81,7 @@ class  SignUserFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
 
-        binding.btnLogin.setOnClickListener { view: View ->
+        binding.btnLogin.setOnClickListener {
             hideKeyboard()
             val email = binding.etUser.text.toString()
             val password = binding.etPass.text.toString()
@@ -186,27 +187,24 @@ class  SignUserFragment : Fragment() {
 
     @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.P)
-    private fun biometricAuthentication(){
+    private fun biometricAuthentication() {
         checkBiometricSupport()
-        val biometricPrompt = activity?.let { it1 ->
-            BiometricPrompt.Builder(activity).setAllowedAuthenticators(BIOMETRIC_STRONG or BIOMETRIC_WEAK)
+        activity?.let { it1 ->
+            BiometricPrompt.Builder(activity)
+                .setAllowedAuthenticators(BIOMETRIC_STRONG or BIOMETRIC_WEAK)
                 .setTitle("You were not fully logged out!")
                 .setSubtitle("Sign in quickly using your biometric credentials")
                 .setNegativeButton(
                     "Cancel",
-                    it1.mainExecutor,
-                    DialogInterface.OnClickListener { dialog, which ->
-                        notifyUser("Authentication Cancelled")
-                    }).build()
-        }
-
-        if (biometricPrompt != null) {
-            biometricPrompt.authenticate(
-                getCancellationSignal(),
-                requireContext().mainExecutor,
-                authenticationCallback
-            )
-        }
+                    it1.mainExecutor
+                ) { _, _ ->
+                    notifyUser("Authentication Cancelled")
+                }.build()
+        }?.authenticate(
+            getCancellationSignal(),
+            requireContext().mainExecutor,
+            authenticationCallback
+        )
     }
 
 }

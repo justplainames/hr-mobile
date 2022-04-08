@@ -28,12 +28,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        supportActionBar?.setTitle("HomePage")
-
+        supportActionBar?.title = "HomePage"
     }
     override fun onStart() {
         super.onStart()
-        supportActionBar?.setTitle("HomePage")
+        supportActionBar?.title = "HomePage"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +57,10 @@ class MainActivity : AppCompatActivity() {
             it.isChecked=true
             when(it.itemId){
                 R.id.payslipPage->{
-
                     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,
                         PayslipFragment()
                     ).commit()
                     drawerLayout.closeDrawers()
-                    //setActionBarTitle(it.title.toString())
-
                 }
 
                 R.id.leavePage -> {
@@ -80,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                         HomeFragment()
                     ).commit()
                     drawerLayout.closeDrawers()
-                    //setActionBarTitle(it.title.toString())
                 }
 
                 R.id.attendencePage->{
@@ -95,8 +90,6 @@ class MainActivity : AppCompatActivity() {
                     FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, SignActivity::class.java))
                 }
-
-
             }
             true
         }
