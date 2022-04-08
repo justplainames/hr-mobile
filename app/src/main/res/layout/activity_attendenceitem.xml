@@ -37,7 +37,7 @@
                     android:layout_marginStart="@dimen/text_margin"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="15sp"
-                    tools:text="@string/dateLblText" />
+                    tools:text="@string/attendance_date" />
 
                 <TextView
                     android:id="@+id/timeLbl"
@@ -46,7 +46,7 @@
                     android:layout_marginStart="@dimen/text_margin"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="15sp"
-                    tools:text="@string/clockInText" />
+                    tools:text="@string/attendance_clockIn" />
 
                 <TextView
                     android:id="@+id/StatusLbl"
@@ -70,7 +70,7 @@
                 android:id="@+id/reportBtn"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginLeft="320dp"
+                android:layout_marginStart="320dp"
                 android:layout_marginTop="40dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:scaleType="fitXY"

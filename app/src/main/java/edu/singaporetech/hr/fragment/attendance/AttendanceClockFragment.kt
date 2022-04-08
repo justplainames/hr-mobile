@@ -98,11 +98,11 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
         viewModel.clockInStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer { status ->
             if (status) {
                 binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockin_button)
-                binding.attendanceclockBtn.setText(R.string.clockInText)
+                binding.attendanceclockBtn.setText(R.string.attendance_clockIn)
             }
             else{
                 binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockout_button)
-                binding.attendanceclockBtn.setText(R.string.clockOutText)
+                binding.attendanceclockBtn.setText(R.string.attendance_clockOut)
 
             }
         })

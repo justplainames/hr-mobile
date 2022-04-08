@@ -110,7 +110,7 @@
                android:id="@+id/textViewDay"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="@string/leave_day"
+               android:text="@string/leave_days"
                android:textSize="20sp"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
@@ -202,7 +202,7 @@
                android:layout_marginEnd="22dp"
                android:background="@color/white"
                android:ems="10"
-               android:hint="Enter Reason"
+               android:hint="@string/leave_enter_reasonHint"
                android:inputType="textPersonName"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +228,7 @@
                android:layout_height="50dp"
                android:layout_marginStart="60dp"
                android:layout_marginBottom="32dp"
-               android:text="@string/leave_cancel"
+               android:text="@string/cancel"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintStart_toStartOf="parent" />
 
@@ -238,7 +238,7 @@
                android:layout_height="50dp"
                android:layout_marginEnd="64dp"
                android:layout_marginBottom="32dp"
-               android:text="@string/leave_submit"
+               android:text="@string/submit"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent" />
 

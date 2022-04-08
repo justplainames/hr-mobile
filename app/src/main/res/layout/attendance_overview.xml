@@ -95,16 +95,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="#009688"
-                    android:textSize="20sp"></TextView>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/onTimeTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:text="@string/onTime"
+                    android:text="@string/attendance_onTime"
                     android:textSize="16sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -129,16 +129,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="#F44336"
-                    android:textSize="20sp"></TextView>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/lateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:text="@string/Late"
+                    android:text="@string/attendance_late"
                     android:textSize="16sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -162,30 +162,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="20sp"></TextView>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/absentTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:text="@string/absent"
+                    android:text="@string/attendance_absent"
                     android:textSize="16sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btnLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="116dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/attendanceInfoRow">
 
         </LinearLayout>
 
@@ -209,10 +197,10 @@
             android:layout_marginTop="4dp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorClockInBtn"
-            android:text="CLOCK IN / CLOCK OUT"
+            android:text="@string/attendance_clock_in_out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/attendanceInfoRow"></Button>
+            app:layout_constraintTop_toBottomOf="@+id/attendanceInfoRow" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

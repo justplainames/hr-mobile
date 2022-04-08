@@ -19,7 +19,7 @@
                 android:layout_gravity="top"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="28dp"
-                android:text="@string/livelocationLabel"
+                android:text="@string/attendance_livelocation"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/livelocationLabel">
 
-                <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+                <fragment
                     android:id="@+id/attendanceMap"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="@string/getlocation"
+                    android:text="@string/attendance_getlocation"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="36dp"
                 android:background="@drawable/clockin_button"
-                android:text="@string/clockInText"
+                android:text="@string/attendance_clockIn"
                 android:textAlignment="center"
                 android:textColor="#000"
                 android:textSize="18sp"

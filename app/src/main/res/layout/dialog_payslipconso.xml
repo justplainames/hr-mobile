@@ -20,7 +20,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
-            android:hint="Email"
+            android:hint="@string/payslip_emailHint"
             android:inputType="textEmailAddress"
             android:textAlignment="viewStart" />
 
@@ -33,7 +33,7 @@
             android:layout_marginRight="4dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
-            android:hint="Password"
+            android:hint="@string/payslip_passwordHint"
             android:inputType="textPassword" />
 
         <Button
@@ -41,18 +41,18 @@
             android:backgroundTint="@android:color/holo_red_light"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="180dp"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/downloadConsoButton"
             android:backgroundTint="@android:color/holo_green_light"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
+            android:layout_marginStart="200dp"
             android:layout_marginTop="180dp"
-            android:text="Download" />
+            android:text="@string/payslip_download" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

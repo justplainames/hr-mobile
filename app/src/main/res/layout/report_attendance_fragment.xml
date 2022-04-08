@@ -24,10 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/dateLblText"
+            android:text="@string/attendance_date"
             android:textSize="20sp"
-            android:textStyle="bold"
-            ></TextView>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:focusable="false"
-                android:minHeight="48dp"></TextView>
+                android:minHeight="48dp" />
         </LinearLayout>
 
 
@@ -62,9 +61,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:labelFor="@id/reasonET"
-            android:text="@string/reasonLblText"
-            android:textSize="20sp"
-            ></TextView>
+            android:text="@string/attendance_reason"
+            android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/reasonET"
@@ -74,7 +72,7 @@
             android:layout_marginBottom="12dp"
             android:background="@color/white"
             android:gravity="start|top"
-            android:hint="@string/reasonHint"
+            android:hint="@string/attendance_reasonHint"
             android:inputType="textMultiLine"
             android:lines="10"
             android:padding="12dp"
@@ -113,11 +111,11 @@
                 android:id="@+id/cancelBtn"
                 android:layout_margin="15dp"
                 android:layout_width="150dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/cancelColour"
                 android:layout_height="60dp"
                 android:textSize="16sp"
-                android:text="@string/cancelText" />
+                android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/submitBtn"
@@ -125,7 +123,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="15dp"
                 android:backgroundTint="@color/submitColour"
-                android:text="@string/submitText"
+                android:text="@string/submit"
                 android:textSize="16sp"
                 style="@style/TextAppearance.MaterialComponents.Button" />
 

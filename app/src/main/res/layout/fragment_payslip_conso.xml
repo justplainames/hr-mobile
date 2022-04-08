@@ -53,7 +53,7 @@
                 android:layout_marginHorizontal="16dp"
                 app:endIconDrawable="@drawable/ic_baseline_calendar_today_24"
                 app:endIconMode="custom"
-                    android:hint="Date (From)"
+                    android:hint="@string/payslip_date_from"
                 app:endIconTint="@color/main"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.459"
@@ -83,7 +83,7 @@
                     android:layout_marginHorizontal="16dp"
                     app:endIconDrawable="@drawable/ic_baseline_calendar_today_24"
                     app:endIconMode="custom"
-                    android:hint="Date (To)"
+                    android:hint="@string/payslip_date_to"
                     app:endIconTint="@color/main"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.459"
@@ -136,9 +136,9 @@
                 android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="140dp"
+                android:layout_marginStart="140dp"
                 android:layout_marginTop="320dp"
-                android:text="Submit"
+                android:text="@string/submit"
                 app:backgroundTint="#A1C45A" />
 
 

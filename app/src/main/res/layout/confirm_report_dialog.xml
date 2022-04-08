@@ -21,7 +21,7 @@
             android:id="@+id/textViewConfirmationSubmitReason"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:text="@string/confirmation_submit_report"
+            android:text="@string/attendance_confirmation_submit"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintHorizontal_bias="0.5"

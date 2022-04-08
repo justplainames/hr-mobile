@@ -26,7 +26,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="@string/leave_type"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/textViewLeaveTypeDetail"
@@ -35,8 +35,8 @@
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="annuak"
-                    android:textSize="20dp"/>
+                    android:text="annual"
+                    android:textSize="20sp"/>
 
             </TableRow>
 
@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Start Date - End Date"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textViewLeaveDateDetails"
@@ -64,7 +64,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="2/2"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
             </TableRow>
 
@@ -82,7 +82,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Days"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/textViewLeaveDaysDetail"
@@ -92,7 +92,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="full"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
             </TableRow>
 
@@ -123,7 +123,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Supervisor"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/textViewLeaveSupervisorDetail"
@@ -133,7 +133,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="full"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
             </TableRow>
 
@@ -151,7 +151,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Reason"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/textViewLeaveReasonDetail"
@@ -161,7 +161,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="full"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
             </TableRow>
 
@@ -179,7 +179,7 @@
                     android:layout_weight="1"
                     android:gravity="left"
                     android:text="Status"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/textViewLeaveStatusDetail"
@@ -189,7 +189,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="full"
-                    android:textSize="20dp"/>
+                    android:textSize="20sp"/>
 
             </TableRow>
 
@@ -212,7 +212,7 @@
                         android:layout_weight="1"
                         android:gravity="left"
                         android:text="Medical Certificate"
-                        android:textSize="20dp"/>
+                        android:textSize="20sp"/>
 
 
                 </TableRow>

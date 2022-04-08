@@ -22,7 +22,7 @@
         <item
             android:id="@+id/attendencePage"
             android:orderInCategory="100"
-            android:title="@string/attendencePageHeader"
+            android:title="@string/attendancePageHeader"
             app:showAsAction="never" />
     </group>
 </menu>

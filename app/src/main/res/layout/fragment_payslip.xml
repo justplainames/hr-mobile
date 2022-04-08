@@ -164,7 +164,7 @@
                 android:id="@+id/textViewNetPay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Netpay:"
+                android:text="@string/payslip_net_pay_summary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,7 +195,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="96dp"
                 android:layout_marginTop="20dp"
-                android:text="Net Pay"
+                android:text="@string/payslip_net_pay"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
@@ -204,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Deduction"
+                android:text="@string/payslip_deduction"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.515"
                 app:layout_constraintStart_toEndOf="@+id/textView"

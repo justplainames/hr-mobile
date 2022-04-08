@@ -18,7 +18,7 @@
             android:id="@+id/totalDeduction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="210dp"
+            android:layout_marginStart="210dp"
             android:layout_marginTop="12dp"
             android:text="TextView"
             android:textSize="15sp"
@@ -28,9 +28,9 @@
             android:id="@+id/totalDeductionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:text="Total Deduction"
+            android:text="@string/payslip_total_deduction"
             android:textAllCaps="true"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -48,7 +48,7 @@
             android:id="@+id/asstFund"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="210dp"
+            android:layout_marginStart="210dp"
             android:layout_marginTop="15dp"
             android:text="TextView"
             android:textSize="15sp" />
@@ -57,9 +57,9 @@
             android:id="@+id/asstFundLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:text="Assistance Fund"
+            android:text="@string/payslip_assistance_fund"
             android:textSize="15sp" />
     </androidx.cardview.widget.CardView>
 
@@ -75,7 +75,7 @@
             android:id="@+id/opeOthers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="210dp"
+            android:layout_marginStart="210dp"
             android:layout_marginTop="15dp"
             android:text="TextView"
             android:textSize="15sp" />
@@ -84,9 +84,9 @@
             android:id="@+id/opeOthersLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:text="OPE"
+            android:text="@string/payslip_ope"
             android:textSize="15sp" />
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
@@ -101,7 +101,7 @@
             android:id="@+id/cpf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="210dp"
+            android:layout_marginStart="210dp"
             android:layout_marginTop="15dp"
             android:text="TextView"
             android:textSize="15sp" />
@@ -110,9 +110,9 @@
             android:id="@+id/cpfLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:text="CPF"
+            android:text="@string/payslip_cpf"
             android:textSize="15sp" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
