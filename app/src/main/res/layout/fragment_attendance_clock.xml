@@ -5,7 +5,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.attendance.AttendanceClockFragment">
+        tools:context=".fragment.attendance.AttendanceClockFragment"
+        android:id="@+id/fragment_attendance_clock">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -18,7 +18,7 @@
     android:id="@+id/attendanceOverviewFragment"
     android:name="edu.singaporetech.hr.fragment.attendance.AttendanceOverviewFragment"
     android:label="AttendanceOverviewFragment"
-        tools:layout="@layout/attendance_overview">
+        tools:layout="@layout/fragment_attendance_overview">
         <action
             android:id="@+id/action_attendanceOverviewFragment_to_attendanceFragment"
             app:destination="@id/attendanceFragment" />

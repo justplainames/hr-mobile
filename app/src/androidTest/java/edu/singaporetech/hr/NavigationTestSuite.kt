@@ -5,7 +5,7 @@ import org.junit.runners.Suite
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-    NavigationTest::class,
+    LeaveNavigationTest::class,
     AttendanceNavigationTest::class,
     PayslipNavigationTest::class
 )

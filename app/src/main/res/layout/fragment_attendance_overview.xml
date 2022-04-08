@@ -6,7 +6,7 @@
         tools:context =".fragment.attendance.AttendanceOverviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/attendance_overview"
+        android:id="@+id/fragment_attendance_overview"
         >
         <LinearLayout
             android:layout_width="match_parent"
