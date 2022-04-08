@@ -3,7 +3,11 @@ package edu.singaporetech.hr
 import com.google.common.truth.Truth
 import edu.singaporetech.hr.validator.PayslipActivityValidator
 import org.junit.Test
-
+/*
+    PayslipActivityValidatorTest: Payslip Activity Validator Test
+        - state all the test cases of the unit testing
+        - state the condition based on the validator and its corresponding output
+ */
 class PayslipActivityValidatorTest {
 
     /*

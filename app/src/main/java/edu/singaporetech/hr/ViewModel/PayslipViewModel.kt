@@ -8,6 +8,12 @@ import edu.singaporetech.hr.data.Payslip
 import java.util.*
 
 
+/*
+   PayslipViewModel: Payslip ViewModel
+        - Use to link the Firestore database with the fragments
+        - Listener is setup to obtain the records from the database
+        - Used to view the attributes from the database
+ */
 
 class PayslipViewModel : ViewModel() {
     private var _payslipArrayList: MutableLiveData<ArrayList<Payslip>> = MutableLiveData<ArrayList<Payslip>>()

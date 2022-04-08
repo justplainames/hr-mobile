@@ -6,10 +6,16 @@ import android.util.Log
 
 import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
+/*
+    Payslip (data class)
+  Declare the data type along with the variable
+  -- same as the one stored in the firebase
 
+ */
 data class Payslip(
 
     var payslipID: String? = "",//Document ID is actually the payslipID
+
     val totalDeduction: Double?=0.0,
 
     val cpf: Double?=0.0,

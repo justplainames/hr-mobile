@@ -43,7 +43,21 @@ import edu.singaporetech.hr.databinding.FragmentPayslipBinding
 import edu.singaporetech.hr.fragment.HomeFragment
 import java.time.LocalDate
 import java.util.*
+/*
+    PayslipFragment : Payslip Fragment
+        - View the overview of the Payslip section
+            - inclusive of:
+                1. View the 3 recent payslip records
+                2. "View all" button to navigate to the list of payslip
+                3. Brief data visualisation of the most recent payslip
+                    - When button clicked,
+                        1. Biometric Authentication
+                        2. If success, Download the most recent payslip
+                        3. Trigger the processing of firebase variables into the PDF
+                2. "Conslidated Payslip" label that has a next arrow
+                        1. navigate to the month year picker
 
+ */
 
 class PayslipFragment : Fragment(), PayslipAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters

@@ -8,7 +8,13 @@ import com.google.firebase.firestore.*
 import edu.singaporetech.hr.data.Payslip
 import java.util.*
 
-
+/*
+   PayslipConsoViewModel: Payslip Consolidated ViewModel
+        - Use to link the Firestore database with the fragments
+        - used to pass monthTo, yearTo, monthFrom
+            & yearFrom into the database to check for matches in records in database
+        - Listener is setup to obtain the record that matches from the database
+ */
 
 class PayslipConsoViewModel(application: Application, private var monthTo: String, private var  yearTo: String, private var monthFrom: String, private var yearFrom: String) : ViewModel() {
     private var _payslipArrayList: MutableLiveData<ArrayList<Payslip>> = MutableLiveData<ArrayList<Payslip>>()

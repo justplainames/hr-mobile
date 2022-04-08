@@ -3,7 +3,11 @@ package edu.singaporetech.hr
 import com.google.common.truth.Truth
 import edu.singaporetech.hr.validator.AttendenceActivityValidator
 import org.junit.Test
-
+/*
+    AttendenceActivityValidatorTest: Attendence Activity Validator Test
+        - state all the test cases of the unit testing
+        - state the condition based on the validator and its corresponding output
+ */
 class AttendenceActivityValidatorTest{
     /*
     Unit testing on AttendenceClockFragment :

@@ -41,7 +41,17 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+/*
+    PayslipConsoFragment : Fragment page
+        -- consists of MonthYear Picker form for download of consolidated payslip
+           - validation of month year picker (similar to the unit testing)
+        -- authentication
+            - biometric (fingerprint, facial recognition)
+        -- download as PDF in the internal storage
+            - use firebase variable to pass variable into the PDF to customise
+            - request for permissions
 
+ */
 class PayslipConsoFragment() : Fragment() {
     // TODO: Rename and change types of parameters
 
@@ -236,7 +246,7 @@ class PayslipConsoFragment() : Fragment() {
                 getActivity()?.getViewModelStore()?.clear()
 
                 val payslipListObserver = Observer<ArrayList<Payslip>> { payslip->
-
+;
                     for (item in payslip){
                         tempDateOfPayDayArray.add(android.text.format.DateFormat.format("MMM yyyy", item.dateOfPayDay).toString()!!)
 

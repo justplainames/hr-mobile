@@ -5,7 +5,11 @@ package edu.singaporetech.hr
 import com.google.common.truth.Truth.assertThat
 import edu.singaporetech.hr.validator.SignActivityValidator
 import org.junit.Test
-
+/*
+    SignActivityTest: Sign Activity  Test
+        - state all the test cases of the unit testing
+        - state the condition based on the validator and its corresponding output
+ */
 class SignActivityTest {
     /*
     Unit testing on SignUserFragment :validateForm()

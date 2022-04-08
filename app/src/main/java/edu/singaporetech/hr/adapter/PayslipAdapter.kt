@@ -10,8 +10,20 @@ import edu.singaporetech.hr.data.Payslip
 import edu.singaporetech.hr.R
 import java.util.*
 
+<<<<<<< Updated upstream:app/src/main/java/edu/singaporetech/hr/adapter/PayslipAdapter.kt
 
 class PayslipAdapter(private var payslipArrayList: ArrayList<Payslip>, private val listener: OnItemClickListener) : RecyclerView.Adapter<PayslipAdapter.PayslipViewHolder>() {
+=======
+/*
+    PayslipAdapter : Payslip Adapter
+        -- Used for recycler view by binding the data
+           obtained from the database into the recycler view
+        -- Buttons embedded within the recycler view
+               - with the use of onitemclicklistener, able to know
+               whether it is download or view details
+ */
+class PayslipAdapter(private var payslipArrayList: ArrayList<Payslip>,private val listener:OnItemClickListener) : RecyclerView.Adapter<PayslipAdapter.PayslipViewHolder>() {
+>>>>>>> Stashed changes:app/src/main/java/edu/singaporetech/hr/PayslipAdapter.kt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayslipViewHolder {
         return PayslipViewHolder(

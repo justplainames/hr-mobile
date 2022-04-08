@@ -2,7 +2,11 @@ package edu.singaporetech.hr.validator
 
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-
+/*
+    AttendenceActivityValidator: Attendence Activity Validator
+        --place the code from the Fragment and check against the
+        AttendenceActivityValidatorTest test cases
+ */
 @RunWith(JUnit4::class)
 object AttendenceActivityValidator {
 

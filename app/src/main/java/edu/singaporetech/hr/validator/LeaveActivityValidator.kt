@@ -2,7 +2,11 @@ package edu.singaporetech.hr.validator
 
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-
+/*
+    LeaveActivityValidator: Leave Activity Validator
+        --place the code from the Fragment and check against the
+        LeaveActivityValidatorTest test cases
+ */
 @RunWith(JUnit4::class)
 object LeaveActivityValidator {
     /*

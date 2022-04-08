@@ -10,6 +10,12 @@ const val notificationID = 1
 const val channelID = "channel1"
 const val titleExtra = "titleExtra"
 const val messageExtra = "messageExtra"
+
+/*
+    Notification (Broadcast Receiver)
+        -- used for payslip notification
+        -- able to get the title, message that is to be displayed in notification
+ */
 class Notification : BroadcastReceiver()
 {
     @SuppressLint("ServiceCast")
