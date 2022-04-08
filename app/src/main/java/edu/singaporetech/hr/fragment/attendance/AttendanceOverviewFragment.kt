@@ -14,37 +14,34 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import edu.singaporetech.hr.*
+import edu.singaporetech.hr.Attendance
+import edu.singaporetech.hr.MainActivity
+import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.AttendanceClockViewModel
 import edu.singaporetech.hr.ViewModel.AttendanceViewModel
 import edu.singaporetech.hr.adapter.AttendanceAdapter
-import edu.singaporetech.hr.databinding.AttendanceOverviewBinding
+import edu.singaporetech.hr.databinding.FragmentAttendanceOverviewBinding
 import edu.singaporetech.hr.fragment.HomeFragment
 import java.time.LocalDateTime
-//import edu.singaporetech.hr.databinding.FragmentAttendanceBinding
-import java.util.ArrayList
 
 class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var viewViewModel: AttendanceViewModel
     private lateinit var viewClockModel: AttendanceClockViewModel
     private lateinit var attendancedapter: AttendanceAdapter
-    private lateinit var attendanceArrayList: ArrayList<Attendance>
-    private lateinit var attendanceRecyclerView: RecyclerView
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding = DataBindingUtil.inflate<AttendanceOverviewBinding>(
-            inflater, R.layout.attendance_overview, container, false
+    ): View {
+        val binding = DataBindingUtil.inflate<FragmentAttendanceOverviewBinding>(
+            inflater, R.layout.fragment_attendance_overview, container, false
         )
-        getActivity()?.getViewModelStore()?.clear()
-        viewViewModel = ViewModelProvider(requireActivity()).get(AttendanceViewModel::class.java)
+        activity?.viewModelStore?.clear()
+        viewViewModel = ViewModelProvider(requireActivity())[AttendanceViewModel::class.java]
 
         val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
             attendancedapter= AttendanceAdapter(items.take(items.size) as ArrayList<Attendance>,this) // add items to adapter
@@ -56,18 +53,18 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
         binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
         binding.recyclerViewAttendence.setHasFixedSize(true)
 
-        viewClockModel = ViewModelProvider(requireActivity()).get(AttendanceClockViewModel::class.java)
+        viewClockModel = ViewModelProvider(requireActivity())[AttendanceClockViewModel::class.java]
 
-        viewClockModel.attendanceStatus.observe(viewLifecycleOwner, Observer { summary ->
+        viewClockModel.attendanceStatus.observe(viewLifecycleOwner) { summary ->
             Log.d("TESTING", "saveAttendanceIn()")
-            binding.textViewOnTime.setText(summary[1].onTime.toString())
-            binding.textViewLate.setText(summary[1].late.toString())
-            var miss = LocalDateTime.now().dayOfMonth - summary[1].onTime - summary[1].late
-            binding.textViewAbsent.setText(miss.toString())
-            var onTime: Float = summary[1].onTime?.toFloat() ?: 0.0f
-            var late: Float =summary[1].late?.toFloat() ?: 0.0f
-            var total:Float= onTime+late
-            val value:Float= ((onTime) / (total)) *360f
+            binding.textViewOnTime.text = summary[1].onTime.toString()
+            binding.textViewLate.text = summary[1].late.toString()
+            val miss = LocalDateTime.now().dayOfMonth - summary[1].onTime - summary[1].late
+            binding.textViewAbsent.text = miss.toString()
+            val onTime: Float = summary[1].onTime.toFloat()
+            val late: Float = summary[1].late.toFloat()
+            val total: Float = onTime + late
+            val value: Float = ((onTime) / (total)) * 360f
             val circularProgressBar = binding.circularProgressBar
             circularProgressBar.apply {
 
@@ -93,31 +90,18 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
                 startAngle = 0f
                 progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
             }
-//            val formatValue = String.format("%.0f", summary.percentageMissed * 100)
-//
-//            val arrayListChart = ArrayList<Int>()
-//            arrayListChart.add(Integer.valueOf(summary[1].onTime.toInt()))
-//            arrayListChart.add(Integer.valueOf(summary[1].late.toInt()))
-//            arrayListChart.add(Integer.valueOf(miss.toInt()))
-            //arrayListChart.add(Integer.valueOf(summary.daysOnLeave))
-//
-//            val s1 = Segment("On Time", arrayListChart.get(0))
-//            val s2 = Segment("Late", arrayListChart.get(1))
-//            val s3 = Segment("Absent", arrayListChart.get(2))
-//            val s4 = Segment("On Time", arrayListChart.get(0))
 
 
-
-            binding.clockOutBtn.setOnClickListener({
+            binding.clockOutBtn.setOnClickListener {
                 requireActivity()
                     .supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragmentContainerView, AttendanceClockFragment())
                     .commitNow()
-            })
+            }
 
 
-        })
+        }
 
         return binding.root
     }

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
@@ -30,22 +31,17 @@ class AttendanceNavigationTest {
 
         // check navigation to attendance page
         onView(withId(R.id.card_view_attendance)).perform(click())
-        onView(withId((R.id.attendance_overview))).check(matches(isDisplayed()))
+        onView(withId((R.id.fragment_attendance_overview))).check(matches(isDisplayed()))
 
-        // check navigation to all attendance
-        onView(withId(R.id.allAttendanceBtn)).perform(click())
-        onView(withId((R.id.fragment_attendance))).check(matches(isDisplayed()))
+        // check navigation to clockIn/clockOut
+        onView(withId(R.id.clockOutBtn)).perform(click())
+        onView(withId((R.id.fragment_attendance_clock))).check(matches(isDisplayed()))
 
-        // check navigation to attendance summary
-        onView(withId(R.id.attendanceSummaryBtn)).perform(click())
-        onView(withId((R.id.attendance_overview))).check(matches(isDisplayed()))
-
-        // check view all leave page
-        onView(withId(R.id.allAttendanceBtn)).perform(click())
+        // check navigation individual attendance item
+        pressBack()
         onView(withId(R.id.recyclerViewAttendence))
             .perform(clickRecyclerViewItem(0,R.id.reportBtn))
         onView(withId((R.id.report_attendance_fragment))).check(matches(isDisplayed()))
-
     }
 }
 
