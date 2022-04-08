@@ -42,9 +42,6 @@ import edu.singaporetech.hr.adapter.PayslipEarningDetailAdapter
 import edu.singaporetech.hr.data.Payslip
 import edu.singaporetech.hr.databinding.FragmentPayslipDetailBinding
 import java.time.LocalDate
-<<<<<<< Updated upstream:app/src/main/java/edu/singaporetech/hr/fragment/payslip/PayslipDetailFragment.kt
-
-=======
 import kotlin.properties.Delegates
 /*
     PayslipListFragment : Payslip List Fragment
@@ -54,7 +51,7 @@ import kotlin.properties.Delegates
             - use firebase variable to pass variable into the PDF to customise
             - request for permissions (if user havent grant permission)
  */
->>>>>>> Stashed changes:app/src/main/java/edu/singaporetech/hr/PayslipDetailFragment.kt
+
 
 class PayslipDetailFragment(private var position: Int) : Fragment() {
     // TODO: Rename and change types of parameters

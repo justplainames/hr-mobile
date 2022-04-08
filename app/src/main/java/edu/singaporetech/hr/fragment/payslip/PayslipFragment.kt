@@ -58,7 +58,6 @@ import java.util.*
                         1. navigate to the month year picker
 
  */
-
 class PayslipFragment : Fragment(), PayslipAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel

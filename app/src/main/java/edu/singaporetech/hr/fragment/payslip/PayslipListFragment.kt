@@ -39,10 +39,7 @@ import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.PayslipViewModel
 import edu.singaporetech.hr.databinding.FragmentPayslipListBinding
 import java.time.LocalDate
-<<<<<<< Updated upstream:app/src/main/java/edu/singaporetech/hr/fragment/payslip/PayslipListFragment.kt
 
-class PayslipListFragment() : Fragment() , PayslipAdapter.OnItemClickListener {
-=======
 /*
     PayslipListFragment : Payslip List Fragment
         - allow user to view all the records along with 2 buttons to :
@@ -50,7 +47,6 @@ class PayslipListFragment() : Fragment() , PayslipAdapter.OnItemClickListener {
             2. Download as PDF format
  */
 class PayslipListFragment() : Fragment() ,PayslipAdapter.OnItemClickListener {
->>>>>>> Stashed changes:app/src/main/java/edu/singaporetech/hr/PayslipListFragment.kt
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
     private lateinit var adapter : PayslipAdapter

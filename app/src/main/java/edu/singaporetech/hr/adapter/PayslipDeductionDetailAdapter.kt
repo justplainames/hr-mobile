@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.data.Payslip
 import edu.singaporetech.hr.R
 
-<<<<<<< Updated upstream:app/src/main/java/edu/singaporetech/hr/adapter/PayslipDeductionDetailAdapter.kt
 
-class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Payslip>, private var position: Int) : RecyclerView.Adapter<PayslipDeductionDetailAdapter.PayslipDeductionDetailViewHolder>() {
-=======
 /*
     PayslipDeductionDetailAdapter : Payslip Deduction Detail Adapter
         -- Used for recycler view by binding the data
@@ -22,7 +19,6 @@ class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Pays
                 - Asst Fund
  */
 class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Payslip>,private var position: Int) : RecyclerView.Adapter<PayslipDeductionDetailAdapter.PayslipDeductionDetailViewHolder>() {
->>>>>>> Stashed changes:app/src/main/java/edu/singaporetech/hr/PayslipDeductionDetailAdapter.kt
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
