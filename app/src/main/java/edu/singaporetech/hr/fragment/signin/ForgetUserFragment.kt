@@ -23,7 +23,7 @@ class ForgetUserFragment : Fragment() {
             inflater,
             R.layout.fragment_forget_user, container, false
         )
-        binding.btnSubmit.setOnClickListener { view: View ->
+        binding.btnSubmit.setOnClickListener {
             recover(binding.etSecondaryEmail.text.toString())
         }
         return binding.root
@@ -34,7 +34,8 @@ class ForgetUserFragment : Fragment() {
         if (!validateForm()) {
             return
         }else{
-            FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+            FirebaseAuth.getInstance()
+                .sendPasswordResetEmail(email)
                 .addOnCompleteListener{task ->
                     if(task.isSuccessful){
                         view?.findNavController()
@@ -44,10 +45,11 @@ class ForgetUserFragment : Fragment() {
                     }
                 }
         }
-
-
     }
 
+    /**
+     * Validates form. Returns a boolean.
+     */
     private fun validateForm(): Boolean {
         val email = view?.findViewById<EditText>(R.id.etSecondaryEmail)
         var valid = true
@@ -55,10 +57,7 @@ class ForgetUserFragment : Fragment() {
         if (TextUtils.isEmpty(email?.text)) {
             email?.error = "Required."
             valid = false
-        } else {
-
         }
-
         return valid
     }
 }
