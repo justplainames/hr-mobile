@@ -100,13 +100,17 @@ class AttendanceClockViewModel : ViewModel(){
                                 /**
                                  * After clocking in/out calculates the number of
                                  * 1) hours and minutes worked of the day
-                                 * 2) updates number of 
+                                 * 2) updates number of days worked
+                                 * 3) updates number of days missed
                                  */
                                 hoursWorked += ((clockout!! - clockin!!) / 1000 / 60 / 60)
                                 minutesWorked += ((clockout!! - clockin!!) / 1000 / 60 % 60)
                                 daysWorked += 1
                                 daysMissed = 20 - daysWorked
 
+                                /**
+                                 * After clocking in updates whether the employee is late, onTime or absent
+                                 */
                                 if (attendanceRecord.attendanceStatus == "Late") {
                                     daysLate += 1
                                     Log.d("attendance record", daysLate.toString())
@@ -121,9 +125,11 @@ class AttendanceClockViewModel : ViewModel(){
                                     Log.d("attendance record", daysMissed.toString())
                                 }
                             }
+                            // Calculates number of house worked
                             if (hoursWorked > 40) {
                                 totalOT = (40 - hoursWorked) * -1
                             }
+
                             _attendanceSummary.value = AttendanceSummary(
                                 hoursWorked = hoursWorked.toInt(),
                                 daysWorked = daysWorked,
@@ -150,11 +156,9 @@ class AttendanceClockViewModel : ViewModel(){
                 }
                 if(snapshot!=null){
                     val attendance = ArrayList<AttendanceStatus>()
-//                val documents = snapshot.documents
                     snapshot!!.documents.forEach{
                         val attendanceStatus = it.toObject(AttendanceStatus::class.java)
                         if (attendanceStatus != null){
-//                        leaveRecord.leaveId = it.id
                             attendance.add(attendanceStatus!!)
                         }
                     }
@@ -216,7 +220,6 @@ class AttendanceClockViewModel : ViewModel(){
         }
     }
 
-
     internal var attendance: MutableLiveData<ArrayList<AttendanceItem>>
         get() {return _clockRecords}
         set(value) {_clockRecords = value}
@@ -232,5 +235,4 @@ class AttendanceClockViewModel : ViewModel(){
     internal var attendanceStatus: MutableLiveData<ArrayList<AttendanceStatus>>
         get() {return _attendanceStatus}
         set(value) {_attendanceStatus = value}
-
 }

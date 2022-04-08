@@ -64,8 +64,10 @@ class HomeFragment : Fragment() {
          * 3) calculates the number of hours worked
          * 4) calculates the total number of OT accumulated(>44hours/week)
          */
+
         viewClockModel.attendanceSummary.observe(viewLifecycleOwner) { summary ->
-            Log.d("TESTING", "saveAttendanceIn()")
+
+            // Updates number of days missed
             binding.tvAttendanceSummaryWorkingDaysValue.text = "${summary.daysWorked}\n Days"
             binding.tvAttendanceSummaryMissedDaysValue.text = "${summary.daysMissed}\n Days"
             when {
@@ -91,6 +93,8 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
+
+            // Updates the number of OT hours
             binding.tvAttendanceSummaryOTWorkedValue.text = "${summary.totalOT}\nHours "
             if (summary.totalOT > 40) {
                 binding.tvAttendanceSummaryOTWorkedValue.setTextColor(
@@ -99,6 +103,8 @@ class HomeFragment : Fragment() {
                     )
                 )
             }
+
+            // Updates the number of hours worked
             binding.tvAttendanceSummaryHoursWorkedValue.text = "${summary.hoursWorked}:${summary.minutesWorked} \nHours"
             val formatValue = String.format("%.0f", summary.percentageMissed * 100)
             binding.infoTextAttendanceRate.text = "Attendance Rate \n $formatValue%"
