@@ -180,14 +180,17 @@ class LeaveApplyFragment : Fragment() {
                     this@LeaveApplyFragment.requireActivity(),
                     "Start Date cannot be later than End Date!", Toast.LENGTH_SHORT
                 ).show()
-            } else if (image_uri == null){
+            }  else if (image_uri == null && selectedLeaveType.toString()=="Sick Leave") {
                 Toast.makeText(
                     this@LeaveApplyFragment.requireActivity(),
                     "Please upload your MC!!", Toast.LENGTH_SHORT
                 ).show()
-            }
 
-            else {
+            } else {
+                if ((image_uri == null && selectedLeaveType.toString()=="Annual Leave") || (image_uri == null && selectedLeaveType.toString()=="Maternity Leave")){
+                    image_uri = Uri.parse("android.resource://edu.singaporetech.hr/" + R.drawable.ic_baseline_image_not_supported_24 )
+                }
+
                 val dialogView = layoutInflater.inflate(R.layout.leave_apply_dialog, null)
                 val dialogBuilder = AlertDialog.Builder(context)
                     .setView(dialogView)
@@ -201,13 +204,14 @@ class LeaveApplyFragment : Fragment() {
 
                     saveLeave()
                     //uploadImage()
-
+                    var noOfDays = (datePickerEndDate.split("/")[0] ).toInt() - (datePickerStartDate.split("/")[0]).toInt() + 1
                     if (selectedLeaveType.toString() == "Annual Leave") {
-                        viewModel.updateAnnualLeaveBalance()
+
+                        viewModel.updateAnnualLeaveBalance(noOfDays.toDouble())
                     } else if (selectedLeaveType.toString() == "Sick Leave") {
-                        viewModel.updateSickLeaveBalance()
+                        viewModel.updateSickLeaveBalance(noOfDays.toDouble())
                     } else {
-                        viewModel.updateMaternityLeaveBalance()
+                        viewModel.updateMaternityLeaveBalance(noOfDays.toDouble())
                     }
 
                     requireActivity()
@@ -259,6 +263,8 @@ class LeaveApplyFragment : Fragment() {
             val now = Date()
             fileName = formatter.format(now)
             var pic = fileName + ".jpg"
+
+            //image_uri = Uri.EMPTY
             image_uri?.let { viewModel.save(leave, pic, it) }
             leave = Leave()
         }

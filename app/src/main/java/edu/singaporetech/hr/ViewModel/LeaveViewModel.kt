@@ -93,12 +93,12 @@ class LeaveViewModel : ViewModel(){
 
         val documents =FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
 
-        image_uri?.let { documents.putFile(it) }
-            ?.addOnSuccessListener {
+        image_uri.let { documents.putFile(it) }
+            .addOnSuccessListener {
                 Log.d("firebase", "save image!")
                 documents.downloadUrl.addOnSuccessListener {Uri->
 
-//
+    //
                     imageReff = Uri.toString()
                     leave.imageRef = imageReff
                     val set = document.set(leave)
@@ -109,13 +109,13 @@ class LeaveViewModel : ViewModel(){
                         Log.d("firebase", "save failed")
                     }
                 }
-                    // Log.d("firebbaseeeeeeee",  Uri.toString())}
+                // Log.d("firebbaseeeeeeee",  Uri.toString())}
 
-//                    documents.set
+    //                    documents.set
 
-//                document.getDown
+    //                document.getDown
                 //leave.imageNamee = "gs://csc2008-hr-app.appspot.com/images/${leave.leaveId}/$location"
-//                Log.d("firebaseeeeee", leave.imageNamee.toString())
+    //                Log.d("firebaseeeeee", leave.imageNamee.toString())
             }
             ?.addOnFailureListener {
                 Log.d("firebaseeeeeeee", "save failed")
@@ -138,9 +138,9 @@ class LeaveViewModel : ViewModel(){
     }
 
 
-    fun updateAnnualLeaveBalance(){
+    fun updateAnnualLeaveBalance(value:Double){
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("annualLeaveBalance" ,FieldValue.increment(-1) )
+        val set = document.update("annualLeaveBalance" ,FieldValue.increment(-(value)))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved!!!!!!")
         }
@@ -149,9 +149,9 @@ class LeaveViewModel : ViewModel(){
         }
     }
 
-    fun updateSickLeaveBalance(){
+    fun updateSickLeaveBalance(value:Double){
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("sickLeaveBalance" ,FieldValue.increment(-1) )
+        val set = document.update("sickLeaveBalance" ,FieldValue.increment(-(value)) )
         set.addOnSuccessListener {
             Log.d("firebase", "document saved")
         }
@@ -160,9 +160,9 @@ class LeaveViewModel : ViewModel(){
         }
     }
 
-    fun updateMaternityLeaveBalance(){
+    fun updateMaternityLeaveBalance(value:Double){
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(-1) )
+        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(-(value)) )
         set.addOnSuccessListener {
             Log.d("firebase", "document saved")
         }
