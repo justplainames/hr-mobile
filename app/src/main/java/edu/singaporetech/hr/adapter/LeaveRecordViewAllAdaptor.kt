@@ -1,5 +1,6 @@
 package edu.singaporetech.hr.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,30 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
 
     override fun onBindViewHolder(holder: LeaveRecordViewAllViewHolder, position: Int) {
 
+        var currentItemViewAll = leaveRecordViewAllList[position]
+
+        holder.selected.isChecked = currentItemViewAll.selected
+        holder.leaveRecordViewAllType.text = currentItemViewAll.leaveType
+        holder.leaveRecordViewAllStartDate.text = currentItemViewAll.leaveStartDate+ " - " + currentItemViewAll.leaveEndDate
+        holder.leaveRecordViewAllDays.text = currentItemViewAll.leaveDay
+        holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveStatus
+
+        holder.selected.setOnClickListener {
+            if(currentItemViewAll.selected ==true){
+                holder.selected.toggle()
+                currentItemViewAll.selected = false
+                holder.selected.setChecked(currentItemViewAll.selected)
+                selectedCheckBoxList.remove(currentItemViewAll)
+
+                //Log.d("a", selectedCheckBoxList.toString())
+            }else{
+                holder.selected.toggle()
+                currentItemViewAll.selected=true
+                holder.selected.setChecked(currentItemViewAll.selected)
+                selectedCheckBoxList.add(currentItemViewAll)
+                Log.d("a", selectedCheckBoxList.toString())
+            }
+        }
 
     }
 
