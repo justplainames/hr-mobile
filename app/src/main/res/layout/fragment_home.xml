@@ -32,7 +32,7 @@
                             android:id="@+id/tvAttendanceSummaryTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Monthly Attendance Summary:"
+                            android:text="@string/home_attendance_summary"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_margin="10dp"
@@ -80,7 +80,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
-                                android:text="Days Worked"
+                                android:text="@string/home_days_worked"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:layout_row="0"
@@ -106,7 +106,7 @@
                                 android:id="@+id/tvAttendanceSummaryMissedDaysTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Days Missed"
+                                android:text="@string/home_days_missed"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:layout_margin="5dp"
@@ -151,7 +151,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:gravity="center"
-                                android:text="Weekly Average"
+                                android:text="@string/home_weekly_average"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 app:layout_column="0"
@@ -178,7 +178,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:gravity="center"
-                                android:text="Total OT"
+                                android:text="@string/home_total_ot"
                                 android:paddingHorizontal="28dp"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
@@ -237,6 +237,7 @@
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_vector_check"
                     android:layout_gravity="top|center" />
+
                 <ImageView
                     android:id="@+id/iv_cross"
                     android:layout_width="wrap_content"
@@ -245,9 +246,6 @@
                     android:layout_marginTop="5dp"
                     android:src="@drawable/ic_vector_cross"
                     android:layout_gravity="top|center" />
-
-
-
 
             </androidx.cardview.widget.CardView>
 
@@ -348,13 +346,7 @@
                     app:layout_constraintStart_toStartOf="@id/card_remaining_leave"
                     app:layout_constraintEnd_toEndOf="@+id/card_remaining_leave"/>
 
-
             </androidx.cardview.widget.CardView>
-
-
-
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,12 +6,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:padding="8dp">
-
 
         <TextView
             android:id="@+id/textViewLeaveRecordViewAllType"
@@ -70,6 +68,7 @@
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:checked="false"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

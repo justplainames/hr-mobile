@@ -54,7 +54,8 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[PayslipViewModel::class.java]
         viewLeaveModel = ViewModelProvider(requireActivity())[LeaveViewModel::class.java]
         viewClockModel = ViewModelProvider(requireActivity())[AttendanceClockViewModel::class.java]
-        viewAttendanceViewModel = ViewModelProvider(requireActivity())[AttendanceViewModel::class.java]
+        viewAttendanceViewModel =
+            ViewModelProvider(requireActivity())[AttendanceViewModel::class.java]
 
         /**
          * Observe for any changes in the database to update attendance summary
@@ -104,7 +105,8 @@ class HomeFragment : Fragment() {
             }
 
             // Updates the number of hours worked
-            binding.tvAttendanceSummaryHoursWorkedValue.text = "${summary.hoursWorked}:${summary.minutesWorked} \nHours"
+            binding.tvAttendanceSummaryHoursWorkedValue.text =
+                "${summary.hoursWorked}:${summary.minutesWorked} \nHours"
             val formatValue = String.format("%.0f", summary.percentageMissed * 100)
             binding.infoTextAttendanceRate.text = "Attendance Rate \n $formatValue%"
             binding.circularAttendanceRate.apply {
@@ -209,21 +211,21 @@ class HomeFragment : Fragment() {
                 .replace(R.id.fragmentContainerView, PayslipFragment())
                 .commitNow()
         }
-        binding.cardRemainingLeave.setOnClickListener{
+        binding.cardRemainingLeave.setOnClickListener {
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragmentContainerView, LeaveFragment())
                 .commitNow()
         }
-        binding.cardViewAttendance.setOnClickListener{
+        binding.cardViewAttendance.setOnClickListener {
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                 .commitNow()
         }
-        binding.cardViewAttendanceCheck.setOnClickListener{
+        binding.cardViewAttendanceCheck.setOnClickListener {
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
@@ -235,33 +237,38 @@ class HomeFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
-        val name="HR Notification Channel"
-        val desc="desc"
-        val channelId="channel1"
-        val importance= NotificationManager.IMPORTANCE_DEFAULT
-        val channel= NotificationChannel(channelId,name,importance)
-        channel.description=desc
-        val notificationManager= context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val name = "HR Notification Channel"
+        val desc = "desc"
+        val channelId = "channel1"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelId, name, importance)
+        channel.description = desc
+        val notificationManager =
+            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun scheduleNotification() {
-        val channelId="channel1"
-        val notificationId=1
-        val intent=Intent(requireActivity(), HomeFragment::class.java).apply { flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK }
-        val pendingIntent:PendingIntent=PendingIntent.getActivity(requireActivity(),0,intent,0)
-        val notification= context?.let { NotificationCompat.Builder(it,channelId)
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("HR")
-            .setContentText("Latest Payslip is available for download!")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(pendingIntent)
-            .setOnlyAlertOnce(true)
-            .build()
+        val channelId = "channel1"
+        val notificationId = 1
+        val intent = Intent(requireActivity(), HomeFragment::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val manager= context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.notify(notificationId,notification)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(requireActivity(), 0, intent, 0)
+        val notification = context?.let {
+            NotificationCompat.Builder(it, channelId)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("HR")
+                .setContentText("Latest Payslip is available for download!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setOnlyAlertOnce(true)
+                .build()
+        }
+        val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(notificationId, notification)
     }
 
 }

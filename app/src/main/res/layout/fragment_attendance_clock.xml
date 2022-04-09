@@ -14,13 +14,13 @@
 
 
             <TextView
-                android:id="@+id/livelocationLabel"
+                android:id="@+id/liveLocationLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="28dp"
-                android:text="@string/attendance_livelocation"
+                android:text="@string/attendance_live_location"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/livelocationLinearLayout"
+                android:id="@+id/liveLocationLinearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -39,7 +39,7 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/livelocationLabel">
+                app:layout_constraintTop_toBottomOf="@id/liveLocationLabel">
 
                 <fragment
                     android:id="@+id/attendanceMap"
@@ -48,7 +48,7 @@
                     android:layout_height="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/livelocationLinearLayout" />
+                    app:layout_constraintTop_toBottomOf="@id/liveLocationLinearLayout" />
 
                 <Button
                     android:id="@+id/getLocationButton"
@@ -57,7 +57,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="@string/attendance_getlocation"
+                    android:text="@string/attendance_get_location"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,10 +85,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/livelocationLinearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/liveLocationLinearLayout" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/attendanceclockBtn"
+                android:id="@+id/attendanceClockBtn"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="36dp"

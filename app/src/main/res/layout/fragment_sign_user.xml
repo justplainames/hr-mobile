@@ -41,6 +41,7 @@
             android:inputType="textEmailAddress"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:hint="@string/login_emailHint"
             />
 
 
@@ -63,7 +64,7 @@
             android:inputType="textPassword"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-
+            android:hint="@string/login_passwordHint"
             />
 
         <androidx.appcompat.widget.AppCompatButton

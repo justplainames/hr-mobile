@@ -61,7 +61,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:labelFor="@id/reasonET"
-            android:text="@string/attendance_reason"
+            android:text="@string/reason"
             android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +72,7 @@
             android:layout_marginBottom="12dp"
             android:background="@color/white"
             android:gravity="start|top"
-            android:hint="@string/attendance_reasonHint"
+            android:hint="@string/reasonHint"
             android:inputType="textMultiLine"
             android:lines="10"
             android:padding="12dp"

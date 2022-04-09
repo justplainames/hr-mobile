@@ -110,11 +110,11 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
          */
         viewModel.clockInStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer { status ->
             if (status) {
-                binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockin_button)
-                binding.attendanceclockBtn.setText(R.string.attendance_clockIn)
+                binding.attendanceClockBtn.setBackgroundResource(R.drawable.clockin_button)
+                binding.attendanceClockBtn.setText(R.string.attendance_clockIn)
             } else {
-                binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockout_button)
-                binding.attendanceclockBtn.setText(R.string.attendance_clockOut)
+                binding.attendanceClockBtn.setBackgroundResource(R.drawable.clockout_button)
+                binding.attendanceClockBtn.setText(R.string.attendance_clockOut)
 
             }
         })
@@ -160,7 +160,7 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
 
         // Checks if location has been obtained and asks for biometric authentication when
         // location is obtained before clocking in/out
-        binding.attendanceclockBtn.setOnClickListener {
+        binding.attendanceClockBtn.setOnClickListener {
             if (binding.locationTextView.text.isNullOrBlank()) {
                 Toast.makeText(
                     this@AttendanceClockFragment.requireActivity(),

@@ -55,13 +55,13 @@ class AttendanceOverviewFragment : Fragment(), AttendanceAdapter.OnItemClickList
                 items.take(items.size) as ArrayList<Attendance>,
                 this
             ) // add items to adapter
-            binding.recyclerViewAttendence.adapter = attendanceAdapter
+            binding.recyclerViewAttendance.adapter = attendanceAdapter
         }
 
         viewViewModel.attendance.observe(requireActivity(), attendanceListObserver)
 
-        binding.recyclerViewAttendence.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerViewAttendence.setHasFixedSize(true)
+        binding.recyclerViewAttendance.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerViewAttendance.setHasFixedSize(true)
 
         viewClockModel = ViewModelProvider(requireActivity())[AttendanceClockViewModel::class.java]
 

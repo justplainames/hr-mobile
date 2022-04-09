@@ -46,7 +46,7 @@
                         android:layout_height="496dp"
                         android:background="#FAF9F9"
                         tools:ignore="MissingConstraints"
-                        tools:listitem="@layout/activity_payslipitem" />
+                        tools:listitem="@layout/activity_payslip_item" />
                 </TableRow>
 
             </TableLayout>

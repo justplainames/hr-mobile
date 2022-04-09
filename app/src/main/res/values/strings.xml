@@ -3,6 +3,8 @@
     <string name="hello">Hello!</string>
     <string name="forgot_password">Forgot password</string>
     <string name="logout">Logout</string>
+    <string name="login_emailHint">Enter Email</string>
+    <string name="login_passwordHint">Enter Password</string>
     <string name="login_with_biometrics">Login with Biometrics</string>
     <string name="reset_password">Reset Password</string>
     <string name="secondary_emailHint">Enter Secondary Email</string>
@@ -25,6 +27,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <!--For leave -->
     <string name="cancel_leave">Cancel Leave</string>
     <string name="leave_balance">Leave Balance</string>
     <string name="leave_balance_annual">Annual Leave</string>
@@ -41,9 +44,9 @@
     <string name="leave_full_day">Full Day</string>
     <string name="leave_half_day">Half Day</string>
     <string name="leave_supervisor">Supervisor</string>
-    <string name="leave_reason">Reason</string>
+    <string name="reason">Reason</string>
     <string name="leave_status">Status</string>
-    <string name="leave_enter_reasonHint">Enter Reason</string>
+    <string name="reasonHint">Enter Reason</string>
     <string name="leave_available">Available Leave:</string>
     <string name="choose_leave_type">Choose Leave Type</string>
     <string name="select_start_date">Select Start Date</string>
@@ -54,6 +57,12 @@
     <string name="yes">Yes</string>
     <string name="confirmation_cancel_leave">Are you sure you want to cancel the leave?</string>
     <string name="upload_mc">Upload MC</string>
+
+    <string name="leave_annual">Annual</string>
+    <string name="leave_start_date_end_date">Start Date - End Date</string>
+    <string name="leave_2_2">2/2</string>
+    <string name="full">full</string>
+    <string name="leave_medical_certificate">Medical Certificate</string>
 
     <string-array name="leaveType">
         <item>Annual Leave</item>
@@ -82,8 +91,8 @@
     </style>
 
     <!--For attendance -->
-    <string name="attendance_livelocation">Live Location</string>
-    <string name="attendance_getlocation">Get Location</string>
+    <string name="attendance_live_location">Live Location</string>
+    <string name="attendance_get_location">Get Location</string>
     <string name="attendance_onTime">on Time</string>
     <string name="attendance_late">Late</string>
     <string name="attendance_absent">Absent</string>
@@ -91,12 +100,11 @@
     <string name="attendance_clockIn">Clock In</string>
     <string name="attendance_clockOut">Clock Out</string>
     <string name="attendance_date">Date</string>
-    <string name="attendance_reason">Reason</string>
-    <string name="attendance_reasonHint">Enter Reason</string>
     <string name="attendance_confirmation_submit">Are you sure you want to submit your reason?</string>
     <string name="attendance_success_submit">Reason for being late is submitted!</string>
     <string name="attendance_clock_in_out">CLOCK IN / CLOCK OUT</string>
 
+    <!--For payslip -->
     <string name="payslip_total_earning">Total Earning</string>
     <string name="payslip_basic_wage">Basic Wage</string>
     <string name="payslip_bonus">Bonus</string>
@@ -120,5 +128,11 @@
     <string name="ok">OK</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="textview">TextView</string>
+    <string name="home_attendance_summary">Monthly Attendance Summary:</string>
+    <string name="home_days_worked">Days Worked</string>
+    <string name="home_days_missed">Days Missed</string>
+    <string name="home_weekly_average">Weekly Average</string>
+    <string name="home_total_ot">Total OT</string>
 
 </resources>

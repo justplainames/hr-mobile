@@ -19,7 +19,7 @@
             android:layout_height="25dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="5dp"
-            android:text="Annual"
+            android:text="@string/leave_annual"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
-            android:text="Startdate"
+            android:text="@string/leave_start_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="65dp"
-            android:text="Days"
+            android:text="@string/leave_days"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +53,7 @@
             android:layout_marginEnd="24dp"
             android:background="@color/teal_200"
             android:gravity="center"
-            android:text="status"
+            android:text="@string/leave_status"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
