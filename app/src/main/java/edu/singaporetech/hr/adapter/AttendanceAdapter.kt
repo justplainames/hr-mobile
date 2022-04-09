@@ -31,7 +31,7 @@ class AttendanceAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
         return AttendanceViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_attendenceitem, parent, false)
+                .inflate(R.layout.attendence_item, parent, false)
         )
     }
 

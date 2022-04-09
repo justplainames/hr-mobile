@@ -22,7 +22,7 @@ class PayslipEarningDetailAdapter (private var payslipArrayList: ArrayList<Paysl
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayslipDetailViewHolder {
         return PayslipDetailViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_payslipdetailearning, parent, false)
+                .inflate(R.layout.payslip_detail_earning, parent, false)
         )
     }
 

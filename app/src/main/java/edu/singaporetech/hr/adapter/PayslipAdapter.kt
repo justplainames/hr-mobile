@@ -26,7 +26,7 @@ class PayslipAdapter(private var payslipArrayList: ArrayList<Payslip>,private va
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayslipViewHolder {
         return PayslipViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_payslip_item, parent, false)
+                .inflate(R.layout.payslip_item, parent, false)
         )
     }
 

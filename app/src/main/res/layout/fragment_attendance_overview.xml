@@ -201,7 +201,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clockOutBtn"
-            tools:listitem="@layout/activity_attendenceitem" />
+            tools:listitem="@layout/attendence_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
