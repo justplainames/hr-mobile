@@ -13,10 +13,9 @@ import edu.singaporetech.hr.R
     PayslipDeductionDetailAdapter : Payslip Deduction Detail Adapter
         -- Used for recycler view by binding the data
            obtained from the database into the recycler view
+           - OPE others,CPF,Asst Fund
         -- This viewmodel is purely for the recycler view that display breakdown of deduction
-                - OPE others
-                - CPF
-                - Asst Fund
+
  */
 class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Payslip>,private var position: Int) : RecyclerView.Adapter<PayslipDeductionDetailAdapter.PayslipDeductionDetailViewHolder>() {
 

@@ -12,11 +12,9 @@ import edu.singaporetech.hr.R
     PayslipEarningDetailAdapter : Payslip Earning Detail Adapter
         -- Used for recycler view by binding the data
            obtained from the database into the recycler view
+           - Bonus,Total Earning,Basic Wage,OT
         -- This viewmodel is purely for the recycler view that display breakdown of earning
-                - Bonus
-                - Total Earning
-                - Basic Wage
-                - OT
+
 
  */
 class PayslipEarningDetailAdapter (private var payslipArrayList: ArrayList<Payslip>,private var position: Int): RecyclerView.Adapter<PayslipEarningDetailAdapter.PayslipDetailViewHolder>() {

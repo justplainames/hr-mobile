@@ -46,7 +46,8 @@ import kotlin.properties.Delegates
 /*
     PayslipListFragment : Payslip List Fragment
         - allow user to view the breakdown of the earning and deduction
-        - data visualisation (circular progress bar - Net Pay and Deduction)
+        -- Data Visualisation
+            - data visualisation (circular progress bar - Net Pay and Deduction)
         - Download as PDF
             - use firebase variable to pass variable into the PDF to customise
             - request for permissions (if user havent grant permission)
@@ -54,7 +55,6 @@ import kotlin.properties.Delegates
 
 
 class PayslipDetailFragment(private var position: Int) : Fragment() {
-    // TODO: Rename and change types of parameters
     private lateinit var viewModel: PayslipViewModel
     private lateinit var adapterEarning : PayslipEarningDetailAdapter
     private lateinit var adapterDeduction : PayslipDeductionDetailAdapter
@@ -285,7 +285,7 @@ class PayslipDetailFragment(private var position: Int) : Fragment() {
         values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
         values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
         values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS+"/HR")
-        //values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+
         val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
         if (uri!=null){
             var outputStream=requireActivity().getContentResolver().openOutputStream(uri)

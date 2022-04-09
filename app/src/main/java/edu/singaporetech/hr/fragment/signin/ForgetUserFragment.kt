@@ -12,7 +12,12 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.databinding.FragmentForgetUserBinding
+/*
+    ForgetUserFragment : Forget Password
+        -- Enter Secondary Email to reset password (data validation)
+           - link to reset password will be send to the user via the secondary email
 
+ */
 class ForgetUserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

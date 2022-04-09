@@ -24,9 +24,15 @@ import edu.singaporetech.hr.adapter.AttendanceAdapter
 import edu.singaporetech.hr.databinding.FragmentAttendanceOverviewBinding
 import edu.singaporetech.hr.fragment.HomeFragment
 import java.time.LocalDateTime
-
+/*
+    AttendanceOverviewFragment :  Attendance Overview Fragment
+        -- Data Visualisation
+            - Circular Progress bar for On Time and Late
+        -- Recycler View for the status, clock in and out time along with reason
+        -- navigate option to AttendanceClockFragment through Clock In/ Out button
+ */
 class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListener {
-    // TODO: Rename and change types of parameters
+
     private lateinit var viewViewModel: AttendanceViewModel
     private lateinit var viewClockModel: AttendanceClockViewModel
     private lateinit var attendancedapter: AttendanceAdapter
@@ -55,7 +61,8 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
 
         viewClockModel = ViewModelProvider(requireActivity())[AttendanceClockViewModel::class.java]
 
-        viewClockModel.attendanceStatus.observe(viewLifecycleOwner) { summary ->
+        viewClockModel.attendanceStatus.observe(viewLifecycleOwner) {
+                summary ->
             Log.d("TESTING", "saveAttendanceIn()")
             binding.textViewOnTime.text = summary[1].onTime.toString()
             binding.textViewLate.text = summary[1].late.toString()

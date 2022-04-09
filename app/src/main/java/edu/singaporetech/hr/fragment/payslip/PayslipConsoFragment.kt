@@ -42,7 +42,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 /*
-    PayslipConsoFragment : Fragment page
+    PayslipConsoFragment : Payslip Consolidated Fragment
         -- consists of MonthYear Picker form for download of consolidated payslip
            - validation of month year picker (similar to the unit testing)
         -- authentication
@@ -53,7 +53,6 @@ import java.util.*
 
  */
 class PayslipConsoFragment() : Fragment() {
-    // TODO: Rename and change types of parameters
 
     lateinit var inputpayslipDatePickerTo: String
     lateinit var inputpayslipDatePickerFrom: String

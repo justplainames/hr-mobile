@@ -39,7 +39,15 @@ import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.AttendanceClockViewModel
 import edu.singaporetech.hr.databinding.FragmentAttendanceClockBinding
 import java.util.*
-
+/*
+    AttendanceClockFragment : Attendance Clock Fragment
+        -- obtain the location of the user
+           - request for permissions
+        -- authentication for clock in/ clock out
+            - biometric (fingerprint, facial recognition)
+        -- Get status of clock in/ clock out from the firebase
+            - update when the user click on the clock in/clock out button
+ */
 class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
     private var map: GoogleMap? = null
     private var locationPermissionGranted = false
@@ -70,17 +78,14 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
                     super.onAuthenticationSucceeded(result)
                     notifyUser("Authentication success!")
                     if (viewModel.clockInStatus.value == true) {
-                        Log.d("TESTING", "saveAttendanceIn()")
                         saveAttendanceClockIn()
 
                         binding.locationTextView.text = ""
                     }
                     else{
-                        Log.d("TESTING", "EnterOnAuthenticationSucceed(False)")
                         saveAttendanceClockOut()
                         viewModel.clockInStatus.value = true
                         binding.locationTextView.text = ""
-                        Log.d("TESTING", "onAuthenticationSucceeded")
 
                     }
                 }
@@ -141,7 +146,6 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
             getLocation()
         }
 
-        // Submit button
         binding.attendanceclockBtn.setOnClickListener {
             if(binding.locationTextView.text.isNullOrBlank()){
                 Toast.makeText(
@@ -202,7 +206,6 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
             clockInAddress = binding.locationTextView.text as String?
 
             if ( hours < 9){
-                //if ( hours.toString() > "9"){
                 attendanceStatus = "On Time"
                 viewModel.updateAttendanceStatusOnTime()
 
@@ -210,8 +213,6 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
                 attendanceStatus = "Late"
                 viewModel.updateAttendanceStatusLate()
             }
-
-//            attendanceStatus
         }
     }
 

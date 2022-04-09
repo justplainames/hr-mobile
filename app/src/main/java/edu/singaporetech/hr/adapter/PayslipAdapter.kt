@@ -15,6 +15,7 @@ import java.util.*
     PayslipAdapter : Payslip Adapter
         -- Used for recycler view by binding the data
            obtained from the database into the recycler view
+           - Net Pay, MthYear of Payslip
         -- Buttons embedded within the recycler view
                - with the use of onitemclicklistener, able to know
                whether it is download or view details

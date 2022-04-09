@@ -18,15 +18,15 @@ import edu.singaporetech.hr.MainActivity
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.AttendanceViewModel
 import edu.singaporetech.hr.databinding.ReportAttendanceFragmentBinding
-
+/*
+    ReportAttendanceFragment :  Attendance Overview Fragment
+        -- Submit of Reason for clock in/ out status
+        -- Get the date based on the record user navigate to
+        -- Update the reason in the firebase records
+ */
 class ReportAttendanceFragment(private var position: Int, var selectedDate: String, var id: String) : Fragment() {
 
-//    companion object {
-//        fun newInstance() = ReportAttendanceFragment()
-//    }
-
     private lateinit var viewViewModel: AttendanceViewModel
-    //private lateinit var reportAttendanceAdapter: ReportAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +36,6 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
             inflater, R.layout.report_attendance_fragment, container, false
         )
         viewViewModel = ViewModelProvider(this).get(AttendanceViewModel::class.java)
-
-//        reportAttendanceAdapter = ReportAdapter(selectedDate,id)
 
         binding.selectedDateTV.text = selectedDate
         val submitBtn = binding.submitBtn
@@ -53,8 +51,6 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
         }
 
         submitBtn.setOnClickListener{
-            //Log.d("reportBtn", "this is" + reason.toString() + reason)
-           //validation for submiting
 
             if (binding.reasonET.text.isNullOrBlank()) {
                 Log.d("reportBtn", "this is empty")
@@ -92,7 +88,6 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                                     .beginTransaction()
                                     .replace(R.id.fragmentContainerView, AttendanceOverviewFragment())
                                     .commitNow()
-
                             }
 
                     }else{
@@ -109,15 +104,11 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                         "Submit Reason fail, Please try again", Toast.LENGTH_LONG
                     ).show()
                 }
-
             }
         }
 
         return binding.root
     }
-
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -133,9 +124,6 @@ class ReportAttendanceFragment(private var position: Int, var selectedDate: Stri
                     .commitNow()
             }
         })
-
-
-
     }
 
 }

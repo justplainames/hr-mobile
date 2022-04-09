@@ -12,7 +12,15 @@ import edu.singaporetech.hr.R
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
+/*
+    AttendanceAdapter : Attendance Adapter
+        -- Used for recycler view by binding the data
+           obtained from the database into the recycler view
+           - Clock In, Out, Status and Reason
+        -- Buttons embedded within the recycler view
+               - with the use of onitemclicklistener, able to know
+               whether it is click next for report of issues
+ */
 class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>, private val listener: OnItemClickListener) : RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder>() {
     private lateinit var mListener : OnItemClickListener
 
@@ -90,30 +98,7 @@ class AttendanceAdapter (private var attendanceArrayList: ArrayList<Attendance>,
                         listener.onItemClick(position,selectedDate,id)
                     }
                 }
-
             }
-
         }
-
-
-       // var nextButton: ImageButton = views.findViewById(R.id.nextButton)
-     //   attendanceSummaryBtn.setOnClickListener(this);
-
-
     }
-
-//    public void onClick(View view) {
-//        int id = view.getId();
-//        switch (id){
-//            case R.id.object_card_first_button:
-//            // button event
-//            break;
-//            case R.id.object_card_second_button
-//                    // button event
-//                    break;
-//
-//        }
-
-
-
 }
