@@ -37,32 +37,13 @@ class LeaveDetailFragment(private var position: Int) : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(LeaveRecordViewModel::class.java)
 
         val leaveRecordObserver = Observer<ArrayList<LeaveRecordViewAllItem>> { leave ->
-
-//            var path = "${leave.ld}/${leaveRecord.imageName}"
-//            val documents = FirebaseStorage.getInstance().getReference("images/$path")
-//
-//            val localFile = File.createTempFile("path", "jpg")
-//            documents.getFile(localFile).addOnSuccessListener {
-//                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-//            }
-//
             adaptorDetail = LeaveDetailAdapter(leave, position)
             binding.recyclerViewLeaveDetail.adapter = adaptorDetail
         }
         viewModel.leave.observe(requireActivity(), leaveRecordObserver)
 
-
-        viewModel.leave.observe(viewLifecycleOwner, Observer {
-                leave ->
-//            binding.
-        })
-
-//        viewModel.fetchImage(leave )
-
         binding.recyclerViewLeaveDetail.layoutManager = LinearLayoutManager(activity)
         binding.recyclerViewLeaveDetail.setHasFixedSize(true)
-
-
 
         return binding.root
     }
@@ -82,8 +63,4 @@ class LeaveDetailFragment(private var position: Int) : Fragment() {
             }
         })
     }
-
-
-
-
 }

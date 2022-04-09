@@ -33,7 +33,7 @@ import java.util.*
 class LeaveApplyFragment : Fragment() {
 
     private lateinit var binding: FragmentLeaveApplyBinding
-//    private val viewModel = ViewModelProvider(this).get(LeaveViewModel::class.java)
+
     private val viewModel: LeaveViewModel by viewModels()
     private var leave = Leave()
     var selectedDay:String? = null
@@ -151,21 +151,13 @@ class LeaveApplyFragment : Fragment() {
         })
 
 
-
-
         // Submit button
         binding.buttonSubmitLeave.setOnClickListener {
             // validation for date picker
             val datePickerStartDate = binding.textViewLeaveStartDate.text.toString()
             val datePickerEndDate = binding.textViewLeaveEndDate.text.toString()
             var time = LocalDateTime.now().toString()
-            noOfDays = (datePickerEndDate.split("/")[0] ).toInt() - (datePickerStartDate.split("/")[0]).toInt() + 1
 
-
-
-            Log.d("timee",LocalDateTime.now().toString() )
-            Log.d("timee",time.split("-")[1] ) //month
-            Log.d("timee",datePickerStartDate.split("/")[0] )
             if (binding.textViewLeaveStartDate.text.isNullOrBlank() || binding.textViewLeaveEndDate.text.isNullOrBlank()
                 || binding.autoCompleteTextViewLeaveType.text.isNullOrBlank() || selectedDay == "0" || binding.autoCompleteTextViewLeaveSupervisor.text.isNullOrBlank()) {
                 Toast.makeText(
@@ -199,6 +191,8 @@ class LeaveApplyFragment : Fragment() {
                     image_uri = Uri.parse("android.resource://edu.singaporetech.hr/" + R.drawable.ic_baseline_image_not_supported_24 )
                 }
 
+                noOfDays = (datePickerEndDate.split("/")[0] ).toInt() - (datePickerStartDate.split("/")[0]).toInt() + 1
+
                 val dialogView = layoutInflater.inflate(R.layout.leave_apply_dialog, null)
                 val dialogBuilder = AlertDialog.Builder(context)
                     .setView(dialogView)
@@ -209,11 +203,8 @@ class LeaveApplyFragment : Fragment() {
 
                 confirmYesButton.setOnClickListener {
                     alertDialog.dismiss()
-
                     saveLeave()
-                    //uploadImage()
                     if (selectedLeaveType.toString() == "Annual Leave") {
-
                         viewModel.updateAnnualLeaveBalance(noOfDays!!.toDouble())
                     } else if (selectedLeaveType.toString() == "Sick Leave") {
                         viewModel.updateSickLeaveBalance(noOfDays!!.toDouble())
@@ -242,13 +233,9 @@ class LeaveApplyFragment : Fragment() {
         }
 
         binding.buttonCamera.setOnClickListener {
-            //val permissionGranted = requestCameraPermission()
             requestCameraPermission()
-//            if (permissionGranted){
-//                requestCameraPermission()
-//            }
+            }
         }
-    }
 
         override fun onResume() {
             super.onResume()
@@ -270,8 +257,6 @@ class LeaveApplyFragment : Fragment() {
             val now = Date()
             fileName = formatter.format(now)
             var pic = fileName + ".jpg"
-
-            //image_uri = Uri.EMPTY
             image_uri?.let { viewModel.save(leave, pic, it) }
             leave = Leave()
         }
@@ -291,7 +276,6 @@ class LeaveApplyFragment : Fragment() {
                 leaveReason = binding.editTextLeaveReason.text.toString()
                 leaveStatus = "Pending"
                 imageName = pic
-//                imageNamee = "gs://csc2008-hr-app.appspot.com/images/"
                 Log.d("file",pic)
             }
         }
@@ -325,7 +309,6 @@ class LeaveApplyFragment : Fragment() {
             return permissionGranted
     }
 
-
     private fun openCamera() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE,"New Pic")
@@ -336,15 +319,6 @@ class LeaveApplyFragment : Fragment() {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
         startActivityForResult(cameraIntent,IMAGE_CAPTURE_CODE)
     }
-
-//    private fun uploadImage(){
-//        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-//        val now = Date()
-//        val fileName = formatter.format(now)
-//
-//        image_uri?.let { viewModel.saveImage(leave.leaveId, fileName, it) }
-//
-//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

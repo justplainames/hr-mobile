@@ -41,7 +41,6 @@ class LeaveFragment : Fragment() {
             R.layout.fragment_leave, container, false
         )
 
-
         var annual:Int
         var annualCurr:Int
         var maternity:Int
@@ -85,9 +84,6 @@ class LeaveFragment : Fragment() {
         leaveRecyclerView.layoutManager = LinearLayoutManager(activity)
         leaveRecyclerView.setHasFixedSize(true)
         leaveRecyclerView.itemAnimator = DefaultItemAnimator()
-
-        //val ref = FirebaseFirestore.getInstance()
-
 
         leaveArrayList = arrayListOf()
         leaveAdapter = LeaveRecordAdaptor(leaveArrayList)
@@ -142,6 +138,5 @@ class LeaveFragment : Fragment() {
         super.onStart()
         (requireActivity() as MainActivity).supportActionBar?.title = "Leave"
     }
-
 
 }

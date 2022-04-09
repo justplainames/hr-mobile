@@ -79,15 +79,6 @@ class LeaveRecordFragment : Fragment() {
                     .replace(R.id.fragmentContainerView, LeaveDetailFragment(position))
                     .commitNow()
             }
-
-//            override fun onItemClickDetail(position: Int) {
-//                requireActivity()
-//                    .supportFragmentManager
-//                    .beginTransaction()
-//                    .replace(R.id.fragmentContainerView, LeaveDetailFragment())
-//                    .commitNow()
-//            }
-
         })
 
         viewModel.leave.observe(viewLifecycleOwner, Observer {
@@ -97,33 +88,8 @@ class LeaveRecordFragment : Fragment() {
             leaveRecordRecyclerView.adapter!!.notifyDataSetChanged()
         })
 
-        //viewModel.fetchItems()
 
-
-
-//        binding.editTextLeaveRecord.addTextChangedListener(object: TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                val searchText = binding.editTextLeaveRecord.text.toString()
-//
-//
-//                viewModel.updateLeaveRecord(searchText)
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {
-//
-//            }
-//        })
-
-
-
-        //binding.recyclerViewLeaveRecordViewAll.
         binding.buttonCancelLeave.setOnClickListener {
-
-
             val dialogView = layoutInflater.inflate(R.layout.leave_cancel_dialog, null)
             val dialogBuilder = AlertDialog.Builder(context)
                 .setView(dialogView)
@@ -147,10 +113,6 @@ class LeaveRecordFragment : Fragment() {
             }
 
         }
-
-
-
-
     }
 
     internal fun deleteRecord(){
@@ -179,10 +141,4 @@ class LeaveRecordFragment : Fragment() {
         super.onStart()
         (requireActivity() as MainActivity).supportActionBar?.title = "Leave"
     }
-
-
-}
-
-private fun <E> ArrayList<E>.addAll(elements: ArrayList<Leave>?) {
-
 }
