@@ -37,6 +37,7 @@ class LeaveApplyFragment : Fragment() {
     private val viewModel: LeaveViewModel by viewModels()
     private var leave = Leave()
     var selectedDay:String? = null
+    var noOfDays:Int? = null
     private lateinit var fileName:String
 
     var image_uri: Uri? = null
@@ -149,12 +150,19 @@ class LeaveApplyFragment : Fragment() {
             }
         })
 
+
+
+
         // Submit button
         binding.buttonSubmitLeave.setOnClickListener {
             // validation for date picker
-            var datePickerStartDate = binding.textViewLeaveStartDate.text.toString()
-            var datePickerEndDate = binding.textViewLeaveEndDate.text.toString()
+            val datePickerStartDate = binding.textViewLeaveStartDate.text.toString()
+            val datePickerEndDate = binding.textViewLeaveEndDate.text.toString()
             var time = LocalDateTime.now().toString()
+            noOfDays = (datePickerEndDate.split("/")[0] ).toInt() - (datePickerStartDate.split("/")[0]).toInt() + 1
+
+
+
             Log.d("timee",LocalDateTime.now().toString() )
             Log.d("timee",time.split("-")[1] ) //month
             Log.d("timee",datePickerStartDate.split("/")[0] )
@@ -204,14 +212,13 @@ class LeaveApplyFragment : Fragment() {
 
                     saveLeave()
                     //uploadImage()
-                    var noOfDays = (datePickerEndDate.split("/")[0] ).toInt() - (datePickerStartDate.split("/")[0]).toInt() + 1
                     if (selectedLeaveType.toString() == "Annual Leave") {
 
-                        viewModel.updateAnnualLeaveBalance(noOfDays.toDouble())
+                        viewModel.updateAnnualLeaveBalance(noOfDays!!.toDouble())
                     } else if (selectedLeaveType.toString() == "Sick Leave") {
-                        viewModel.updateSickLeaveBalance(noOfDays.toDouble())
+                        viewModel.updateSickLeaveBalance(noOfDays!!.toDouble())
                     } else {
-                        viewModel.updateMaternityLeaveBalance(noOfDays.toDouble())
+                        viewModel.updateMaternityLeaveBalance(noOfDays!!.toDouble())
                     }
 
                     requireActivity()
@@ -279,6 +286,7 @@ class LeaveApplyFragment : Fragment() {
                 leaveStartDate = binding.textViewLeaveStartDate.text.toString()
                 leaveEndDate = binding.textViewLeaveEndDate.text.toString()
                 leaveDay = selectedDay
+                leaveNoOfDays = noOfDays.toString()
                 leaveSupervisor = binding.autoCompleteTextViewLeaveSupervisor.text.toString()
                 leaveReason = binding.editTextLeaveReason.text.toString()
                 leaveStatus = "Pending"

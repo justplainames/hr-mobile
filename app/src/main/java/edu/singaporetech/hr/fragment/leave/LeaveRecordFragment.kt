@@ -21,8 +21,8 @@ import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.LeaveRecordViewModel
 
 import edu.singaporetech.hr.databinding.FragmentLeaveRecordBinding
-import edu.singaporetech.hr.leave.LeaveRecordViewAllAdaptor
-import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
+import edu.singaporetech.hr.adapter.LeaveRecordViewAllAdaptor
+import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
 
 class LeaveRecordFragment : Fragment() {
@@ -71,7 +71,7 @@ class LeaveRecordFragment : Fragment() {
         leaveArrayList = arrayListOf()
         leaveRecordAdapter = LeaveRecordViewAllAdaptor(leaveArrayList)
         leaveRecordRecyclerView.adapter = leaveRecordAdapter
-        leaveRecordAdapter.setOnItemClickListener(object:LeaveRecordViewAllAdaptor.onItemClickListener{
+        leaveRecordAdapter.setOnItemClickListener(object: LeaveRecordViewAllAdaptor.onItemClickListener{
             override fun onItemClickDetail(position: Int)  {
                 requireActivity()
                     .supportFragmentManager
@@ -152,14 +152,17 @@ class LeaveRecordFragment : Fragment() {
 
 
     }
+
     internal fun deleteRecord(){
+
         for (i in leaveRecordAdapter.selectedCheckBoxList.indices){
+            var noOfDays = leaveRecordAdapter.selectedCheckBoxList[i].leaveNoOfDays
             if (leaveRecordAdapter.selectedCheckBoxList[i].leaveType == "Annual Leave") {
-                viewModel.updateAnnualLeaveBalance()
+                viewModel.updateAnnualLeaveBalance(noOfDays!!.toDouble())
             } else if (leaveRecordAdapter.selectedCheckBoxList[i].leaveType == "Sick Leave") {
-                viewModel.updateSickLeaveBalance()
+                viewModel.updateSickLeaveBalance(noOfDays!!.toDouble())
             } else {
-                viewModel.updateMaternityLeaveBalance()
+                viewModel.updateMaternityLeaveBalance(noOfDays!!.toDouble())
             }
             Log.d("firebase", leaveRecordAdapter.selectedCheckBoxList[i].leaveType)
             viewModel.delete(leaveRecordAdapter.selectedCheckBoxList[i])

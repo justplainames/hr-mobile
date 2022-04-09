@@ -1,19 +1,16 @@
-package edu.singaporetech.hr.leave
+package edu.singaporetech.hr.adapter
 
-import android.nfc.Tag
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import edu.singaporetech.hr.R
+import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
 
 class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRecordViewAllItem>): RecyclerView.Adapter<LeaveRecordViewAllAdaptor.LeaveRecordViewAllViewHolder>(){
-    private lateinit var mListener:onItemClickListener
+    private lateinit var mListener: onItemClickListener
     var selectedCheckBoxList : ArrayList<LeaveRecordViewAllItem> = ArrayList()
     interface onItemClickListener{
 
@@ -34,42 +31,8 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
     }
 
     override fun onBindViewHolder(holder: LeaveRecordViewAllViewHolder, position: Int) {
-        val leaveRecordViewAllItem:LeaveRecordViewAllItem = leaveRecordViewAllList.get(position)
 
-        var currentItemViewAll = leaveRecordViewAllList[position]
 
-        holder.selected.isChecked = currentItemViewAll.selected
-        holder.leaveRecordViewAllType.text = currentItemViewAll.leaveType
-        holder.leaveRecordViewAllStartDate.text = currentItemViewAll.leaveStartDate+ " - " + currentItemViewAll.leaveEndDate
-        holder.leaveRecordViewAllDays.text = currentItemViewAll.leaveDay
-        holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveStatus
-
-        holder.selected.setOnClickListener {
-            if(currentItemViewAll.selected ==true){
-                holder.selected.toggle()
-                currentItemViewAll.selected = false
-                holder.selected.setChecked(currentItemViewAll.selected)
-                selectedCheckBoxList.remove(currentItemViewAll)
-
-                //Log.d("a", selectedCheckBoxList.toString())
-            }else{
-                holder.selected.toggle()
-                currentItemViewAll.selected=true
-                holder.selected.setChecked(currentItemViewAll.selected)
-                selectedCheckBoxList.add(currentItemViewAll)
-                Log.d("a", selectedCheckBoxList.toString())
-            }
-        }
-
-//        holder.leaveDetail.setOnClickListener(object:View.OnClickListener{
-//            override fun onClick(v: View?) {
-//                TODO("Not yet implemented")
-//            }
-//        })
-
-//        holder.leaveDetail.setOnClickListener {
-//
-//        }
     }
 
     override fun getItemCount() = leaveRecordViewAllList.size

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.singaporetech.hr.R
-import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
+import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
 class LeaveDetailAdapter(private val leaveRecordViewAllList: ArrayList<LeaveRecordViewAllItem>, private var position: Int): RecyclerView.Adapter<LeaveDetailAdapter.LeaveDetailViewHolder>() {
 

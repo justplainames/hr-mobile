@@ -10,6 +10,7 @@ data class Leave(
     var leaveStartDate: String? = null,
     var leaveEndDate: String? = null,
     var leaveDay: String? = null,
+    var leaveNoOfDays: String? = null,
     var leaveReason: String? = null,
     var leaveStatus: String? = null,
     var leaveSupervisor: String? = null,

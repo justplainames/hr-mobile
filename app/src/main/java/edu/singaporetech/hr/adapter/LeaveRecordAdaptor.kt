@@ -1,4 +1,4 @@
-package edu.singaporetech.hr.leave
+package edu.singaporetech.hr.adapter
 
 import android.view.LayoutInflater
 import android.view.View

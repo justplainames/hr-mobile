@@ -1,4 +1,4 @@
-package edu.singaporetech.hr.leave
+package edu.singaporetech.hr.data
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.ServerTimestamp
@@ -17,5 +17,6 @@ data class LeaveRecordViewAllItem (
     var imageName: String? = "",
     var imageNamee: String? = "",
     var imageRef: String? = "",
+    var leaveNoOfDays: String? = null,
     @ServerTimestamp
     var leaveTimeStamp: Date? = null )

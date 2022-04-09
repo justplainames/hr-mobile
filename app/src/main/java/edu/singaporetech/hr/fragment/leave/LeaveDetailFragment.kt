@@ -15,7 +15,7 @@ import edu.singaporetech.hr.MainActivity
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.LeaveRecordViewModel
 import edu.singaporetech.hr.databinding.FragmentLeaveDetailBinding
-import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
+import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
 private const val ARG_PARAM1 = "title"
 

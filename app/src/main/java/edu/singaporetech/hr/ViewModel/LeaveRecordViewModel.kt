@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import edu.singaporetech.hr.data.Leave
-import edu.singaporetech.hr.leave.LeaveRecordViewAllItem
+import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
 class LeaveRecordViewModel  : ViewModel(){
     private var _leaveRecords: MutableLiveData<ArrayList<LeaveRecordViewAllItem>> = MutableLiveData<ArrayList<LeaveRecordViewAllItem>>()
@@ -92,10 +92,12 @@ class LeaveRecordViewModel  : ViewModel(){
             }
     }
 
-    fun updateAnnualLeaveBalance(){
+
+
+    fun updateAnnualLeaveBalance(leave: Double){
         val document = firestore.collection("leaveType").document(
             "imEaChWkIuehvw3yxTDu")
-        val set = document.update("annualLeaveBalance" ,FieldValue.increment(1) )
+        val set = document.update("annualLeaveBalance" ,FieldValue.increment(leave) )
         set.addOnSuccessListener {
             Log.d("firebase", "document saved!!!!!!")
         }
@@ -104,9 +106,10 @@ class LeaveRecordViewModel  : ViewModel(){
         }
     }
 
-    fun updateSickLeaveBalance(){
+    fun updateSickLeaveBalance(leave: Double){
+
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("sickLeaveBalance" ,FieldValue.increment(1) )
+        val set = document.update("sickLeaveBalance" ,FieldValue.increment(leave) )
         set.addOnSuccessListener {
             Log.d("firebase", "document saved")
         }
@@ -115,9 +118,10 @@ class LeaveRecordViewModel  : ViewModel(){
         }
     }
 
-    fun updateMaternityLeaveBalance(){
+    fun updateMaternityLeaveBalance(leave:Double){
+//        var noOfDays = leave.leaveNoOfDays
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(1) )
+        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(leave ))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved")
         }

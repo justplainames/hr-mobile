@@ -13,14 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.*
 import edu.singaporetech.hr.data.Leave
 import edu.singaporetech.hr.MainActivity
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.LeaveViewModel
 import edu.singaporetech.hr.databinding.FragmentLeaveBinding
 import edu.singaporetech.hr.fragment.HomeFragment
-import edu.singaporetech.hr.leave.LeaveRecordAdaptor
+import edu.singaporetech.hr.adapter.LeaveRecordAdaptor
 
 
 class LeaveFragment : Fragment() {
