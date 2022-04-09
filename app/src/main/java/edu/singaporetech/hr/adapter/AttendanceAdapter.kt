@@ -35,9 +35,7 @@ class AttendanceAdapter(
         )
     }
 
-
     interface OnItemClickListener {
-
         fun onItemClick(position: Int, clockInDate: String, id: String)
     }
 
@@ -45,9 +43,7 @@ class AttendanceAdapter(
         mListener = listener
     }
 
-
     override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
-
         val curItem = attendanceArrayList.get(position)
         val delim = " at "
         val tempDateTime = curItem.ClockInDate.toString()
@@ -72,8 +68,6 @@ class AttendanceAdapter(
         } else {
             holder.reason.text = "Reason: ${curItem.IssueReason.toString()}"
         }
-
-
     }
 
 
@@ -92,7 +86,6 @@ class AttendanceAdapter(
 
         init {
             reportBtn.setOnClickListener(this)
-
         }
 
         override fun onClick(v: View?) {

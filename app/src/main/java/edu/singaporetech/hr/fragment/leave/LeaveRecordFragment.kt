@@ -24,6 +24,14 @@ import edu.singaporetech.hr.databinding.FragmentLeaveRecordBinding
 import edu.singaporetech.hr.adapter.LeaveRecordViewAllAdaptor
 import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
+/*
+    LeaveRecordFragment : Leave Record Fragment
+        - Option to cancel leave after clicking on the leave to cancel (tick box)
+          - Dialog Box to confirm cancellation
+          - Remove the records from the firebase
+        - Recycler View with status of leave, leave type, start date, end date and day
+        - Navigate from View All Records
+ */
 
 class LeaveRecordFragment : Fragment() {
 
@@ -34,7 +42,6 @@ class LeaveRecordFragment : Fragment() {
     private lateinit var binding: FragmentLeaveRecordBinding
     private val viewModel: LeaveRecordViewModel by viewModels()
     private var leaveRecord = LeaveRecordViewAllItem()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,7 +95,6 @@ class LeaveRecordFragment : Fragment() {
             leaveRecordRecyclerView.adapter!!.notifyDataSetChanged()
         })
 
-
         binding.buttonCancelLeave.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.leave_cancel_dialog, null)
             val dialogBuilder = AlertDialog.Builder(context)
@@ -126,7 +132,6 @@ class LeaveRecordFragment : Fragment() {
             } else {
                 viewModel.updateMaternityLeaveBalance(noOfDays!!.toDouble())
             }
-            Log.d("firebase", leaveRecordAdapter.selectedCheckBoxList[i].leaveType)
             viewModel.delete(leaveRecordAdapter.selectedCheckBoxList[i])
 
         }
