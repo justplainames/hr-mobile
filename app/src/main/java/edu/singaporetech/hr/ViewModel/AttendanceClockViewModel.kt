@@ -12,16 +12,26 @@ import java.time.*
 import java.util.*
 
 
-class AttendanceClockViewModel : ViewModel(){
-    private var _clockRecords: MutableLiveData<ArrayList<AttendanceItem>> = MutableLiveData<ArrayList<AttendanceItem>>()
-    private var _attendanceSummary : MutableLiveData<AttendanceSummary> = MutableLiveData<AttendanceSummary>()
-    private var _clockInStatus : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+/*
+   AttendanceClockViewModel: Attendance Clock ViewModel
+        - Use to link the Firestore database with the fragments
+        - Listener is setup to obtain the records from the Attendance and attendanceStatus collection
+        - Used to insert or update attendance records in Attendance and attendanceStatus collection
+ */
+
+class AttendanceClockViewModel : ViewModel() {
+    private var _clockRecords: MutableLiveData<ArrayList<AttendanceItem>> =
+        MutableLiveData<ArrayList<AttendanceItem>>()
+    private var _attendanceSummary: MutableLiveData<AttendanceSummary> =
+        MutableLiveData<AttendanceSummary>()
+    private var _clockInStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    var documentId = ""
-    private var _attendanceStatus: MutableLiveData<ArrayList<AttendanceStatus>> = MutableLiveData<ArrayList<AttendanceStatus>>()
+    private var documentId = ""
+    private var _attendanceStatus: MutableLiveData<ArrayList<AttendanceStatus>> =
+        MutableLiveData<ArrayList<AttendanceStatus>>()
 
 
-    init{
+    init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToClockStatus()
         listenToAttendanceStatus()
@@ -66,8 +76,8 @@ class AttendanceClockViewModel : ViewModel(){
         val currentYear = LocalDateTime.now().year
         val currentMonth = LocalDateTime.now().month
         val startDate = LocalDateTime.of(currentYear, currentMonth, 1, 0, 0, 1)
-        val zdt = startDate.atZone(ZoneId.of("Singapore"));
-        var millis = zdt.toInstant().toEpochMilli();
+        val zdt = startDate.atZone(ZoneId.of("Singapore"))
+        val millis = zdt.toInstant().toEpochMilli()
         firestore.collection("Attendance")
             .orderBy("clockInDate", Query.Direction.DESCENDING)
             .whereGreaterThanOrEqualTo("clockInDate", Date(millis))
@@ -94,8 +104,8 @@ class AttendanceClockViewModel : ViewModel(){
                         if (attendanceRecord != null) {
                             // ADD THIS IN THE PARAMETER WHEN SETTLED attendanceRecord.attendanceStatus=="Present"
                             if (attendanceRecord.clockOutDate != null) {
-                                var clockin = (attendanceRecord.clockInDate)?.getTime()
-                                var clockout = (attendanceRecord.clockOutDate)?.getTime()
+                                val clockIn = (attendanceRecord.clockInDate)?.time
+                                val clockOut = (attendanceRecord.clockOutDate)?.time
 
                                 /**
                                  * After clocking in/out calculates the number of
@@ -103,8 +113,8 @@ class AttendanceClockViewModel : ViewModel(){
                                  * 2) updates number of days worked
                                  * 3) updates number of days missed
                                  */
-                                hoursWorked += ((clockout!! - clockin!!) / 1000 / 60 / 60)
-                                minutesWorked += ((clockout!! - clockin!!) / 1000 / 60 % 60)
+                                hoursWorked += ((clockOut!! - clockIn!!) / 1000 / 60 / 60)
+                                minutesWorked += ((clockOut - clockIn) / 1000 / 60 % 60)
                                 daysWorked += 1
                                 daysMissed = 20 - daysWorked
 
@@ -148,18 +158,17 @@ class AttendanceClockViewModel : ViewModel(){
 
     private fun listenToAttendanceStatus() {
         firestore.collection("attendanceStatus")
-            .addSnapshotListener {
-                    snapshot, error ->
-                if(error != null){
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
                     Log.e("firestore Error", error.message.toString())
                     return@addSnapshotListener
                 }
-                if(snapshot!=null){
+                if (snapshot != null) {
                     val attendance = ArrayList<AttendanceStatus>()
-                    snapshot!!.documents.forEach{
+                    snapshot.documents.forEach {
                         val attendanceStatus = it.toObject(AttendanceStatus::class.java)
-                        if (attendanceStatus != null){
-                            attendance.add(attendanceStatus!!)
+                        if (attendanceStatus != null) {
+                            attendance.add(attendanceStatus)
                         }
                     }
                     _attendanceStatus.value = attendance
@@ -168,11 +177,10 @@ class AttendanceClockViewModel : ViewModel(){
     }
 
 
-
-    fun save(clockstatus: AttendanceItem){
+    fun save(clockStatus: AttendanceItem) {
         val document = firestore.collection("Attendance").document()
-        clockstatus.id = document.id
-        val set = document.set(clockstatus)
+        clockStatus.id = document.id
+        val set = document.set(clockStatus)
         set.addOnSuccessListener {
             documentId = document.id
             Log.d("firebase", "attendance saved")
@@ -182,9 +190,9 @@ class AttendanceClockViewModel : ViewModel(){
         }
     }
 
-    fun updateAttendanceStatusLate(){
+    fun updateAttendanceStatusLate() {
         val document = firestore.collection("attendanceStatus").document("attendance")
-        val set = document.update("late" ,FieldValue.increment(1) )
+        val set = document.update("late", FieldValue.increment(1))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved!!!!!!")
         }
@@ -193,9 +201,9 @@ class AttendanceClockViewModel : ViewModel(){
         }
     }
 
-    fun updateAttendanceStatusOnTime(){
+    fun updateAttendanceStatusOnTime() {
         val document = firestore.collection("attendanceStatus").document("attendance")
-        val set = document.update("onTime" ,FieldValue.increment(1) )
+        val set = document.update("onTime", FieldValue.increment(1))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved!!!!!!")
         }
@@ -204,15 +212,19 @@ class AttendanceClockViewModel : ViewModel(){
         }
     }
 
-    fun update(document_id: String, clockoutTime: Date, clockoutAddress: String){
-        val documenttId = _clockRecords.value!!.get(0).id
+    fun updateAttendanceRecord(clockoutTime: Date, clockoutAddress: String) {
+        val documentId = _clockRecords.value!!.get(0).id
         Log.i("TESTING", "ViewModel.Update()")
-        Log.i("TESTING", "documentID: ${documenttId}, Clockout Time:${clockoutTime}, Clockout Address: ${clockoutAddress}")
-        val document = firestore.collection("Attendance").document(documenttId)
+        Log.i(
+            "TESTING",
+            "documentID: ${documentId}, Clockout Time:${clockoutTime}, Clockout Address: $clockoutAddress"
+        )
+        val document = firestore.collection("Attendance").document(documentId)
         Log.i("TESTING", "Created Document")
-        val update = document.update("clockOutDate" , clockoutTime , "clockOutAddress", clockoutAddress)
+        val update =
+            document.update("clockOutDate", clockoutTime, "clockOutAddress", clockoutAddress)
         update.addOnSuccessListener {
-            documentId = ""
+            this.documentId = ""
             Log.d("firebase", "attendance saved")
         }
         update.addOnFailureListener {
@@ -221,18 +233,34 @@ class AttendanceClockViewModel : ViewModel(){
     }
 
     internal var attendance: MutableLiveData<ArrayList<AttendanceItem>>
-        get() {return _clockRecords}
-        set(value) {_clockRecords = value}
+        get() {
+            return _clockRecords
+        }
+        set(value) {
+            _clockRecords = value
+        }
 
     internal var attendanceSummary: MutableLiveData<AttendanceSummary>
-        get() {return _attendanceSummary}
-        set(value) {_attendanceSummary = value}
+        get() {
+            return _attendanceSummary
+        }
+        set(value) {
+            _attendanceSummary = value
+        }
 
     internal var clockInStatus: MutableLiveData<Boolean>
-        get() {return _clockInStatus}
-        set(value) {_clockInStatus = value}
+        get() {
+            return _clockInStatus
+        }
+        set(value) {
+            _clockInStatus = value
+        }
 
     internal var attendanceStatus: MutableLiveData<ArrayList<AttendanceStatus>>
-        get() {return _attendanceStatus}
-        set(value) {_attendanceStatus = value}
+        get() {
+            return _attendanceStatus
+        }
+        set(value) {
+            _attendanceStatus = value
+        }
 }

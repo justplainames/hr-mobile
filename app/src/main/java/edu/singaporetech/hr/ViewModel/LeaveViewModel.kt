@@ -9,14 +9,15 @@ import com.google.firebase.storage.FirebaseStorage
 import edu.singaporetech.hr.data.Leave
 import edu.singaporetech.hr.data.LeaveType
 
-class LeaveViewModel : ViewModel(){
-    private var _leaveRecords: MutableLiveData<ArrayList<Leave>> = MutableLiveData<ArrayList<Leave>>()
-    private lateinit var firestore: FirebaseFirestore
-    private var _leaveType: MutableLiveData<ArrayList<LeaveType>> = MutableLiveData<ArrayList<LeaveType>>()
+class LeaveViewModel : ViewModel() {
+    private var _leaveRecords: MutableLiveData<ArrayList<Leave>> =
+        MutableLiveData<ArrayList<Leave>>()
+    private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var _leaveType: MutableLiveData<ArrayList<LeaveType>> =
+        MutableLiveData<ArrayList<LeaveType>>()
     var imageReff = ""
 
-    init{
-        firestore = FirebaseFirestore.getInstance()
+    init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToLeaveRecord()
         listenToLeaveBalance()
@@ -25,59 +26,58 @@ class LeaveViewModel : ViewModel(){
     private fun listenToLeaveRecord() {
         firestore.collection("leave")
             .orderBy("leaveTimeStamp", Query.Direction.DESCENDING)
-            .addSnapshotListener {
-                snapshot, error ->
-            if(error != null){
-                Log.e("firestore Error", error.message.toString())
-                return@addSnapshotListener
-            }
-            if(snapshot!=null){
-                val leaveRecords = ArrayList<Leave>()
-                val documents = snapshot.documents
-                documents.forEach{
-                    val leaveRecord = it.toObject(Leave::class.java)
-                    if (leaveRecord != null){
-                        leaveRecord.leaveId = it.id
-                        leaveRecords.add(leaveRecord!!)
-                    }
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Log.e("firestore Error", error.message.toString())
+                    return@addSnapshotListener
                 }
-                _leaveRecords.value = leaveRecords
+                if (snapshot != null) {
+                    val leaveRecords = ArrayList<Leave>()
+                    val documents = snapshot.documents
+                    documents.forEach {
+                        val leaveRecord = it.toObject(Leave::class.java)
+                        if (leaveRecord != null) {
+                            leaveRecord.leaveId = it.id
+                            leaveRecords.add(leaveRecord!!)
+                        }
+                    }
+                    _leaveRecords.value = leaveRecords
+                }
             }
-        }
     }
 
     private fun listenToLeaveBalance() {
         firestore.collection("leaveType")
-            .addSnapshotListener {
-                snapshot, error ->
-            if(error != null){
-                Log.e("firestore Error", error.message.toString())
-                return@addSnapshotListener
-            }
-            if(snapshot!=null){
-                val leaveRecords = ArrayList<LeaveType>()
-                snapshot!!.documents.forEach{
-                    val leaveRecord = it.toObject(LeaveType::class.java)
-                    if (leaveRecord != null){
-                        leaveRecords.add(leaveRecord!!)
-                    }
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Log.e("firestore Error", error.message.toString())
+                    return@addSnapshotListener
                 }
-                _leaveType.value = leaveRecords
+                if (snapshot != null) {
+                    val leaveRecords = ArrayList<LeaveType>()
+                    snapshot!!.documents.forEach {
+                        val leaveRecord = it.toObject(LeaveType::class.java)
+                        if (leaveRecord != null) {
+                            leaveRecords.add(leaveRecord!!)
+                        }
+                    }
+                    _leaveType.value = leaveRecords
+                }
             }
-        }
     }
 
-    fun save(leave: Leave, location:String, image_uri:Uri){
+    fun save(leave: Leave, location: String, image_uri: Uri) {
         val document = firestore.collection("leave").document()
         leave.leaveId = document.id
         leave.imageNamee = "gs://csc2008-hr-app.appspot.com/images/${leave.leaveId}/$location"
 
-        val documents =FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
+        val documents =
+            FirebaseStorage.getInstance().getReference("images/${leave.leaveId}/$location")
 
         image_uri.let { documents.putFile(it) }
             .addOnSuccessListener {
                 Log.d("firebase", "save image!")
-                documents.downloadUrl.addOnSuccessListener {Uri->
+                documents.downloadUrl.addOnSuccessListener { Uri ->
 
                     imageReff = Uri.toString()
                     leave.imageRef = imageReff
@@ -95,9 +95,9 @@ class LeaveViewModel : ViewModel(){
             }
     }
 
-    fun updateAnnualLeaveBalance(value:Double){
+    fun updateAnnualLeaveBalance(value: Double) {
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("annualLeaveBalance" ,FieldValue.increment(-(value)))
+        val set = document.update("annualLeaveBalance", FieldValue.increment(-(value)))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved!!!!!!")
         }
@@ -106,9 +106,9 @@ class LeaveViewModel : ViewModel(){
         }
     }
 
-    fun updateSickLeaveBalance(value:Double){
+    fun updateSickLeaveBalance(value: Double) {
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("sickLeaveBalance" ,FieldValue.increment(-(value)) )
+        val set = document.update("sickLeaveBalance", FieldValue.increment(-(value)))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved")
         }
@@ -117,9 +117,9 @@ class LeaveViewModel : ViewModel(){
         }
     }
 
-    fun updateMaternityLeaveBalance(value:Double){
+    fun updateMaternityLeaveBalance(value: Double) {
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
-        val set = document.update("maternityLeaveBalance" ,FieldValue.increment(-(value)) )
+        val set = document.update("maternityLeaveBalance", FieldValue.increment(-(value)))
         set.addOnSuccessListener {
             Log.d("firebase", "document saved")
         }
@@ -129,12 +129,20 @@ class LeaveViewModel : ViewModel(){
     }
 
     internal var leave: MutableLiveData<ArrayList<Leave>>
-        get() {return _leaveRecords}
-        set(value) {_leaveRecords = value}
+        get() {
+            return _leaveRecords
+        }
+        set(value) {
+            _leaveRecords = value
+        }
 
     internal var leaveType: MutableLiveData<ArrayList<LeaveType>>
-        get() {return _leaveType}
-        set(value) {_leaveType = value}
+        get() {
+            return _leaveType
+        }
+        set(value) {
+            _leaveType = value
+        }
 
 }
 

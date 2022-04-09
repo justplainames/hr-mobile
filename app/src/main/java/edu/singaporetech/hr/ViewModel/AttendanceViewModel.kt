@@ -13,62 +13,65 @@ import java.lang.Exception
 import java.util.*
 
 
+/*
+   AttendanceViewModel: Attendance ViewModel
+        - Use to link the Firestore database with the fragments
+        - Listener is setup to obtain the records from Attendance collection
+        - Used to view the attributes from Attendance collection, update attendance record with issue reason
+ */
+
 class AttendanceViewModel : ViewModel() {
-    private var _attendenceArrayList: MutableLiveData<ArrayList<Attendance>> = MutableLiveData<ArrayList<Attendance>>()
-    private var firestore: FirebaseFirestore
+    private var _attendenceArrayList: MutableLiveData<ArrayList<Attendance>> =
+        MutableLiveData<ArrayList<Attendance>>()
+    private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     var myRef = FirebaseDatabase.getInstance().getReference("Attendance")
     open var attendenceArrayList = ArrayList<Attendance>()
 
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
 
-    init{
-        firestore = FirebaseFirestore.getInstance()
+    init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToAttendanceRecord()
     }
 
-    fun listenToAttendanceRecord(){
+    private fun listenToAttendanceRecord() {
         attendenceArrayList.clear()
         firestore.collection("Attendance")
             .orderBy("clockInDate", Query.Direction.DESCENDING)
-            .addSnapshotListener {
-                snapshot, error ->
-            if(error != null){
-                Log.e("firestore Error", error.message.toString())
-                return@addSnapshotListener
-            }
-            if(snapshot!=null){
-                val documents = snapshot.documents
-                documents.forEach{
-                    val attendanceItem = it.toObject(Attendance::class.java)
-
-                    if (attendanceItem != null){
-                        attendanceItem.id = it.id
-                        attendenceArrayList.add(attendanceItem!!)
-                    }
-                }
-                _attendenceArrayList.value = attendenceArrayList
-            }
-        }
-    }
-
-    internal fun fetchItems(){
-        firestore.collection("Attendance")
-//            .orderBy("", "desc")
-            .addSnapshotListener{
-                    value: QuerySnapshot?,
-                    error : FirebaseFirestoreException? ->
-                if (error != null){
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
                     Log.e("firestore Error", error.message.toString())
+                    return@addSnapshotListener
                 }
-                for (dc: DocumentChange in value?.documentChanges!!){
-                    if(dc.type == DocumentChange.Type.ADDED){
-                        var attendanceItem = dc.document.toObject(Attendance::class.java)
-                        if (attendanceItem != null){
-                            attendanceItem.id = dc.document.id
+                if (snapshot != null) {
+                    val documents = snapshot.documents
+                    documents.forEach {
+                        val attendanceItem = it.toObject(Attendance::class.java)
+
+                        if (attendanceItem != null) {
+                            attendanceItem.id = it.id
                             attendenceArrayList.add(attendanceItem!!)
                         }
+                    }
+                    _attendenceArrayList.value = attendenceArrayList
+                }
+            }
+    }
+
+    internal fun fetchItems() {
+        firestore.collection("Attendance")
+//            .orderBy("", "desc")
+            .addSnapshotListener { value: QuerySnapshot?,
+                                   error: FirebaseFirestoreException? ->
+                if (error != null) {
+                    Log.e("firestore Error", error.message.toString())
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        val attendanceItem = dc.document.toObject(Attendance::class.java)
+                        attendanceItem.id = dc.document.id
+                        attendenceArrayList.add(attendanceItem!!)
                         _attendenceArrayList.postValue(attendenceArrayList)
                     }
                 }
@@ -77,12 +80,9 @@ class AttendanceViewModel : ViewModel() {
             }
     }
 
-    fun updateReason(id: String, reason: String) {
-
-    }
 
     internal fun updateAttendanceRecord(id: String, reason: Editable?): Boolean {
-        var submitted: Boolean = true
+        var submitted = true
         val attendanceRecord = HashMap<String, Any>()
         //attendanceRecord.put("id",id)
         val updatedReason = reason.toString()
@@ -90,9 +90,9 @@ class AttendanceViewModel : ViewModel() {
 
         val document = firestore.collection("Attendance").document(id)
 
-       // val updateAttendanceReason = document.update(attendanceRecord)
+        // val updateAttendanceReason = document.update(attendanceRecord)
         document
-            .update("issueReason", updatedReason.toString())
+            .update("issueReason", updatedReason)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully updated!")
                 submitted = true
@@ -113,8 +113,8 @@ class AttendanceViewModel : ViewModel() {
 //            Log.d("reportBtn", "save failed!!!!")
 //             false
 //        }
-      //  val result = updateAttendanceReason.isSuccessful
-     //   Log.d("reportBtn", result.toString())
+    //  val result = updateAttendanceReason.isSuccessful
+    //   Log.d("reportBtn", result.toString())
 
 //        updateAttendanceReason.addOnSuccessListener {
 //            Log.d("reportBtn", "document saved!!!!!!")
@@ -152,12 +152,11 @@ class AttendanceViewModel : ViewModel() {
 //            }
 
 
-
-
-
-
-    internal var attendance:MutableLiveData<ArrayList<Attendance>>
-        get() {return _attendenceArrayList}
-
-        set(value) {_attendenceArrayList = value}
+    internal var attendance: MutableLiveData<ArrayList<Attendance>>
+        get() {
+            return _attendenceArrayList
+        }
+        set(value) {
+            _attendenceArrayList = value
+        }
 }

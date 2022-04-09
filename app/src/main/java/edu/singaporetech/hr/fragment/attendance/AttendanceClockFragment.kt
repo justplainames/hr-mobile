@@ -39,6 +39,7 @@ import edu.singaporetech.hr.R
 import edu.singaporetech.hr.ViewModel.AttendanceClockViewModel
 import edu.singaporetech.hr.databinding.FragmentAttendanceClockBinding
 import java.util.*
+
 /*
     AttendanceClockFragment : Attendance Clock Fragment
         -- obtain the location of the user
@@ -51,9 +52,11 @@ import java.util.*
 class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
     private var map: GoogleMap? = null
     private var locationPermissionGranted = false
+
     // A default location (Google Asia Pacific, Singapore) and default zoom to use when location permission is
     // not granted.
     private val defaultLocation = LatLng(1.2765, 103.7992)
+
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private var lastKnownLocation: Location? = null
@@ -61,7 +64,7 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentAttendanceClockBinding
 
     private val viewModel: AttendanceClockViewModel by viewModels()
-    private var clockstatus = AttendanceItem()
+    private var clockStatus = AttendanceItem()
     private val TAG = "AttendanceClockActivity"
 
     private var cancellationSignal: CancellationSignal? = null
@@ -77,12 +80,12 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
                     notifyUser("Authentication success!")
+                    // Saves attendance status and timing, update clock in status and resets location text view
                     if (viewModel.clockInStatus.value == true) {
                         saveAttendanceClockIn()
 
                         binding.locationTextView.text = ""
-                    }
-                    else{
+                    } else {
                         saveAttendanceClockOut()
                         viewModel.clockInStatus.value = true
                         binding.locationTextView.text = ""
@@ -95,24 +98,30 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_attendance_clock,container, false
+            R.layout.fragment_attendance_clock, container, false
         )
 
+        /**
+         * Observe for any changes in clock in status in the database to update button layout
+         *  - Change button to clock in if clock status = true, else button will be clock out
+         */
         viewModel.clockInStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer { status ->
             if (status) {
                 binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockin_button)
                 binding.attendanceclockBtn.setText(R.string.attendance_clockIn)
-            }
-            else{
+            } else {
                 binding.attendanceclockBtn.setBackgroundResource(R.drawable.clockout_button)
                 binding.attendanceclockBtn.setText(R.string.attendance_clockOut)
 
             }
         })
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        // Create a new instance of FusedLocationProviderClient for use in this fragment activity
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
         // Inflate the layout for this fragment
         return binding.root
@@ -134,23 +143,29 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
             }
         })
 
+        // Creates a map fragment and sets a callback object when the GoogleMap instance is ready to be used.
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.attendanceMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
 
         val btnGetLocation = binding.getLocationButton
 
+        // When user click on Get Location button, request for location permission, set location controls
+        // on the map and show current location on map
         btnGetLocation.setOnClickListener {
             getLocationPermission()
             updateLocationUI()
             getLocation()
         }
 
+        // Checks if location has been obtained and asks for biometric authentication when
+        // location is obtained before clocking in/out
         binding.attendanceclockBtn.setOnClickListener {
-            if(binding.locationTextView.text.isNullOrBlank()){
+            if (binding.locationTextView.text.isNullOrBlank()) {
                 Toast.makeText(
                     this@AttendanceClockFragment.requireActivity(),
-                    "Location Missing, Please click on GET LOCATION before you submit!", Toast.LENGTH_SHORT
+                    "Location Missing, Please click on GET LOCATION before you submit!",
+                    Toast.LENGTH_SHORT
                 ).show()
             } else {
                 biometricAuthentication()
@@ -169,57 +184,61 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
         (requireActivity() as MainActivity).supportActionBar?.title = "Clock Attendance"
     }
 
-    internal fun saveAttendanceClockIn(){
-
+    internal fun saveAttendanceClockIn() {
         Log.d("TESTING", "saveAttendanceIn()")
         storeAttendanceClockIn()
-        viewModel.save(clockstatus)
-        clockstatus = AttendanceItem()
+        viewModel.save(clockStatus)
+        clockStatus = AttendanceItem()
         Log.d("TESTING", "saveAttendanceIn1()")
     }
 
-    internal fun saveAttendanceClockOut(){
+    internal fun saveAttendanceClockOut() {
         Log.d("TESTING", "saveAttendanceOUT()")
-        val clockoutDate = Calendar.getInstance().time
-        val clockoutAddress = binding.locationTextView.text as String?
+        val clockOutDate = Calendar.getInstance().time
+        val clockOutAddress = binding.locationTextView.text as String?
         Log.d("TESTING", "saveAttendanceOUT1()")
 
         Log.d("TESTING", "saveAttendanceOUT3()")
-        if (clockoutAddress != null) {
-            viewModel.update(viewModel.documentId, clockoutDate, clockoutAddress)
+        if (clockOutAddress != null) {
+            viewModel.updateAttendanceRecord(clockOutDate, clockOutAddress)
         }
         Log.d("TESTING", "saveAttendanceOUT3()")
 
-        clockstatus = AttendanceItem()
+        clockStatus = AttendanceItem()
 
         Log.d(TAG, "saveAttendanceOut()4")
     }
 
-    private fun storeAttendanceClockIn(){
-        clockstatus.apply {
-            val clockIntime = Calendar.getInstance()
-            clockInDate = clockIntime.time
-            val hours = clockIntime.get(Calendar.HOUR_OF_DAY)
-            Log.d("TESTINGgggg", clockIntime.toString())
+    private fun storeAttendanceClockIn() {
+        clockStatus.apply {
+            val clockInTime = Calendar.getInstance()
+            clockInDate = clockInTime.time
+            val hours = clockInTime.get(Calendar.HOUR_OF_DAY)
+            Log.d("TESTINGgggg", clockInTime.toString())
             Log.d("TESTINGgggg", clockInDate.toString())
             Log.d("TESTINGgggg", hours.toString())
             clockInAddress = binding.locationTextView.text as String?
 
-            if ( hours < 9){
+            // Sets attendance status to on time if user clock in before 9am, else user is late
+            if (hours < 9) {
                 attendanceStatus = "On Time"
                 viewModel.updateAttendanceStatusOnTime()
 
-            } else{
+            } else {
                 attendanceStatus = "Late"
                 viewModel.updateAttendanceStatusLate()
             }
         }
     }
 
-    private fun getLocation(){
+    private fun getLocation() {
+        /*
+         * Get the most recent location currently available, then set map to the location.
+         * If current location unavailable, set map to default location.
+         */
         val txtLocation = binding.locationTextView
-        try{
-            if(locationPermissionGranted) {
+        try {
+            if (locationPermissionGranted) {
                 val locationResult = fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
@@ -235,6 +254,7 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
                                 )
                             )
                         }
+                        // Get location address using latitude and longitude
                         val geocoder = Geocoder(requireContext(), Locale.getDefault())
                         val addresses = geocoder.getFromLocation(
                             lastKnownLocation!!.latitude,
@@ -265,12 +285,16 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             locationPermissionGranted = true
         } else {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }
@@ -278,6 +302,11 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun updateLocationUI() {
+        /*
+         * Set the location controls on the map. If user has granted location permission,
+         * enable the My Location layer and related control on the map. Otherwise disable
+         * the layer and the control, and set the current location to null
+         */
         if (map == null) {
             return
         }
@@ -300,7 +329,7 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun getCancellationSignal() : CancellationSignal {
+    private fun getCancellationSignal(): CancellationSignal {
         cancellationSignal = CancellationSignal()
         cancellationSignal?.setOnCancelListener {
             notifyUser("Authentication was cancelled by the user")
@@ -309,29 +338,36 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun checkBiometricSupport(): Boolean {
-        val keyguardManager = requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+        val keyguardManager =
+            requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
 
-        if (!keyguardManager.isKeyguardSecure){
+        if (!keyguardManager.isKeyguardSecure) {
             notifyUser("Fingerprint authentication has not been enabled in settings")
             return false
         }
 
-        if (activity?.let { ActivityCompat.checkSelfPermission(it.applicationContext, Manifest.permission.USE_BIOMETRIC) } != PackageManager.PERMISSION_GRANTED) {
+        if (activity?.let {
+                ActivityCompat.checkSelfPermission(
+                    it.applicationContext,
+                    Manifest.permission.USE_BIOMETRIC
+                )
+            } != PackageManager.PERMISSION_GRANTED) {
             notifyUser("Fingerprint authentication permission is not enabled")
             return false
         }
 
-        return if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)){
+        return if (requireContext().packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
             true
         } else true
     }
 
     @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.P)
-    private fun biometricAuthentication(){
+    private fun biometricAuthentication() {
         checkBiometricSupport()
         val biometricPrompt = activity?.let { it1 ->
-            BiometricPrompt.Builder(activity).setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK)
+            BiometricPrompt.Builder(activity)
+                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK)
                 .setTitle("Attendance Authentication!")
                 .setSubtitle("Use biometrics to Authenticate")
                 .setNegativeButton(
@@ -351,11 +387,18 @@ class AttendanceClockFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * Google Maps parameters
+     */
     companion object {
         private const val DEFAULT_ZOOM = 15
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
     }
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     */
     override fun onMapReady(map: GoogleMap) {
         this.map = map
         getLocationPermission()

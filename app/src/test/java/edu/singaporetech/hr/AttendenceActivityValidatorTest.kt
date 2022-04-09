@@ -1,7 +1,7 @@
 package edu.singaporetech.hr
 
 import com.google.common.truth.Truth
-import edu.singaporetech.hr.validator.AttendenceActivityValidator
+import edu.singaporetech.hr.validator.AttendanceActivityValidator
 import org.junit.Test
 /*
     AttendenceActivityValidatorTest: Attendence Activity Validator Test
@@ -18,7 +18,7 @@ class AttendenceActivityValidatorTest{
      */
     @Test
     fun emptytextViewLeaveStartDate() {
-        val result= AttendenceActivityValidator.validateAttendenceInput(
+        val result= AttendanceActivityValidator.validateAttendanceInput(
             ""
         )
         return Truth.assertThat(result).isFalse()
@@ -28,7 +28,7 @@ class AttendenceActivityValidatorTest{
      */
     @Test
     fun submitIssueSuccess() {
-        val result= AttendenceActivityValidator.validateAttendenceInput(
+        val result= AttendanceActivityValidator.validateAttendanceInput(
             "System Crashed due to peak hours, clock in is missed out"
         )
         return Truth.assertThat(result).isTrue()

@@ -2,6 +2,7 @@ package edu.singaporetech.hr.validator
 
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+
 /*
     SignActivityValidator: Sign Activity Validator
         --place the code from the Fragment and check against the
@@ -12,8 +13,9 @@ object SignActivityValidator {
     /*
     Simulate database
     */
-    private val existingEmployeeEmail=listOf("mary@csc2008.com")
-    private val confirmedPassword="qwerty"
+    private val existingEmployeeEmail = listOf("mary@csc2008.com")
+    private val confirmedPassword = "qwerty"
+
     /*
     -- input for login is not valid is the email/password is empty
     -- email not registered in the HR database
@@ -21,12 +23,13 @@ object SignActivityValidator {
 
      */
     fun validateLoginInput(
-        email:String,
-        pass:String)
-    :Boolean{
+        email: String,
+        pass: String
+    )
+            : Boolean {
         var valid = true
 
-        if (email.isEmpty() && pass.isEmpty() ) {
+        if (email.isEmpty() && pass.isEmpty()) {
             valid = false
             return valid
         }
@@ -35,11 +38,11 @@ object SignActivityValidator {
 
             return valid
         }
-        if (!(email in existingEmployeeEmail)){
+        if (!(email in existingEmployeeEmail)) {
             return false
         }
 
-        if (pass!= confirmedPassword) {
+        if (pass != confirmedPassword) {
             return false
         }
         return valid

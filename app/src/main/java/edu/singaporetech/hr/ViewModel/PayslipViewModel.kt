@@ -16,32 +16,32 @@ import java.util.*
  */
 
 class PayslipViewModel : ViewModel() {
-    private var _payslipArrayList: MutableLiveData<ArrayList<Payslip>> = MutableLiveData<ArrayList<Payslip>>()
-    private var firestore: FirebaseFirestore
-    private lateinit var date:Date
+    private var _payslipArrayList: MutableLiveData<ArrayList<Payslip>> =
+        MutableLiveData<ArrayList<Payslip>>()
+    private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private lateinit var date: Date
     open var payslipArrayList = ArrayList<Payslip>()
-    init{
-        firestore = FirebaseFirestore.getInstance()
+
+    init {
         firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
         listenToPayslipRecord()
 
 
     }
 
-    fun listenToPayslipRecord(){
+    private fun listenToPayslipRecord() {
 
-        firestore.collection("payslip").addSnapshotListener {
-                snapshot, error ->
-            if(error != null){
+        firestore.collection("payslip").addSnapshotListener { snapshot, error ->
+            if (error != null) {
                 Log.e("firestore Error", error.message.toString())
                 return@addSnapshotListener
             }
-            if(snapshot!=null){
+            if (snapshot != null) {
 
                 val documents = snapshot.documents
-                documents.forEach{
+                documents.forEach {
                     val payslipItem = it.toObject(Payslip::class.java)
-                    if (payslipItem != null){
+                    if (payslipItem != null) {
                         payslipItem.payslipID = it.id
                         payslipArrayList.add(payslipItem!!)
                     }
@@ -52,11 +52,11 @@ class PayslipViewModel : ViewModel() {
     }
 
 
-
-
-
-    internal var payslip:MutableLiveData<ArrayList<Payslip>>
-        get() {return _payslipArrayList}
-
-        set(value) {_payslipArrayList = value}
+    internal var payslip: MutableLiveData<ArrayList<Payslip>>
+        get() {
+            return _payslipArrayList
+        }
+        set(value) {
+            _payslipArrayList = value
+        }
 }

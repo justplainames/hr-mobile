@@ -24,6 +24,7 @@ import edu.singaporetech.hr.adapter.AttendanceAdapter
 import edu.singaporetech.hr.databinding.FragmentAttendanceOverviewBinding
 import edu.singaporetech.hr.fragment.HomeFragment
 import java.time.LocalDateTime
+
 /*
     AttendanceOverviewFragment :  Attendance Overview Fragment
         -- Data Visualisation
@@ -31,11 +32,11 @@ import java.time.LocalDateTime
         -- Recycler View for the status, clock in and out time along with reason
         -- navigate option to AttendanceClockFragment through Clock In/ Out button
  */
-class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListener {
+class AttendanceOverviewFragment : Fragment(), AttendanceAdapter.OnItemClickListener {
 
     private lateinit var viewViewModel: AttendanceViewModel
     private lateinit var viewClockModel: AttendanceClockViewModel
-    private lateinit var attendancedapter: AttendanceAdapter
+    private lateinit var attendanceAdapter: AttendanceAdapter
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -49,20 +50,22 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
         activity?.viewModelStore?.clear()
         viewViewModel = ViewModelProvider(requireActivity())[AttendanceViewModel::class.java]
 
-        val attendanceListObserver = Observer<ArrayList<Attendance>> { items->
-            attendancedapter= AttendanceAdapter(items.take(items.size) as ArrayList<Attendance>,this) // add items to adapter
-            binding.recyclerViewAttendence.adapter=attendancedapter
+        val attendanceListObserver = Observer<ArrayList<Attendance>> { items ->
+            attendanceAdapter = AttendanceAdapter(
+                items.take(items.size) as ArrayList<Attendance>,
+                this
+            ) // add items to adapter
+            binding.recyclerViewAttendence.adapter = attendanceAdapter
         }
 
         viewViewModel.attendance.observe(requireActivity(), attendanceListObserver)
 
-        binding.recyclerViewAttendence.layoutManager=LinearLayoutManager(activity)
+        binding.recyclerViewAttendence.layoutManager = LinearLayoutManager(activity)
         binding.recyclerViewAttendence.setHasFixedSize(true)
 
         viewClockModel = ViewModelProvider(requireActivity())[AttendanceClockViewModel::class.java]
 
-        viewClockModel.attendanceStatus.observe(viewLifecycleOwner) {
-                summary ->
+        viewClockModel.attendanceStatus.observe(viewLifecycleOwner) { summary ->
             Log.d("TESTING", "saveAttendanceIn()")
             binding.textViewOnTime.text = summary[1].onTime.toString()
             binding.textViewLate.text = summary[1].late.toString()
@@ -116,8 +119,8 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object:
-            OnBackPressedCallback(true){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :
+            OnBackPressedCallback(true) {
 
             override fun handleOnBackPressed() {
                 (requireActivity() as MainActivity).supportActionBar?.title = "HomePage"
@@ -134,6 +137,7 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
         super.onResume()
         (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
     }
+
     override fun onStart() {
         super.onStart()
         (requireActivity() as MainActivity).supportActionBar?.title = "Attendance Overview"
@@ -143,7 +147,10 @@ class AttendanceOverviewFragment: Fragment(), AttendanceAdapter.OnItemClickListe
         requireActivity()
             .supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainerView, ReportAttendanceFragment(position,clockInDate,id))
+            .replace(
+                R.id.fragmentContainerView,
+                ReportAttendanceFragment(position, clockInDate, id)
+            )
             .commitNow()
     }
 

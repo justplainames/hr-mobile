@@ -177,18 +177,6 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAttendence"
-            android:layout_width="388dp"
-            android:layout_height="303dp"
-            android:layout_marginEnd="1dp"
-            android:background="#FAF9F9"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/activity_attendenceitem" />
-
         <Button
             android:id="@+id/clockOutBtn"
             android:layout_width="365dp"
@@ -201,6 +189,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/attendanceInfoRow" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAttendence"
+            android:layout_width="388dp"
+            android:layout_height="303dp"
+            android:layout_marginEnd="1dp"
+            android:background="#FAF9F9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clockOutBtn"
+            tools:listitem="@layout/activity_attendenceitem" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
