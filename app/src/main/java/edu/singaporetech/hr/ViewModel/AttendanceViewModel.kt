@@ -59,38 +59,14 @@ class AttendanceViewModel : ViewModel() {
             }
     }
 
-    internal fun fetchItems() {
-        firestore.collection("Attendance")
-//            .orderBy("", "desc")
-            .addSnapshotListener { value: QuerySnapshot?,
-                                   error: FirebaseFirestoreException? ->
-                if (error != null) {
-                    Log.e("firestore Error", error.message.toString())
-                }
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        val attendanceItem = dc.document.toObject(Attendance::class.java)
-                        attendanceItem.id = dc.document.id
-                        attendenceArrayList.add(attendanceItem!!)
-                        _attendenceArrayList.postValue(attendenceArrayList)
-                    }
-                }
-
-//                    leaveAdapter.notifyDataSetChanged()
-            }
-    }
-
-
     internal fun updateAttendanceRecord(id: String, reason: Editable?): Boolean {
         var submitted = true
         val attendanceRecord = HashMap<String, Any>()
-        //attendanceRecord.put("id",id)
         val updatedReason = reason.toString()
         attendanceRecord.put("issueReason", updatedReason)
 
         val document = firestore.collection("Attendance").document(id)
 
-        // val updateAttendanceReason = document.update(attendanceRecord)
         document
             .update("issueReason", updatedReason)
             .addOnSuccessListener {
@@ -104,52 +80,6 @@ class AttendanceViewModel : ViewModel() {
             }
         return submitted
     }
-//
-//        Log.d("reportBtn", "value: " + updateAttendanceReason.toString())
-//        submitted = if(updateAttendanceReason.isSuccessful){
-//            Log.d("reportBtn", "document saved!!!!!!")
-//             true
-//        }else{
-//            Log.d("reportBtn", "save failed!!!!")
-//             false
-//        }
-    //  val result = updateAttendanceReason.isSuccessful
-    //   Log.d("reportBtn", result.toString())
-
-//        updateAttendanceReason.addOnSuccessListener {
-//            Log.d("reportBtn", "document saved!!!!!!")
-//            submitted = true
-//
-//        }
-//        updateAttendanceReason.addOnFailureListener {
-//            Log.d("reportBtn", "save failed!!!!")
-//            submitted = false
-//        }
-//        return submitted
-//        myRef.child(id!!).setValue(reason).addOnCompleteListener{
-//            if(it.isSuccessful){
-//                _result.value = null
-//            }else{
-//                _result.value = it.exception
-//            }
-//        }
-
-//        myRef.child(id!!).setValue(reason).addOnCompleteListener{
-//            if(it.isSuccessful){
-//                _result.value = null
-//            }else{
-//                _result.value = it.exception
-//            }
-//        }
-//        database.child("users").child(userId).setValue(user)
-//            .addOnSuccessListener {
-//                // Write was successful!
-//                // ...
-//            }
-//            .addOnFailureListener {
-//                // Write failed
-//                // ...
-//            }
 
 
     internal var attendance: MutableLiveData<ArrayList<Attendance>>

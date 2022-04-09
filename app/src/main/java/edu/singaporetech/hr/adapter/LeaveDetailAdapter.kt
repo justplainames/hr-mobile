@@ -10,8 +10,15 @@ import com.bumptech.glide.Glide
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
-class LeaveDetailAdapter(private val leaveRecordViewAllList: ArrayList<LeaveRecordViewAllItem>, private var position: Int): RecyclerView.Adapter<LeaveDetailAdapter.LeaveDetailViewHolder>() {
+/*
+    LeaveDetailAdapter : Leave Detail Adapter
+        -- Used for recycler view by binding the data
+           obtained from the database into the recycler view
+           - Leave type, start date, end date, days, status, supervisor and documents uploaded
+        --  This viewmodel is purely for the recycler view that display details of leave record
+ */
 
+class LeaveDetailAdapter(private val leaveRecordViewAllList: ArrayList<LeaveRecordViewAllItem>, private var position: Int): RecyclerView.Adapter<LeaveDetailAdapter.LeaveDetailViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaveDetailViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -22,22 +29,17 @@ class LeaveDetailAdapter(private val leaveRecordViewAllList: ArrayList<LeaveReco
     }
 
     override fun onBindViewHolder(holder: LeaveDetailViewHolder, position_fetched: Int) {
-        //val leaveRecordViewAllItem:LeaveRecordViewAllItem = leaveRecordViewAllList.get(position)
 
         var currentItemViewAll = leaveRecordViewAllList[position]
 
-        //holder.selected.isChecked = currentItemViewAll.selected
         holder.leaveType.text = currentItemViewAll.leaveType
         holder.leaveRecordViewAllStartDate.text = currentItemViewAll.leaveStartDate+ " - " + currentItemViewAll.leaveEndDate
         holder.leaveRecordViewAllDays.text = currentItemViewAll.leaveDay
         holder.leaveRecordViewAllStatus.text = currentItemViewAll.leaveStatus
         holder.leaveRecordViewAllReason.text = currentItemViewAll.leaveReason
         holder.leaveRecordViewAllSupervisor.text = currentItemViewAll.leaveSupervisor
-//        holder.imageViewLeave.setImageBitmap(currentItemViewAll.imageName)
-
 
         Glide.with(holder.itemView).load(currentItemViewAll.imageRef).into(holder.imageViewLeave)
-        //Glide.with(holder.itemView).load(currentItemViewAll.getImageURL()).into(holder.imageViewLeave)
 
     }
 
@@ -53,9 +55,5 @@ class LeaveDetailAdapter(private val leaveRecordViewAllList: ArrayList<LeaveReco
         val imageViewLeave  = itemView.findViewById<ImageView>(R.id.imageViewLeave)
     }
 
-
 }
 
-//private fun ImageView.setImageBitmap(imageName: String?) {
-//
-//}

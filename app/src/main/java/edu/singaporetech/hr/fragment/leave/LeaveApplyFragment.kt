@@ -30,6 +30,22 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
+/*
+    LeaveApplyFragment : Apply Leave Fragment
+        -- Submit form of leave application
+          - User can choose leave type (Annual Leave, Sick Leave, Maternity Leave) through Auto Complete Text View
+             - When user click on the leave type, its available leave will be shown.
+          - Select Start Date & End Date (with data validation implemented)
+          - Radio group for day of leave
+          - Choose Supervisor through Auto Complete Text View
+          - Enter Reason
+          - Upload MC if its sick leave
+            - Request permission for access to camera
+            - activate the camera
+          - Dialog Box to confirm application
+          - Add the records into the firebase
+ */
+
 class LeaveApplyFragment : Fragment() {
 
     private lateinit var binding: FragmentLeaveApplyBinding
@@ -52,7 +68,6 @@ class LeaveApplyFragment : Fragment() {
             inflater,
             R.layout.fragment_leave_apply,container, false
         )
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -72,7 +87,7 @@ class LeaveApplyFragment : Fragment() {
             }
         })
 
-        // Spinner for Leave Type
+        // Auto Complete Text View for Leave Type
         val dropDownLeaveType = resources.getStringArray(R.array.leaveType)
         val leaveTypeArrayAdaptor =
             ArrayAdapter(requireContext(), R.layout.leavetype_dropdown_item, dropDownLeaveType)
@@ -124,7 +139,7 @@ class LeaveApplyFragment : Fragment() {
             }
         }
 
-        // Spinner for Supervisor
+        // Auto Complete Text View for Supervisor
         val dropDownLeaveSupervisor = resources.getStringArray(R.array.leaveSupervisor)
         val leaveSupervisorArrayAdaptor = ArrayAdapter(
             requireContext(),
@@ -166,28 +181,25 @@ class LeaveApplyFragment : Fragment() {
                 ).show()
             } else if ((datePickerStartDate.split("/")[0] < time.split("-")[2]) &&
                 (datePickerStartDate.split("/")[1] <= time.split("-")[1])){
-                //Log.d("timee",LocalDateTime.now().toString() )
                 Toast.makeText(
                     this@LeaveApplyFragment.requireActivity(),
                     "You cannot apply leave before today!", Toast.LENGTH_SHORT
                 ).show()
-            }
-
-            else if ((datePickerEndDate.split("/")[0] < datePickerStartDate.split("/")[0]) &&
+            } else if ((datePickerEndDate.split("/")[0] < datePickerStartDate.split("/")[0]) &&
                 (datePickerEndDate.split("/")[1] <= datePickerStartDate.split("/")[1])
             ) {
                 Toast.makeText(
                     this@LeaveApplyFragment.requireActivity(),
                     "Start Date cannot be later than End Date!", Toast.LENGTH_SHORT
                 ).show()
-            }  else if (image_uri == null && selectedLeaveType.toString()=="Sick Leave") {
+            }  else if (image_uri == null && selectedLeaveType.toString() == "Sick Leave" ) {
                 Toast.makeText(
                     this@LeaveApplyFragment.requireActivity(),
                     "Please upload your MC!!", Toast.LENGTH_SHORT
                 ).show()
 
             } else {
-                if ((image_uri == null && selectedLeaveType.toString()=="Annual Leave") || (image_uri == null && selectedLeaveType.toString()=="Maternity Leave")){
+                if ((image_uri == null && selectedLeaveType.toString() == "Annual Leave") || (image_uri == null && selectedLeaveType.toString()=="Maternity Leave")){
                     image_uri = Uri.parse("android.resource://edu.singaporetech.hr/" + R.drawable.ic_baseline_image_not_supported_24 )
                 }
 

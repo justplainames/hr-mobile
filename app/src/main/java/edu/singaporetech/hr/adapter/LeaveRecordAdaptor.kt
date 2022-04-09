@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.data.Leave
 import edu.singaporetech.hr.R
 
+/*
+    LeaveRecordAdapter : Leave Record Adapter
+        -- Used for recycler view by binding the data
+           obtained from the database into the recycler view
+           - Leave type, start date, end date, days and status
+ */
 
 class LeaveRecordAdaptor(private val leaveRecordList: ArrayList<Leave>): RecyclerView.Adapter<LeaveRecordAdaptor.LeaveRecordViewHolder>() {
 
@@ -21,24 +27,18 @@ class LeaveRecordAdaptor(private val leaveRecordList: ArrayList<Leave>): Recycle
     override fun onBindViewHolder(holder: LeaveRecordViewHolder, position: Int) {
         val currentItem = leaveRecordList[position]
 
-        //holder.leaveRecordName.text = currentItem.leaveRecordName
         holder.leaveRecordType.text = currentItem.leaveType
         holder.leaveRecordStartDate.text = currentItem.leaveStartDate + " - " + currentItem.leaveEndDate
         holder.leaveRecordDays.text = currentItem.leaveDay
         holder.leaveRecordStatus.text = currentItem.leaveStatus
-
-
     }
 
     override fun getItemCount() = leaveRecordList.size
 
     class LeaveRecordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        //val leaveRecordName = itemView.findViewById<TextView>(R.id.textViewLeaveRecordName)
         val leaveRecordType= itemView.findViewById<TextView>(R.id.textViewLeaveRecordType)
         val leaveRecordStartDate = itemView.findViewById<TextView>(R.id.textViewLeaveRecordStartDate)
         val leaveRecordDays = itemView.findViewById<TextView>(R.id.textViewLeaveRecordDays)
         val leaveRecordStatus = itemView.findViewById<TextView>(R.id.textViewLeaveRecordStatus)
-        //val leaveDetail = itemView.findViewById<Button>(R.id.buttonLeaveDetail)
-    //val leaveRecordSupervisor = itemView.findViewById<TextView>(R.id.text)
     }
 }

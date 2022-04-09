@@ -7,6 +7,15 @@ import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
+/*
+   LeaveRecordViewModel: Leave Record ViewModel
+        - Use to link the Firestore database with the fragments
+        - Listener is setup to obtain the record that matches from the database
+        - Used to view the attributes from leave collection
+        - Update leave balance when leave cancelled
+        - Delete record from database when leave cancelled
+ */
+
 class LeaveRecordViewModel : ViewModel() {
     private var _leaveRecords: MutableLiveData<ArrayList<LeaveRecordViewAllItem>> =
         MutableLiveData<ArrayList<LeaveRecordViewAllItem>>()
@@ -85,10 +94,10 @@ class LeaveRecordViewModel : ViewModel() {
         //leave.leaveId = document.id
         val task = document.delete()
         task.addOnSuccessListener {
-            Log.e("firebase", "Event ${leave.leaveId} Deleted")
+            Log.e("firebase", "leave ${leave.leaveId} Deleted")
         }
         task.addOnFailureListener {
-            Log.e("firebase", "Event ${leave.leaveId} Failed to delete.  Message: ${it.message}")
+            Log.e("firebase", "leave ${leave.leaveId} Failed to delete.  Message: ${it.message}")
         }
     }
 
