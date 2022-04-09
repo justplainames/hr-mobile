@@ -12,7 +12,6 @@ class LeaveActivityValidatorTest {
     Unit testing on LeaveApplyFragment :
     - - submit apply leave form (buttonSubmitLeave)
     */
-
     /*
        empty datepicker input for textViewLeaveStartDate
      */
@@ -23,7 +22,8 @@ class LeaveActivityValidatorTest {
             "8/4/2022",
             "Annual Leave",
             "Half Day",
-            "Mary Tan"
+            "Mary Tan",
+            "null"
         )
         return assertThat(result).isFalse()
     }
@@ -37,7 +37,8 @@ class LeaveActivityValidatorTest {
             "",
             "Annual Leave",
             "Half Day",
-            "Mary Tan"
+            "Mary Tan",
+            null
         )
         return assertThat(result).isFalse()
     }
@@ -51,7 +52,8 @@ class LeaveActivityValidatorTest {
             "8/4/2022",
             "",
             "Half Day",
-            "Mary Tan"
+            "Mary Tan",
+            null
         )
         return assertThat(result).isFalse()
     }
@@ -63,9 +65,10 @@ class LeaveActivityValidatorTest {
         val result= LeaveActivityValidator.validateApplyLeaveInput(
             "4/4/2022",
             "8/4/2022",
-            "Sick Leave",
+            "Maternity Leave",
             "0",
-            "Mary Tan"
+            "Mary Tan",
+            null
         )
         return assertThat(result).isFalse()
     }
@@ -79,7 +82,8 @@ class LeaveActivityValidatorTest {
             "8/4/2022",
             "Sick Leave",
             "Full Day",
-            ""
+            "",
+            null
         )
         return assertThat(result).isFalse()
     }
@@ -93,7 +97,8 @@ class LeaveActivityValidatorTest {
             "",
             "",
             "",
-            ""
+            "",
+            null
         )
         return assertThat(result).isFalse()
     }
@@ -107,7 +112,8 @@ class LeaveActivityValidatorTest {
             "8/4/2022",
             "Annual Leave",
             "Half Day",
-            "Mary Tan"
+            "Mary Tan",
+            null
         )
         return assertThat(result).isTrue()
     }
@@ -121,9 +127,39 @@ class LeaveActivityValidatorTest {
             "8/4/2022",
             "Annual Leave",
             "Half Day",
-            "Mary Tan"
+            "Mary Tan",
+            null
         )
         return assertThat(result).isFalse()
     }
-
+    /*
+    emptyImage Uri when the leave type is sick leave
+    */
+    @Test
+    fun emptyImageUri() {
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
+            "4/4/2022",
+            "8/4/2022",
+            "Sick Leave",
+            "Half Day",
+            "Mary Tan",
+            null
+        )
+        return assertThat(result).isFalse()
+    }
+    /*
+    submit sick leave application successfully with imageuri
+    */
+    @Test
+    fun submitSickLeave() {
+        val result= LeaveActivityValidator.validateApplyLeaveInput(
+            "4/4/2022",
+            "8/4/2022",
+            "Sick Leave",
+            "Half Day",
+            "Mary Tan",
+            "android.resource://edu.singaporetech.hr/SickLeaveattachment.png"
+        )
+        return assertThat(result).isTrue()
+    }
 }

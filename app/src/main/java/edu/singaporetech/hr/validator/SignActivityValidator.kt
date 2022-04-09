@@ -35,7 +35,6 @@ object SignActivityValidator {
         }
         if (email.isEmpty() || pass.isEmpty()) {
             valid = false
-
             return valid
         }
         if (!(email in existingEmployeeEmail)) {

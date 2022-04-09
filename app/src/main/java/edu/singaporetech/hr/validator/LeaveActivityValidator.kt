@@ -26,7 +26,9 @@ object LeaveActivityValidator {
         textViewLeaveEndDate:String,
         autoCompleteTextViewLeaveType:String,
         selectedDay:String,
-        autoCompleteTextViewLeaveSupervisor:String):Boolean{
+        autoCompleteTextViewLeaveSupervisor:String,
+        image_uri: String?
+    ):Boolean{
 
         if (textViewLeaveStartDate.isNullOrBlank() || textViewLeaveEndDate.isNullOrBlank()
             || autoCompleteTextViewLeaveType.isNullOrBlank() || selectedDay == "0" || autoCompleteTextViewLeaveSupervisor.isNullOrBlank()) {
@@ -36,6 +38,11 @@ object LeaveActivityValidator {
                     <= textViewLeaveStartDate.split("/")[1].toInt()  )) {
             return false
         }
+
+        if (image_uri == null && autoCompleteTextViewLeaveType =="Sick Leave") {
+            return false
+        }
+
         return true
     }
 

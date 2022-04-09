@@ -56,7 +56,6 @@ import java.util.*
                         3. Trigger the processing of firebase variables into the PDF
                 2. "Conslidated Payslip" label that has a next arrow
                         1. navigate to the month year picker
-
  */
 class PayslipFragment : Fragment(), PayslipAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
@@ -102,10 +101,8 @@ class PayslipFragment : Fragment(), PayslipAdapter.OnItemClickListener {
             inflater, R.layout.fragment_payslip, container, false
         )
         viewModel = ViewModelProvider(requireActivity()).get(PayslipViewModel::class.java)
-        //viewModelConso = ViewModelProvider(requireActivity()).get(PayslipConsoViewModel::class.java)
         val payslipListObserver = Observer<ArrayList<Payslip>> { items->
             adapter= PayslipAdapter(items.take(3) as ArrayList<Payslip>,this) // add items to adapter
-//            adapter=PayslipAdapter(items,this) // add items to adapter
             binding.recyclerViewPaySlip.adapter=adapter
         }
 
@@ -239,7 +236,6 @@ class PayslipFragment : Fragment(), PayslipAdapter.OnItemClickListener {
         values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
         values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
         values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS+"/HR")
-        //values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
         val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
         if (uri!=null){
             var outputStream=requireActivity().getContentResolver().openOutputStream(uri)

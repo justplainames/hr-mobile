@@ -15,7 +15,6 @@ class PayslipActivityValidatorTest {
     - - click on submit button to download consolidated payslip (submitButton)
     --
     */
-
     /*
     empty input is filled and submitted for consolidated payslip form
     */
@@ -70,6 +69,17 @@ class PayslipActivityValidatorTest {
             "Feb 2022",
             "Jan 2022",
 
+            )
+        return Truth.assertThat(result).isFalse()
+    }
+        /*
+    laterThanNow is later than current date
+    */
+    @Test
+    fun laterThanNow() {
+        val result= PayslipActivityValidator.validatePayslipInput(
+            "Apr 2022",
+            "May 2022",
             )
         return Truth.assertThat(result).isFalse()
     }

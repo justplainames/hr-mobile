@@ -279,7 +279,6 @@ class PayslipConsoFragment() : Fragment() {
         values.put(MediaStore.MediaColumns.DISPLAY_NAME,"Payslip_${LocalDate.now()}")
         values.put(MediaStore.MediaColumns.MIME_TYPE,"application/pdf")
         values.put(MediaStore.MediaColumns.RELATIVE_PATH,Environment.DIRECTORY_DOWNLOADS+"/HR")
-//        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
         val uri: Uri? = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"),values)
         if (uri!=null){
             var outputStream=requireActivity().getContentResolver().openOutputStream(uri)

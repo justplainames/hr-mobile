@@ -39,7 +39,6 @@ class PayslipDeductionDetailAdapter(private var payslipArrayList: ArrayList<Pays
     }
 
     override fun getItemCount(): Int {
-        //record return 1 record
         return 1
     }
 

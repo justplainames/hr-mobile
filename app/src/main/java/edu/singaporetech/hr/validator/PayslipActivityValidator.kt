@@ -35,20 +35,19 @@ object PayslipActivityValidator {
         }
         return result
     }
+    var mth="4"
     fun validatePayslipInput(
         datepickerFrom:String,
         datepickerTo:String)
     :Boolean{
-        var valid = true
+
 
         if (datepickerFrom.isEmpty() && datepickerTo.isEmpty() ) {
-            valid = false
-            return valid
+
+            return false
         }
         if (datepickerFrom.isEmpty() || datepickerTo.isEmpty()) {
-            valid = false
-
-            return valid
+            return false
         }
         if(((datepickerFrom.split(" ")[1].toInt() > datepickerTo.split(" ")[1].toInt()) &&
                     (getMonthInt(datepickerFrom.split(" ")[0])!! > getMonthInt(datepickerTo.split(" ")[0])!!))||((datepickerFrom.split(" ")[1].toInt() > datepickerTo.split(" ")[1].toInt()) &&
@@ -56,7 +55,10 @@ object PayslipActivityValidator {
                     (getMonthInt(datepickerFrom.split(" ")[0])!! > getMonthInt(datepickerTo.split(" ")[0])!!)))) {
             return false
         }
-        return valid
+        else if ((getMonthInt(datepickerTo.split(" ")[0])!!.toInt() >= mth.toInt())||(getMonthInt(datepickerFrom.split(" ")[0])!!.toInt() >= mth.toInt())){
+            return false
+        }
+        return true
     }
 
 }
