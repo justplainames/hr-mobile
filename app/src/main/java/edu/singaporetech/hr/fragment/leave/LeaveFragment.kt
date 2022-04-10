@@ -21,15 +21,6 @@ import edu.singaporetech.hr.databinding.FragmentLeaveBinding
 import edu.singaporetech.hr.fragment.HomeFragment
 import edu.singaporetech.hr.adapter.LeaveRecordAdaptor
 
-/*
-    LeaveFragment : Leave Fragment
-         -- Data Visualisation
-                - Progress bar to show number of leaves left
-         -- Recycler View for the Leave type, start date, end date, days and status
-         -- navigate option to LeaveApplyFragment through Apply Leave button
-         -- navigate option to LeaveRecordFragment through View All Records button
-
- */
 
 class LeaveFragment : Fragment() {
 
@@ -136,6 +127,7 @@ class LeaveFragment : Fragment() {
             }
         })
     }
+
 
     override fun onResume() {
         super.onResume()

@@ -9,16 +9,6 @@ import com.google.firebase.storage.FirebaseStorage
 import edu.singaporetech.hr.data.Leave
 import edu.singaporetech.hr.data.LeaveType
 
-/*
-   LeaveViewModel: Leave ViewModel
-        - Use to link the Firestore database with the fragments
-        - Listener is setup to obtain the record that matches from the database
-        - Used to view the attributes from leave and leaveType collection
-        - Update leave balance when leave applied
-        - Save record into database when leave applied
- */
-
-
 class LeaveViewModel : ViewModel() {
     private var _leaveRecords: MutableLiveData<ArrayList<Leave>> =
         MutableLiveData<ArrayList<Leave>>()
@@ -101,7 +91,7 @@ class LeaveViewModel : ViewModel() {
                 }
             }
             ?.addOnFailureListener {
-                Log.d("firebase", "save failed")
+                Log.d("firebaseeeeeeee", "save failed")
             }
     }
 

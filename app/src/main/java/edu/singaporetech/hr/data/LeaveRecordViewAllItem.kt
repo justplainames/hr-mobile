@@ -1,14 +1,8 @@
 package edu.singaporetech.hr.data
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
-
-/*
-    LeaveRecordViewAllItem: Leave Record View All Item (data class)
-      Declare the data type along with the variable
-      -- same as the one stored in the firebase
-      -- used to display within the Leave Record Fragment Page
- */
 
 data class LeaveRecordViewAllItem (
     var selected: Boolean = false,

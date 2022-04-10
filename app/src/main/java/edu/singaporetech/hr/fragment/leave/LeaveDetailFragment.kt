@@ -17,13 +17,7 @@ import edu.singaporetech.hr.ViewModel.LeaveRecordViewModel
 import edu.singaporetech.hr.databinding.FragmentLeaveDetailBinding
 import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
-/*
-    LeaveDetailFragment : Leave Detail Fragment
-        - allow user to view the details of the leave applied
-        -- View Picture
-            - Picture uploaded when applying leave would be shown
- */
-
+private const val ARG_PARAM1 = "title"
 
 class LeaveDetailFragment(private var position: Int) : Fragment() {
 

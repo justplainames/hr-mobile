@@ -1,14 +1,9 @@
 package edu.singaporetech.hr.data
 
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ServerTimestamp
+import java.sql.Timestamp
 import java.util.*
-
-/*
-    Leave: Leave (data class)
-      Declare the data type along with the variable
-      -- same as the one stored in the firebase
-      -- used to display within the Leave Fragment Page
- */
 
 data class Leave(
     var leaveId: String = "",

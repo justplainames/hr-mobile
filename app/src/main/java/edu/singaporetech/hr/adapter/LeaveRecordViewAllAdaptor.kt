@@ -9,22 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.singaporetech.hr.R
 import edu.singaporetech.hr.data.LeaveRecordViewAllItem
 
-/*
-    LeaveRecordViewAllAdapter : Leave Record View All Adapter
-        -- Used for recycler view by binding the data
-           obtained from the database into the recycler view
-           - Leave type, start date, end date, days and status
-        -- Checkbox and Buttons embedded within the recycler view
-               - with the use of onitemclicklistener, able to know
-               whether it is click for selection or click next for leave details
- */
 
 class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRecordViewAllItem>): RecyclerView.Adapter<LeaveRecordViewAllAdaptor.LeaveRecordViewAllViewHolder>(){
     private lateinit var mListener: onItemClickListener
     var selectedCheckBoxList : ArrayList<LeaveRecordViewAllItem> = ArrayList()
-
     interface onItemClickListener{
+
         fun onItemClickDetail(position: Int)
+//        fun onItemClickDetail(position: Int)
     }
 
     fun setOnItemClickListener(listener: onItemClickListener){
@@ -56,11 +48,13 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
                 holder.selected.setChecked(currentItemViewAll.selected)
                 selectedCheckBoxList.remove(currentItemViewAll)
 
+                //Log.d("a", selectedCheckBoxList.toString())
             }else{
                 holder.selected.toggle()
                 currentItemViewAll.selected=true
                 holder.selected.setChecked(currentItemViewAll.selected)
                 selectedCheckBoxList.add(currentItemViewAll)
+                Log.d("a", selectedCheckBoxList.toString())
             }
         }
 
@@ -80,6 +74,9 @@ class LeaveRecordViewAllAdaptor(private val leaveRecordViewAllList: List<LeaveRe
             leaveDetail.setOnClickListener {
                 listener.onItemClickDetail(bindingAdapterPosition)
             }
+//            leaveDetail.setOnClickListener {
+//                listener.onItemClickDetail(bindingAdapterPosition)
+//            }
         }
     }
 }
