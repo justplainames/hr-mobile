@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
 import edu.singaporetech.hr.data.Payslip
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 /*
@@ -44,6 +46,8 @@ class PayslipConsoViewModel(
     ) {
         val fromDate: Date = Date("${monthFrom} 28 ${yearFrom}")
         val toDate: Date = Date("${monthTo} 29 ${yearTo}")
+        GlobalScope.launch {
+            Thread.sleep(100)
         firestore.collection("payslip").whereGreaterThanOrEqualTo("dateOfPayDay", fromDate)
             .whereLessThanOrEqualTo("dateOfPayDay", toDate).addSnapshotListener { snapshot, error ->
                 if (error != null) {
@@ -62,6 +66,7 @@ class PayslipConsoViewModel(
                     }
                     _payslipArrayList.value = payslipArrayList
                 }
+            }
             }
     }
 

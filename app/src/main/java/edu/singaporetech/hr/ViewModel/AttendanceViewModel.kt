@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.*
 import edu.singaporetech.hr.Attendance
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
 
@@ -36,30 +38,35 @@ class AttendanceViewModel : ViewModel() {
     }
 
     private fun listenToAttendanceRecord() {
-        attendenceArrayList.clear()
-        firestore.collection("Attendance")
-            .orderBy("clockInDate", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    Log.e("firestore Error", error.message.toString())
-                    return@addSnapshotListener
-                }
-                if (snapshot != null) {
-                    val documents = snapshot.documents
-                    documents.forEach {
-                        val attendanceItem = it.toObject(Attendance::class.java)
-
-                        if (attendanceItem != null) {
-                            attendanceItem.id = it.id
-                            attendenceArrayList.add(attendanceItem!!)
-                        }
+        GlobalScope.launch {
+            Thread.sleep(100)
+            attendenceArrayList.clear()
+            firestore.collection("Attendance")
+                .orderBy("clockInDate", Query.Direction.DESCENDING)
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        Log.e("firestore Error", error.message.toString())
+                        return@addSnapshotListener
                     }
-                    _attendenceArrayList.value = attendenceArrayList
+                    if (snapshot != null) {
+                        val documents = snapshot.documents
+                        documents.forEach {
+                            val attendanceItem = it.toObject(Attendance::class.java)
+
+                            if (attendanceItem != null) {
+                                attendanceItem.id = it.id
+                                attendenceArrayList.add(attendanceItem!!)
+                            }
+                        }
+                        _attendenceArrayList.value = attendenceArrayList
+                    }
                 }
-            }
+        }
     }
 
     internal fun fetchItems() {
+        GlobalScope.launch {
+            Thread.sleep(100)
         firestore.collection("Attendance")
 //            .orderBy("", "desc")
             .addSnapshotListener { value: QuerySnapshot?,
@@ -75,7 +82,7 @@ class AttendanceViewModel : ViewModel() {
                         _attendenceArrayList.postValue(attendenceArrayList)
                     }
                 }
-
+            }
 //                    leaveAdapter.notifyDataSetChanged()
             }
     }
@@ -89,21 +96,24 @@ class AttendanceViewModel : ViewModel() {
         attendanceRecord.put("issueReason", updatedReason)
 
         val document = firestore.collection("Attendance").document(id)
+        GlobalScope.launch {
+            Thread.sleep(100)
+            // val updateAttendanceReason = document.update(attendanceRecord)
+            document
+                .update("issueReason", updatedReason)
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully updated!")
+                    submitted = true
 
-        // val updateAttendanceReason = document.update(attendanceRecord)
-        document
-            .update("issueReason", updatedReason)
-            .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully updated!")
-                submitted = true
-
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error updating document", e)
-                submitted = false
-            }
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error updating document", e)
+                    submitted = false
+                }
+        }
         return submitted
     }
+
 //
 //        Log.d("reportBtn", "value: " + updateAttendanceReason.toString())
 //        submitted = if(updateAttendanceReason.isSuccessful){

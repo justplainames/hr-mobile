@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import edu.singaporetech.hr.data.LeaveRecordViewAllItem
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LeaveRecordViewModel : ViewModel() {
     private var _leaveRecords: MutableLiveData<ArrayList<LeaveRecordViewAllItem>> =
@@ -18,30 +20,33 @@ class LeaveRecordViewModel : ViewModel() {
     }
 
     private fun listenToLeaveRecord() {
-        firestore.collection("leave")
-            .orderBy("leaveTimeStamp", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    Log.e("firestore Error", error.message.toString())
-                    return@addSnapshotListener
-                }
-                if (snapshot != null) {
-                    val leaveRecords = ArrayList<LeaveRecordViewAllItem>()
-                    val documents = snapshot.documents
-                    documents.forEach {
-                        val leaveRecord = it.toObject(LeaveRecordViewAllItem::class.java)
-                        if (leaveRecord != null) {
-                            leaveRecord.leaveId = it.id
-                            val path = "${leaveRecord.leaveId}/${leaveRecord.imageName}.jpg"
-
-                            FirebaseStorage.getInstance().reference.child("images/$path")
-
-                            leaveRecords.add(leaveRecord!!)
-                        }
+        GlobalScope.launch {
+            Thread.sleep(100)
+            firestore.collection("leave")
+                .orderBy("leaveTimeStamp", Query.Direction.DESCENDING)
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        Log.e("firestore Error", error.message.toString())
+                        return@addSnapshotListener
                     }
-                    _leaveRecords.value = leaveRecords
+                    if (snapshot != null) {
+                        val leaveRecords = ArrayList<LeaveRecordViewAllItem>()
+                        val documents = snapshot.documents
+                        documents.forEach {
+                            val leaveRecord = it.toObject(LeaveRecordViewAllItem::class.java)
+                            if (leaveRecord != null) {
+                                leaveRecord.leaveId = it.id
+                                val path = "${leaveRecord.leaveId}/${leaveRecord.imageName}.jpg"
+
+                                FirebaseStorage.getInstance().reference.child("images/$path")
+
+                                leaveRecords.add(leaveRecord!!)
+                            }
+                        }
+                        _leaveRecords.value = leaveRecords
+                    }
                 }
-            }
+        }
     }
 
     fun updateAnnualLeaveBalance(leave: Double) {
@@ -49,11 +54,14 @@ class LeaveRecordViewModel : ViewModel() {
             "imEaChWkIuehvw3yxTDu"
         )
         val set = document.update("annualLeaveBalance", FieldValue.increment(leave))
-        set.addOnSuccessListener {
-            Log.d("firebase", "document saved!!!!!!")
-        }
-        set.addOnFailureListener {
-            Log.d("firebase", "save failed!!!!")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            set.addOnSuccessListener {
+                Log.d("firebase", "document saved!!!!!!")
+            }
+            set.addOnFailureListener {
+                Log.d("firebase", "save failed!!!!")
+            }
         }
     }
 
@@ -61,34 +69,48 @@ class LeaveRecordViewModel : ViewModel() {
 
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
         val set = document.update("sickLeaveBalance", FieldValue.increment(leave))
-        set.addOnSuccessListener {
-            Log.d("firebase", "document saved")
-        }
-        set.addOnFailureListener {
-            Log.d("firebase", "save failed")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            set.addOnSuccessListener {
+                Log.d("firebase", "document saved")
+            }
+            set.addOnFailureListener {
+
+                Log.d("firebase", "save failed")
+            }
         }
     }
 
     fun updateMaternityLeaveBalance(leave: Double) {
         val document = firestore.collection("leaveType").document("imEaChWkIuehvw3yxTDu")
         val set = document.update("maternityLeaveBalance", FieldValue.increment(leave))
-        set.addOnSuccessListener {
-            Log.d("firebase", "document saved")
-        }
-        set.addOnFailureListener {
-            Log.d("firebase", "save failed")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            set.addOnSuccessListener {
+                Log.d("firebase", "document saved")
+            }
+            set.addOnFailureListener {
+                Log.d("firebase", "save failed")
+            }
         }
     }
 
     internal fun delete(leave: LeaveRecordViewAllItem) {
         val document = firestore.collection("leave").document(leave.leaveId)
         //leave.leaveId = document.id
-        val task = document.delete()
-        task.addOnSuccessListener {
-            Log.e("firebase", "Event ${leave.leaveId} Deleted")
-        }
-        task.addOnFailureListener {
-            Log.e("firebase", "Event ${leave.leaveId} Failed to delete.  Message: ${it.message}")
+
+        GlobalScope.launch {
+            Thread.sleep(100)
+            val task = document.delete()
+            task.addOnSuccessListener {
+                Log.e("firebase", "Event ${leave.leaveId} Deleted")
+            }
+            task.addOnFailureListener {
+                Log.e(
+                    "firebase",
+                    "Event ${leave.leaveId} Failed to delete.  Message: ${it.message}"
+                )
+            }
         }
     }
 

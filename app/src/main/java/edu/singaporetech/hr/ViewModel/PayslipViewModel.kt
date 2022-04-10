@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.*
 import edu.singaporetech.hr.data.Payslip
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -30,7 +32,8 @@ class PayslipViewModel : ViewModel() {
     }
 
     private fun listenToPayslipRecord() {
-
+        GlobalScope.launch {
+            Thread.sleep(100)
         firestore.collection("payslip").addSnapshotListener { snapshot, error ->
             if (error != null) {
                 Log.e("firestore Error", error.message.toString())
@@ -48,6 +51,7 @@ class PayslipViewModel : ViewModel() {
                 }
                 _payslipArrayList.value = payslipArrayList
             }
+        }
         }
     }
 

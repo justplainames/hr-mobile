@@ -8,6 +8,8 @@ import com.google.firebase.firestore.*
 import edu.singaporetech.hr.data.AttendanceItem
 import edu.singaporetech.hr.data.AttendanceStatus
 import edu.singaporetech.hr.data.AttendanceSummary
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.time.*
 import java.util.*
 
@@ -39,38 +41,43 @@ class AttendanceClockViewModel : ViewModel() {
 
     @SuppressLint("NewApi")
     private fun listenToClockStatus() {
+        GlobalScope.launch {
+            Thread.sleep(100)
+            firestore.collection("Attendance")
+                .orderBy("clockInDate", Query.Direction.DESCENDING)
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        Log.e("firestore Error", error.message.toString())
+                        return@addSnapshotListener
+                    }
+                    if (snapshot != null) {
+                        val clockRecords = ArrayList<AttendanceItem>()
+                        val documents = snapshot.documents
+                        documents.forEach {
+                            val clockRecord = it.toObject(AttendanceItem::class.java)
+                            if (clockRecord != null) {
+                                clockRecord.id = it.id
 
-        firestore.collection("Attendance")
-            .orderBy("clockInDate", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    Log.e("firestore Error", error.message.toString())
-                    return@addSnapshotListener
-                }
-                if (snapshot != null) {
-                    val clockRecords = ArrayList<AttendanceItem>()
-                    val documents = snapshot.documents
-                    documents.forEach {
-                        val clockRecord = it.toObject(AttendanceItem::class.java)
-                        if (clockRecord != null) {
-                            clockRecord.id = it.id
-
-                            clockRecords.add(clockRecord)
+                                clockRecords.add(clockRecord)
+                            }
                         }
-                    }
-                    _clockRecords.value = clockRecords
-                    if (clockRecords.get(0).clockOutDate == null) {
-                        _clockInStatus.value = false
-                        Log.i("TESTING", "CAME IN}")
-                    } else {
-                        _clockInStatus.value = true
-                    }
+                        _clockRecords.value = clockRecords
+                        if (clockRecords.get(0).clockOutDate == null) {
+                            _clockInStatus.value = false
+                            Log.i("TESTING", "CAME IN}")
+                        } else {
+                            _clockInStatus.value = true
+                        }
 
-                    Log.i("TESTING", "clockRecords.get(0): ${(clockRecords.get(0).clockOutDate)}")
-                    Log.i("TESTING", "_clocInStatus.value: ${_clockInStatus.value}")
-
+                        Log.i(
+                            "TESTING",
+                            "clockRecords.get(0): ${(clockRecords.get(0).clockOutDate)}"
+                        )
+                        Log.i("TESTING", "_clocInStatus.value: ${_clockInStatus.value}")
+                    }
                 }
-            }
+
+        }
 
 
         val currentYear = LocalDateTime.now().year
@@ -78,6 +85,8 @@ class AttendanceClockViewModel : ViewModel() {
         val startDate = LocalDateTime.of(currentYear, currentMonth, 1, 0, 0, 1)
         val zdt = startDate.atZone(ZoneId.of("Singapore"))
         val millis = zdt.toInstant().toEpochMilli()
+        GlobalScope.launch {
+            Thread.sleep(100)
         firestore.collection("Attendance")
             .orderBy("clockInDate", Query.Direction.DESCENDING)
             .whereGreaterThanOrEqualTo("clockInDate", Date(millis))
@@ -151,12 +160,15 @@ class AttendanceClockViewModel : ViewModel() {
                                 daysOnTime = daysWorked
                             )
                         }
+                        }
                     }
                 }
             }
     }
 
     private fun listenToAttendanceStatus() {
+        GlobalScope.launch {
+            Thread.sleep(100)
         firestore.collection("attendanceStatus")
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
@@ -174,6 +186,7 @@ class AttendanceClockViewModel : ViewModel() {
                     _attendanceStatus.value = attendance
                 }
             }
+            }
     }
 
 
@@ -181,34 +194,43 @@ class AttendanceClockViewModel : ViewModel() {
         val document = firestore.collection("Attendance").document()
         clockStatus.id = document.id
         val set = document.set(clockStatus)
-        set.addOnSuccessListener {
-            documentId = document.id
-            Log.d("firebase", "attendance saved")
-        }
-        set.addOnFailureListener {
-            Log.d("firebase", "save failed")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            set.addOnSuccessListener {
+                documentId = document.id
+                Log.d("firebase", "attendance saved")
+            }
+            set.addOnFailureListener {
+                Log.d("firebase", "save failed")
+            }
         }
     }
 
     fun updateAttendanceStatusLate() {
         val document = firestore.collection("attendanceStatus").document("attendance")
         val set = document.update("late", FieldValue.increment(1))
-        set.addOnSuccessListener {
-            Log.d("firebase", "document saved!!!!!!")
-        }
-        set.addOnFailureListener {
-            Log.d("firebase", "save failed!!!!")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            set.addOnSuccessListener {
+                Log.d("firebase", "document saved!!!!!!")
+            }
+            set.addOnFailureListener {
+                Log.d("firebase", "save failed!!!!")
+            }
         }
     }
 
     fun updateAttendanceStatusOnTime() {
         val document = firestore.collection("attendanceStatus").document("attendance")
         val set = document.update("onTime", FieldValue.increment(1))
-        set.addOnSuccessListener {
-            Log.d("firebase", "document saved!!!!!!")
-        }
-        set.addOnFailureListener {
-            Log.d("firebase", "save failed!!!!")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            set.addOnSuccessListener {
+                Log.d("firebase", "document saved!!!!!!")
+            }
+            set.addOnFailureListener {
+                Log.d("firebase", "save failed!!!!")
+            }
         }
     }
 
@@ -223,12 +245,14 @@ class AttendanceClockViewModel : ViewModel() {
         Log.i("TESTING", "Created Document")
         val update =
             document.update("clockOutDate", clockoutTime, "clockOutAddress", clockoutAddress)
-        update.addOnSuccessListener {
-            this.documentId = ""
-            Log.d("firebase", "attendance saved")
-        }
-        update.addOnFailureListener {
-            Log.d("firebase", "save failed")
+        GlobalScope.launch {
+            Thread.sleep(100)
+            update.addOnSuccessListener {
+                Log.d("firebase", "attendance saved")
+            }
+            update.addOnFailureListener {
+                Log.d("firebase", "save failed")
+            }
         }
     }
 
