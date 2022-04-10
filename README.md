@@ -6,3 +6,7 @@ The goal of this project is to improve HR processes and employee working environ
 
 ### Architecture Diagram
 ![Architecture Diagram](Architecture%20Diagram.jpg)
+
+
+### Video   
+https://youtu.be/F_o8j9wwCVQ  
