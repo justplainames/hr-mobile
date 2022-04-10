@@ -38,6 +38,14 @@ import edu.singaporetech.hr.databinding.FragmentSignUserBinding
 class SignUserFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var cancellationSignal: CancellationSignal? = null
+
+    /**
+     * Initialize the Biometric prompt, displaying the necessary information and allow interaction
+     * Creates executor to handle events
+     * Creates the object to receive from authentication events and acts accordingly
+     *  Success: Goes into next activity(MainActivity)
+     *  Error: Shows toast
+     */
     private val authenticationCallback: BiometricPrompt.AuthenticationCallback
         get() =
             @RequiresApi(Build.VERSION_CODES.P)
@@ -126,6 +134,7 @@ class SignUserFragment : Fragment() {
             }
     }
 
+    // Form validation
     private fun validateForm(): Boolean {
         val email = view?.findViewById<EditText>(R.id.etUser)
         val pass = view?.findViewById<EditText>(R.id.etPass)
@@ -149,6 +158,7 @@ class SignUserFragment : Fragment() {
         return valid
     }
 
+    //Hides keyboard
     private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
@@ -163,6 +173,7 @@ class SignUserFragment : Fragment() {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
+    // Creates the message and handles actions upon cancelling the prompt
     private fun getCancellationSignal(): CancellationSignal {
         cancellationSignal = CancellationSignal()
         cancellationSignal?.setOnCancelListener {
@@ -171,6 +182,12 @@ class SignUserFragment : Fragment() {
         return cancellationSignal as CancellationSignal
     }
 
+    /**
+     * Checks whether the user has biometric capabilities
+     * 0) Checks if user has the biometric authentication capabilities
+     * 1) checks if it is enabled in the settings
+     * 2) checks if permission is enabled
+     */
     private fun checkBiometricSupport(): Boolean {
         val keyguardManager =
             requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
@@ -195,6 +212,12 @@ class SignUserFragment : Fragment() {
         } else true
     }
 
+    /**
+     * Implementation of the biometric login
+     * 1. Set the messages and configuration for the prompt
+     * 2. Initialize the prompt by calling handlers
+     * This section configures the title, subtitle, configures the cancel button and finally intiialize it
+     */
     @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.P)
     private fun biometricAuthentication() {
